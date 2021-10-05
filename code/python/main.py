@@ -17,8 +17,8 @@ running = True
 step = False
 draw_options = pymunk.pygame_util.DrawOptions(screen)
 
-class Box:
-    def __init__(self, p0=(10, 10), p1=(width-10, height-10), d=2):
+class GameBorder:
+    def __init__(self, space, p0=(10, 10), p1=(width-10, height-10), d=2):
         x0, y0 = p0
         x1, y1 = p1
         pts = [(x0, y0), (x1, y0), (x1, y1), (x0, y1)]
@@ -29,7 +29,8 @@ class Box:
             space.add(segment)
 
 class Container:
-    def __init__(self, pos=(width/2,height/2), l=80,d=2):
+    def __init__(self, space, pos=(width/2,height/2), l=80,d=2):
+        self.pos = pos
         x,y = pos
         b_seg_y = y+l
         b_seg_x1 = pos[0]+l/2
@@ -48,19 +49,22 @@ class Container:
         space.add(bottom_segment, left_segment,right_segment)
 
 class Platform:
-    def __init__(self, pos=(width/2,height/2), l=80,d=2):
+    def __init__(self, space, pos=(width/2,height/2), l=80,d=2):
+        self.pos = pos
         x,y=pos
         segment = pymunk.Segment(space.static_body, (x-l/2,y),(x+l/2,y),d)
         space.add(segment)
 
 class Platform:
-    def __init__(self, pos=(width/2,height/2), l=80,d=2):
+    def __init__(self, space, pos=(width/2,height/2), l=80,d=2):
+        self.pos = pos
         x,y=pos
         segment = pymunk.Segment(space.static_body, (x-l/2,y),(x+l/2,y),d)
         space.add(segment)
 
 class Slide:
-    def __init__(self, pos=(width/2, height/2), degree=45, l=80, d=2):
+    def __init__(self, space, pos=(width/2, height/2), degree=45, l=80, d=2):
+        self.pos = pos
         x,y=pos
         rads = math.radians(degree)
         a_x = x + l/2*math.cos(rads)
@@ -73,30 +77,32 @@ class Slide:
 
 class Goal:
     def __init__(self, pos=(width,height), l=80,):
-        goal_body = pymunk.Body(body_type=pymunk.Body.STATIC)
-        goal_body.position = pos[0], pos[1]-34
-        goal_shape = pymunk.Poly.create_box(goal_body, (l, l/2))
-        goal_shape.color = pygame.Color("green")
-        space.add(goal_body, goal_shape)
+        self.init_position = pos
+        self.body = pymunk.Body(body_type=pymunk.Body.STATIC)
+        self.body.position = pos[0], pos[1]-34
+        self.shape = pymunk.Poly.create_box(self.body, (l, l/2))
+        self.shape.color = pygame.Color("green")
+        self.shape.collision_type = 1
 
 class Ball:
-    def __init__(self, pos=(width/2,height/2), r=20):
-        ball_body = pymunk.Body(10.0, 1)
-        ball_body.position = pos
-        ball_body.elasticity = 1
-        ball_shape = pymunk.Circle(ball_body, r)   
-        ball_shape.color = pygame.Color("red")
-        ball_shape.collision_type = 0
-        space.add(ball_body, ball_shape)
+    def __init__(self, space, pos=(width/2,height/2), r=20):
+        self.init_position = pos
+        self.init_radius = r
+        self.body = pymunk.Body(10.0, 1)
+        self.body.position = pos
+        self.body.elasticity = 1
+        self.shape = pymunk.Circle(self.body, r)   
+        self.shape.color = pygame.Color("red")
+        self.shape.collision_type = 0
 
 class Teleporter:
-    def __init__(self, pos=(width/2,height/2), mask=1, l=80):
-        tele_body = pymunk.Body(body_type=pymunk.Body.STATIC)
-        tele_body.position = pos
-        tele_shape = pymunk.Poly.create_box(tele_body, (l, l/2))
-        tele_shape.color = pygame.Color("yellow")
-        tele_shape.collision_type = mask
-        space.add(tele_body, tele_shape)
+    def __init__(self, space, pos=(width/2,height/2), mask=2, l=80):
+        self.body = pymunk.Body(body_type=pymunk.Body.STATIC)
+        self.body.position = pos
+        self.shape = pymunk.Poly.create_box(self.body, (l, l/2))
+        self.shape.color = pygame.Color("yellow")
+        self.shape.collision_type = mask
+        space.add(self.body, self.shape)
 
 class Pendulum:
     def __init__(self):
