@@ -1,7 +1,7 @@
-from main import *
 import pygame
 import pymunk
 import pymunk.pygame_util
+from main import *
 from pygame.locals import *
 from pygame.color import *
 
@@ -13,13 +13,14 @@ class Scene:
         self.fps = fps
         self.width, self.height = w,h
         self.gravity = g
-        self.objects = args[0]
-        self.object_args = args[1]
+        self._objects = args[0]
+        self._object_args = args[1]
+        self.objects = None
         self.space = pymunk.Space()
         self.space.gravity = self.gravity
         self.screen = None
         self.clock = pygame.time.Clock()
-        self.draw_options = pymunk.pygame_util.DrawOptions(self.screen)
+        self.draw_options = None
 
     def instantiate_scene(self,*args):
         '''
@@ -29,23 +30,23 @@ class Scene:
         objs = []
         # Funcs and args; allowing for additions
         if args:
-            funcs,fargs=self.objects+args[0],self.object_args+args[1]
+            funcs,fargs=self._objects+args[0],self._object_args+args[1]
         else:
-            funcs,fargs=self.objects,self.object_args
+            funcs,fargs=self._objects,self._object_args
         # Call funcs with their respective args
+        print(self.objects)
         for i in range(len(funcs)):
             obj = funcs[i](*fargs[i])
             objs.append(obj)
-            self.space.add(obj.body, obj.shape)
+            self.space.add(*obj.components)
         self.objects = objs
 
     def forward(self):
+        # Create callable instances of pymunk and pygame components
         pygame.init()
         self.running = True
         self.screen = pygame.display.set_mode((self.width,self.height))
-        # Create callable instance of pygame and pymunk objects
-        self.instantiate_simulator()
-        print("Hello",self.space)
+        self.draw_options = pymunk.pygame_util.DrawOptions(self.screen)
         # Create callable scene components
         self.instantiate_scene()
         # Simulate
@@ -63,8 +64,13 @@ class Scene:
                 self.space.step(dt)
             pygame.display.flip()
             self.clock.tick(fps)
-
-s = Scene([Ball, Goal],[[(100,100)],[]])
-s.instantiate_scene()
-for obj in s.objects:
-    print(obj.init_position)
+        self.reset()
+    
+    def reset(self):
+        pygame.quit()
+        self.step = False
+        self.space = pymunk.Space()
+        self.space.gravity = self.gravity
+        self.screen = None
+        self.clock = pygame.time.Clock()
+        self.draw_options = None
