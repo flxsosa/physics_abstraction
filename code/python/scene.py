@@ -63,7 +63,7 @@ class Scene:
             if self.step:
                 self.space.step(dt)
             pygame.display.flip()
-            self.clock.tick(fps)
+            self.clock.tick(self.fps)
         self.reset()
     
     def reset(self):
