@@ -104,9 +104,35 @@
                 <img src='img/keyboard.jpeg'></img>
                 </div>
                 `
+            },
+            {
+                stimulus: `
+                <div style='width:800px;'>
+                <p>
+                    We are now going to ask you some test questions to make sure
+                    you're paying attention. The experiment will begin after.
+                </p>
+                <p>
+                    Press any key to continue.
+                </p>
+                </div>
+                `
             }
         ]
-        
+        var comprehension_stimuli = [
+            { 
+                stimulus: 'img/scene_empty.jpg', 
+                correct_response: 'j', 
+                stimulus_width: 200, 
+                prompt: `<p><strong>Is there a ball in this scene?<strong></p>`
+            },
+            { 
+                stimulus: 'img/scene_0.jpg', 
+                correct_response: 'j', 
+                stimulus_width: 200, 
+                prompt: `<p><strong>Is the goal green in this scene?<strong></p>`
+            }
+        ]
         // Welcome and Preload
         var preload = {
             type: jsPsychPreload,
@@ -164,11 +190,25 @@
                 )
             }
         }
+        var comprehension = {
+            type: jsPsychImageKeyboardResponse,
+            stimulus: jsPsych.timelineVariable('stimulus'),
+            stimulus_width: jsPsych.timelineVariable('stimulus_width'),
+            prompt: jsPsych.timelineVariable('prompt'),
+            choices: ['f', 'j'],
+            data: {
+                task: 'response',
+                correct_response: jsPsych.timelineVariable('correct_response')
+            },
+            on_finish: function(data){
+                data.correct = jsPsych.pluginAPI.compareKeys(data.response, data.correct_response);
+            }
+        }
         var test = {
             type: jsPsychImageKeyboardResponse,
             stimulus: jsPsych.timelineVariable('stimulus'),
             stimulus_width: jsPsych.timelineVariable('stimulus_width'),
-            prompt: `<p><strong>Will the Ball reach the Goal?<strong></p>`,
+            prompt: `<p><strong>Will the ball reach the goal?</strong></p>`,
             choices: ['f', 'j'],
             data: {
                 task: 'response',
@@ -181,6 +221,10 @@
         var instruction_procedure = {
             timeline: [instruction],
             timeline_variables: instruction_stimuli
+        }
+        var comprehension_procedure = {
+            timeline: [comprehension],
+            timeline_variables: comprehension_stimuli
         }
         var test_procedure = {
             timeline: [fixation, test, certainty],
@@ -206,7 +250,7 @@
 
         // Push it all to the timeline
         timeline.push(preload,welcome)
-        timeline.push(instruction_procedure, test_procedure)
+        timeline.push(instruction_procedure, comprehension_procedure, test_procedure)
         timeline.push(debrief_block)
 
         // Run the experiment
