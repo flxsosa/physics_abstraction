@@ -99,6 +99,7 @@ class Scene:
             pygame.display.flip()
             if img_capture:
                 pygame.image.save(self.screen,fname+".jpg")
+                self.running=False
             self.clock.tick(self.fps)
         self.reset()
 
