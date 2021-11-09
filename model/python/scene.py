@@ -5,7 +5,7 @@ import handlers
 from main import *
 from pygame.locals import *
 from pygame.color import *
-from numpy.random import normal
+from numpy.random import normal, randint
 from handlers import *
 from random import randrange
 
@@ -28,15 +28,22 @@ class Scene:
         self.coll_handlers = [h for h in handlers] if handlers else None
         self.goal = 0
         self.draw_params = {}
+        self.instantiated = False
 
-    def instantiate_scene(self,*args):
+    def instantiate_scene(self,func=None,*args):
         '''
         Wrapping functions and their args in *args operator
         '''
         GameBorder(self.space)
         objs = []
-        self.draw_params['color_ball']=pygame.Color(randrange(256),randrange(256),randrange(256))
-        self.draw_params['color_goal']=pygame.Color(randrange(256),randrange(256),randrange(256))
+        self.draw_params['color_ball']=pygame.Color(randrange(256),
+                                                    randrange(256),
+                                                    randrange(256))
+        self.draw_params['color_goal']=pygame.Color(randrange(256),
+                                                    randrange(256),
+                                                    randrange(256))
+        
+        print(func)
         # Funcs and args; allowing for additions
         if args:
             funcs,fargs=self._objects+args[0],self._object_args+args[1]
@@ -46,9 +53,16 @@ class Scene:
         for i in range(len(funcs)):
             obj = funcs[i](*fargs[i])
             objs.append(obj)
+            if func: 
+                theta = 90
+                func[0](obj,theta)
+                print(theta)
             self.space.add(*obj.components)
         self.objects = objs
-    
+        print(self.objects)
+        # if func: func[0](self.objects)
+        self.instantiated = True
+
     def instantiate_handlers(self):
         if self.coll_handlers:
             for obj1, obj2, rem in self.coll_handlers:
@@ -59,6 +73,9 @@ class Scene:
             return
 
     def draw(self,random_color=True):
+        self.screen.fill(pygame.Color("gray"))
+        self.space.debug_draw(self.draw_options)
+        pygame.display.flip()
         for o in self.objects:
             if type(o).__name__ == "Ball":
                 color = self.draw_params['color_ball'] if random_color else o.shape.color
@@ -68,6 +85,13 @@ class Scene:
                 r = pygame.Rect(0,0,o.l+1,o.w+1)
                 r.center = o.body.position
                 pygame.draw.rect(self.screen, color, r)
+
+    def events(self):
+        for event in pygame.event.get():
+            if event.type == KEYDOWN and (event.key in [K_q, K_ESCAPE]):
+                self.running = False
+            elif event.type == KEYDOWN and (event.key in [K_SPACE]):
+                self.step = True
 
     def forward(self, view=True, img_capture=False, fname="scene"):
         # Create callable instances of pymunk and pygame components
@@ -79,28 +103,20 @@ class Scene:
         
         self.running = True
         # Create callable scene components
-        self.instantiate_scene()
+        if not self.instantiated:
+            self.instantiate_scene()
         # Collision handlers
         self.instantiate_handlers()
         # Simulate
         while self.running:
-            for event in pygame.event.get():
-                if event.type == KEYDOWN and (event.key in [K_q, K_ESCAPE]):
-                    self.running = False
-                elif event.type == KEYDOWN and (event.key in [K_SPACE]):
-                    self.step = True
-            self.screen.fill(pygame.Color("gray"))
-            self.space.debug_draw(self.draw_options)
+            self.events()
             self.draw()
-            # pygame.draw.circle(self.screen, pygame.Color("blue"), (200,200), 30)
+            self.clock.tick(self.fps)
             dt = 1./self.fps
-            if self.step:
-                self.space.step(dt)
-            pygame.display.flip()
+            if self.step: self.space.step(dt)
             if img_capture:
                 pygame.image.save(self.screen,fname+".jpg")
                 self.running=False
-            self.clock.tick(self.fps)
         self.reset()
 
     def forward_stochastic(self,view=True):
@@ -154,3 +170,4 @@ class Scene:
         self.screen = None
         self.clock = pygame.time.Clock()
         self.draw_options = None
+        self.instantiated = False
