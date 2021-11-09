@@ -49,22 +49,24 @@ class Container:
     def __init__(self, pos=(width/2,height/2), w=40, l=80, d=2):
         self.init_position = pos
         self.body = pymunk.Body(body_type=pymunk.Body.STATIC)
+        self.body.position = pos
         x,y = pos
-        b_y = y + l
-        b_x1 = x + w + d + 1
-        b_x2 = x- w - d - 1
+        # self.body.angle = 0
+        b_y = l
+        b_x1 = w + d + 1
+        b_x2 = -w -d -1
         b_segment = pymunk.Segment(self.body,(b_x1,b_y),(b_x2,b_y),d)
         b_segment.color = pygame.Color("black")
-        l_y1 = y + l
-        l_y2 = y
-        l_x1 = x - w - d - 1
-        l_x2 = x - w - d - 1
+        l_y1 = l
+        l_y2 = 0
+        l_x1 = -w - d - 1
+        l_x2 = -w - d - 1
         l_segment = pymunk.Segment(self.body,(l_x1,l_y1),(l_x2,l_y2),d)
         l_segment.color = pygame.Color("black")
-        r_y1 = y + l
-        r_y2 = y
-        r_x1 = x + w + d + 1
-        r_x2 = x + w + d + 1
+        r_y1 = l
+        r_y2 = 0
+        r_x1 = w + d + 1
+        r_x2 = w + d + 1
         r_segment = pymunk.Segment(self.body,(r_x1, r_y1),(r_x2, r_y2),d)
         r_segment.color = pygame.Color("black")
         self.components = self.body,b_segment,l_segment,r_segment
