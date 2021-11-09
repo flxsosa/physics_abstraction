@@ -1,9 +1,12 @@
 <!DOCTYPE html>
+<meta charset="UTF-8"/>
 <html>
     <head>
         <title>My Experiment</title>
         <script src="jspsych/jspsych.js"></script>
         <script src="jspsych/plugin-html-keyboard-response.js"></script>
+        <script src="jspsych/plugin-html-button-response.js"></script>
+        <script src="jspsych/plugin-call-function.js"></script>
         <script src="https://unpkg.com/@jspsych/plugin-image-keyboard-response@1.0.0"></script>
         <script src="https://unpkg.com/@jspsych/plugin-preload@1.0.0"></script>
         <script src="https://unpkg.com/@jspsych/plugin-survey-likert@1.0.0"></script>
@@ -13,12 +16,48 @@
     </head>
     <body></body>
     <script>
-        var jsPsych = initJsPsych({
-            on_finish: function() {
-                jsPsych.data.displayData();
+        const range = (start, end, step = 1) => {
+            let output = [];
+            if (typeof end === 'undefined') {
+                end = start;
+                start = 0;
             }
+            for (let i = start; i < end; i += step) {
+                output.push(i);
+            }
+            return output;
+        };
+        var jsPsych = initJsPsych({
+            show_progress_bar: true,
+            auto_update_progress_bar: false,
+            minimum_valid_rt: 100,
+            experiment_width: 800 
         });
-        
+        // capture info from Prolific
+        var subject_id = jsPsych.data.getURLVariable('PROLIFIC_PID');
+        var study_id = jsPsych.data.getURLVariable('STUDY_ID');
+        var session_id = jsPsych.data.getURLVariable('SESSION_ID');
+
+        jsPsych.data.addProperties({
+            subject_id: subject_id,
+            study_id: study_id,
+            session_id: session_id
+        });
+
+        // Number of stimuli, for progress bar updating
+        var n_stimuli = 96;
+        var timeout = 3000;
+
+        // Conditions for participants
+        var conditions = ["F", "J"];
+        var condition = jsPsych.randomization.sampleWithoutReplacement(conditions, 1)[0];
+        jsPsych.data.addProperties({
+            condition: condition
+        });
+        var yes = condition;
+        var no = condition == "F" ? "J" : "F";
+        var f_key = condition == "F" ? "Yes" : "No" 
+        var j_key = condition == "J" ? "Yes" : "No"
         // Callback for trial response
         var after_response = function(info){
             var key = info.key
@@ -38,44 +77,148 @@
             var val = key_value_map[key]
             $("input[name=Q0][value="+val+"]").prop('checked', true);
         }
+        // Save data to CSV
+        var save_data_csv = function(name, data){
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'php/save_data.php'); //perhaps chane file path when you reorder the files
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(JSON.stringify({filename: name, filedata: data}));
+        };
+        // Grab data before the end of the experiment
+        var save_data = {
+            type: jsPsychCallFunction,
+            func: function(){ 
+                save_data_csv(subject_id + '_output', jsPsych.data.get().csv());
+            },
+            timing_post_trial: 0
+        };
 
-        // Timeline and stimuli variables
+        // Timeline
         var timeline = [];
-        var test_stimuli = [
-            { stimulus: 'img/scene_cp.jpg', correct_response: 'f', stimulus_width: 200},
-            { stimulus: 'img/scene_container.jpg', correct_response: 'j', stimulus_width: 200}
+
+        // Stimuli
+        var consent_stimuli = [
+            {
+                stimulus: `
+                <div style="width:800px; text-align: left;">
+                <p>
+                    <strong>LABORATORY FOR COMPUTATION COGNITION & DEVELOPMENT</strong>
+                    <br>
+                    Department of Psychology
+                    <br>
+                    Harvard University
+                </p>
+                <p>
+                    Dear Participants,
+                </p>
+                <p>
+                    Thank you for your interest! In this study, you will:
+                </p>
+                <p>
+                    <strong>
+                        You will be shown 96 simple scenes containing different objects. Before viewing each scene, you will be asked a question about the scene
+                        and tasked with answering that question as fast as possible when you see the scene.
+                    </strong>
+                </p>
+                <p>
+                    You are being asked to participate in a project being conducted by a research team at Harvard University, under the direction of Dr. Tomer Ullman. 
+                    We are interested in how people are able to reason quickly and in a commonsense way about the different objects and people they encounter in the world around them. 
+                    A better understanding of commonsense reasoning has implications for building more intelligent machines that can reason in a more human-like way, lowering risk in 
+                    different physical situations. During this study, you will be presented with textual descriptions of scenes. To assess your resulting mental image, you will be asked 
+                    questions and you will respond by selecting an appropriate response. 
+                </p>
+                <p>
+                    The study will last around 10 minutes. Your participation in this study is completely voluntary. You may refuse to participate, or you may choose to 
+                    withdraw from participation at any time, without penalty or loss of benefit to which you are otherwise entitled. There has been no harm to people involved 
+                    in this study and there are no risks associated with participation.
+                </p>
+                <p>
+                    All information collected from the study will be associated with a randomly generated Prolific code number or Prolific ID, which 
+                    is the only identifying data you will be requested to provide. Unless your profile is set to private, MTurk ID’s can be used to link back to user account. 
+                    We suggest you set your profile to private. This ID will be changed to Study IDs upon payment. Only researchers associated with this project will have access 
+                    to the data. In order to make a research transparent to the scientific and broader community our study design and unidentifiable data might be made publicly 
+                    available on Open Science Framework, a network of research materials and collaboration software, but your data will not be in anyway identifiable.
+                </p>
+                <p>
+                    We will also provide you with a demographic questionnaire. The form does not include any personal identifying information other than your Prolific ID. Your 
+                    contribution to this questionnaire is voluntary; if you choose to provide the requested information, your responses will be confidential. You will be reimbursed 
+                    at a rate of [$10/hr] for your participation. You might be requested to provide you Mechanical Turk ID for reimbursement purposes, but these numbers will be deleted 
+                    immediately after reimbursement. 
+                </p>
+                <p>
+                    Your participation in our study would be greatly appreciated. If you have any questions about the project please feel free to contact us at the Lab for 
+                    Computation, Cognition, and Development at the Department of Psychology, 33 Kirkland Street, Cambridge, MA 02138, or via email at cocodev@fas.harvard.edu. 
+                    You may also contact the faculty member supervising this work: Tomer Ullman, Assistant Professor of Psychology, 1320 William James Hall, 33 Kirkland Street, 
+                    Cambridge, MA, 02138, email: tullman@fas.harvard.edu
+                </p>
+                <p>
+                    Whom to contact about your rights in this research, for questions, concerns, suggestions, or complaints that are not being addressed by the researcher, 
+                    or research-related harm: Committee on the Use of Human Subjects in Research at Harvard University. Phone:  617-496-CUHS (2847).  Email: cuhs@harvard.edu. 
+                    Please print this screen for your records.
+                </p>
+                <p>
+                    <strong>Consent Statement</strong>
+                </p>
+                <p>
+                    If you agree to participate, please click the consent button below. Thank you very much for your time and consideration.
+                </p>
+                <p>
+                    By selecting the <strong>Consent</strong> button below, I acknowledge that I am 18 or older, have read this consent form, and I agree to take part in the Commonsense Reasoning 
+                    about Physics and Psychology project conducted by the research lab of Dr. Tomer Ullman.
+                </p>
+                <p>
+                    If you do NOT agree to participate in this study, please click the <strong>Decline</strong> button below.
+                </p>
+                <div>
+                `
+            }
         ]
+        var test_stimuli = [];
+        console.log(range(54-90))
+        for (i=0; i < n_stimuli; i++){
+            if (i in range(25).concat(range(54,90), [26,28,31,33,35])) {
+                cr = no.toLowerCase();
+            }
+            else {
+                cr = yes.toLowerCase();
+            }
+            test_stimuli.push({
+                stimulus: 'img/stimuli/scene_'+String(i)+'.jpg', 
+                stimulus_width: 200, 
+                correct_response: cr, 
+                scene: 'scene_'+String(i),
+                task_condition: cr == condition.toLowerCase() ? "Yes" : "No"
+            })
+        }
         var instruction_stimuli = [
             { 
                 stimulus : `
                 <div style='width:800px;'>
                 <p>
-                    In this experiment, a scene from a game called Plinko will appear in the center 
-                    of the screen. In each scene, you will see a Ball and a Goal. <strong>Your job</strong> is
-                    to determine whether the Ball would ever reach the Goal if it was dropped from
-                    where it is in the scene. You can see an example scene below.
+                    In this experiment, you will see 96 images like the one below. 
                 </p>
-                <p>
-                    If the Ball <strong>will</strong> reach the Goal, 
-                    press the letter F on the keyboard as fast as you can.
-                </p>
-                <p>
-                    If the Ball <strong>won't</strong> reach the Goal, 
-                    press the letter J as fast as you can.
-                </p>
-                <p> 
-                    If you answer correctly, you will receive a bonus compensation depending on how
-                    fast you respond. The faster you respond, the higher your bonus. But, only if 
-                    your answer is correct!
-                </p>
-                <div style='width: 700px; margin: auto;'>
-                    <div>
-                        <img src='img/scene_cp.jpg' style='width: 300px;'></img>
-                    </div>
+                <div>
+                    <img src='img/scene_cp.jpg' style='width: 200px;'></img>
                 </div>
-
-                <p>Press any key to continue.</p>
-
+                <p>
+                    In each image, there will be a <strong>BALL</strong> and a <strong>Goal</strong>.
+                </p>
+                <p>
+                    The <strong>BALL</strong> and <strong>GOAL</strong> may change colors from image to image.
+                    The <strong>BALL</strong> will always be a circle. The <strong>GOAL</strong> will always be
+                    a rectangle.
+                </p>
+                <p>
+                    <strong>YOUR TASK</strong>: 
+                </p>
+                <p>
+                    1. Imagine the ball is dropped from its current position. 
+                    <br>
+                    2. Indicate whether the <strong>BALL</strong> will ever reach the <strong>GOAL</strong>.
+                </p>
+                <p>
+                    Press spacebar for further instructions.
+                </p>
                 </div>
                 `
             },
@@ -83,25 +226,21 @@
                 stimulus: `
                 <div style='width:800px;'>
                 <p>
-                    For each scene, you will be asked two questions: "Will the ball reach the goal?" and
-                    "How certain are you of your answer?".
+                    If the Ball <strong>will reach the Goal</strong>: press the letter `+yes+` on your keyboard.
                 </p>
                 <p>
-                    To answer the first question, press F on your keyboard as fast as you can to 
-                    indicate "yes" and press J as fast as you can to indicate "no" as shown below.
-                    Remember, for the first question, the faster you answer the higher your bonus 
-                    is but only if you answer correctly.
+                    If the Ball <strong>won't reach the Goal</strong>: press the letter `+no+` on your keyboard.
                 </p>
-                <img src='img/keyboard_fj.jpeg'></img>
                 <p>
-                    To answer the second question, you will choose one of seven options on a scale
-                    ranging from "Not Certain" to "Certain" about how sure you are of your answer
-                    to the first question. You are not timed on this question; only the first. You will
-                    use the S, D, F, G, H, J, and K keys on your keyboard to indicate your answer
-                    as shown below. When you're done answering, you will press SPACEBAR to move onto
-                    the next trial.
+                    Each scene will only be available for `+timeout/1000+` seconds.
                 </p>
-                <img src='img/keyboard.jpeg'></img>
+                <p>
+                    <strong>Please answer as fast and as accurately as possible!</strong>
+                </p>
+                <img src='img/keyboard_`+yes+`.jpeg'></img>
+                <p>
+                    Press spacebar to continue.
+                </p>
                 </div>
                 `
             },
@@ -109,11 +248,12 @@
                 stimulus: `
                 <div style='width:800px;'>
                 <p>
-                    We are now going to ask you some test questions to make sure
-                    you're paying attention. The experiment will begin after.
+                    We are almost ready for the study. 
+                    Before we start, we have a few comprehension questions, 
+                    to make sure you understand the task.
                 </p>
                 <p>
-                    Press any key to continue.
+                    Press spacebar to begin.
                 </p>
                 </div>
                 `
@@ -121,18 +261,115 @@
         ]
         var comprehension_stimuli = [
             { 
-                stimulus: 'img/scene_empty.jpg', 
-                correct_response: 'j', 
-                stimulus_width: 200, 
-                prompt: `<p><strong>Is there a ball in this scene?<strong></p>`
+                stimulus: 'img/comp_0.jpg', 
+                correct_response: yes.toLowerCase(), 
+                stimulus_width: 200,
+                prompt: `
+                <div style="font-size:30px;">
+                    <p>
+                        Check 1: In the next page you will see an image.
+                    </p>
+                    <p> 
+                        Please use your keyboard to answer: <strong>Will the ball reach the goal?</strong>
+                    </p>
+                    <p>
+                        Remember F means `+f_key+` and J means `+j_key+`.
+                    </p>
+                    <p>(Press spacebar to begin)</p>
+                </div>
+                `
             },
             { 
-                stimulus: 'img/scene_0.jpg', 
-                correct_response: 'j', 
+                stimulus: 'img/comp_1.jpg', 
+                correct_response: yes.toLowerCase(), 
                 stimulus_width: 200, 
-                prompt: `<p><strong>Is the goal green in this scene?<strong></p>`
+                prompt: `
+                <div style="font-size:30px;">
+                    <p>
+                        Check 2: In the next page you will see an image.
+                    </p>
+                    <p> 
+                        Please use your keyboard to answer: <strong>Will the ball reach the goal?</strong>
+                    </p>
+                    <p>
+                        Remember F means `+f_key+` and J means `+j_key+`.
+                    </p>
+                    <p>(Press spacebar to begin)</p>
+                </div>
+                ` 
+            },
+            {
+                stimulus: 'img/comp_2.jpg', 
+                correct_response: no.toLowerCase(), 
+                stimulus_width: 200, 
+                prompt: `
+                <div style="font-size:30px;">
+                    <p>
+                        Check 3: In the next page you will see an image.
+                    </p>
+                    <p> 
+                        Please use your keyboard to answer: <strong>Will the ball reach the goal?</strong>
+                    </p>
+                    <p>
+                        Remember F means `+f_key+` and J means `+j_key+`.
+                    </p>
+                    <p>(Press spacebar to begin)</p>
+                </div>
+                `
             }
         ]
+        var n_trials = test_stimuli.length + instruction_stimuli.length + comprehension_stimuli.length
+        
+        // Prompts
+        var begin_comp_prompt = {
+            type: jsPsychHtmlKeyboardResponse,
+            stimulus: jsPsych.timelineVariable('prompt'),
+            choices: " ",
+            data: {
+                task: 'comp_prompt'
+            }
+        }
+        var end_comp_prompt = {
+            type: jsPsychHtmlKeyboardResponse,
+            stimulus: `
+            <div style="font-size:30px;">
+                <p>Your response has been logged.</p>
+            </div>
+            `,
+            trial_duration: 1500,
+            choices: "NO_KEYS",
+            data: {
+                task: 'comp_prompt'
+            }
+        }
+        var begin_test_prompt = {
+            type: jsPsychHtmlKeyboardResponse,
+            stimulus: `
+            <div style="font-size:30px;">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: `+f_key+`, J: `+j_key+`</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            `,
+            choices: " ",
+            data: {
+                task: 'prompt'
+            }
+        }
+        var end_test_prompt = {
+            type: jsPsychHtmlKeyboardResponse,
+            stimulus: `
+            <div style="font-size:30px;">
+                <p>Your response has been logged.</p>
+            </div>
+            `,
+            trial_duration: 1500,
+            choices: "NO_KEYS",
+            data: {
+                task: 'prompt'
+            }
+        }
+
         // Welcome and Preload
         var preload = {
             type: jsPsychPreload,
@@ -140,20 +377,65 @@
         }
         var welcome = {
             type: jsPsychHtmlKeyboardResponse,
-            stimulus: "Welcome to the experiment. Press any key to begin."
+            stimulus: "Welcome to the experiment. Press spacebar to begin.",
+            choices: " "
         }
 
         // Experiment plugins
+        var consent = {
+            type: jsPsychHtmlButtonResponse,
+            stimulus: jsPsych.timelineVariable('stimulus'),
+            choices: ["Consent", "Decline"],
+            prompt: "<p><br></p>",
+            margin_vertical: "10px",
+            data: {
+                task: 'consent'
+            },
+            on_finish: function(data){
+                if (data.response == 1){
+                    jsPsych.endExperiment(`
+                        <p>
+                            You've declined to consent to our experiment. 
+                        </p>
+                        <p>
+                            If this was done in error, please consider re-loading the experiment page and consent to the experiment.
+                        </p>
+                        <p>
+                            Thank you for taking the time to consider our experiment.
+                        </p>
+                    `);
+                }
+            }
+        }
         var instruction = {
             type: jsPsychHtmlKeyboardResponse,
-            stimulus: jsPsych.timelineVariable('stimulus')
+            choices: " ",
+            stimulus: jsPsych.timelineVariable('stimulus'),
+            on_finish: function(data){
+                var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
+                jsPsych.setProgressBar(curr_progress_bar_value + (1/n_trials));
+            }
+        }
+        var starting_experiment = {
+            type: jsPsychHtmlKeyboardResponse,
+            stimulus: `
+            <div">
+                <p>You passed the comprehension check! We will now begin the experiment.</p>
+                <p><strong>REMEMBER</strong>: In the experiment, your task is to say “will the ball reach the goal?" (F: `+f_key+`, J: `+j_key+`)
+                <p>(Press spacebar to begin)</p>
+            </div>
+            `,
+            choices: " ",
+            data: {
+                task: 'start'
+            }
         }
         var fixation = {
             type: jsPsychHtmlKeyboardResponse,
             stimulus: '<div style="font-size:60px;">+</div>',
             choices: "NO_KEYS",
             trial_duration: function(){
-                return jsPsych.randomization.sampleWithReplacement([250, 500, 750, 1000, 1250, 1500, 1750, 2000], 1)[0];
+                return jsPsych.randomization.sampleWithReplacement([250, 500, 750, 1000], 1)[0];
             },
             data: {
                 task: 'fixation'
@@ -194,43 +476,88 @@
             type: jsPsychImageKeyboardResponse,
             stimulus: jsPsych.timelineVariable('stimulus'),
             stimulus_width: jsPsych.timelineVariable('stimulus_width'),
-            prompt: jsPsych.timelineVariable('prompt'),
             choices: ['f', 'j'],
             data: {
-                task: 'response',
-                correct_response: jsPsych.timelineVariable('correct_response')
+                task: 'comprehension',
+                correct_response: jsPsych.timelineVariable('correct_response'),
+                attempts: 1
             },
             on_finish: function(data){
                 data.correct = jsPsych.pluginAPI.compareKeys(data.response, data.correct_response);
+                data.attempts = attempts;
+                var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
+                jsPsych.setProgressBar(curr_progress_bar_value + (1/n_trials));
             }
         }
         var test = {
             type: jsPsychImageKeyboardResponse,
             stimulus: jsPsych.timelineVariable('stimulus'),
             stimulus_width: jsPsych.timelineVariable('stimulus_width'),
-            prompt: `<p><strong>Will the ball reach the goal?</strong></p>`,
+            prompt: ``,
             choices: ['f', 'j'],
             data: {
                 task: 'response',
-                correct_response: jsPsych.timelineVariable('correct_response')
+                task_condition: jsPsych.timelineVariable('task_condition'),
+                correct_response: jsPsych.timelineVariable('correct_response'),
+                scene: jsPsych.timelineVariable('scene')
             },
             on_finish: function(data){
-                data.correct = jsPsych.pluginAPI.compareKeys(data.response, data.correct_response);
+                jsPsych.pluginAPI.clearAllTimeouts();
+                // console.log(data)
+                if (data['timed_out']){
+                    // console.log("Timeout")
+                    data.correct = jsPsych.pluginAPI.compareKeys(data.response, data.correct_response);
+                }
+                else {
+                    // console.log("No timeout")
+                    data["timed_out"] = false;
+                    data.correct = false;
+                    data['rt'] = 3000
+                    data.stimulus = jsPsych.timelineVariable('stimulus');
+                }
+                var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
+                jsPsych.setProgressBar(curr_progress_bar_value + (1/n_trials));
             }
+        }
+        var timeout_procedure = {
+            type: jsPsychCallFunction,
+            func: function(){
+                jsPsych.pluginAPI.setTimeout(function(){
+                    jsPsych.finishTrial({timed_out: true});
+                },timeout);
+            }
+        }
+        var attempts = 1;
+        // Procedures
+        var consent_procedure = {
+            timeline: [consent],
+            timeline_variables: consent_stimuli
         }
         var instruction_procedure = {
             timeline: [instruction],
             timeline_variables: instruction_stimuli
         }
         var comprehension_procedure = {
-            timeline: [comprehension],
-            timeline_variables: comprehension_stimuli
+            timeline: [begin_comp_prompt, fixation, comprehension, end_comp_prompt],
+            timeline_variables: comprehension_stimuli,
+            loop_function: function(data){
+                responses = data.filter({task: "comprehension"});
+                correct_responses = responses.select("correct");
+                if (correct_responses.values.every(Boolean)) {
+                    return false; // don't loop
+                }
+                else {
+                    attempts += 1;
+                    alert("You answered one or more questions incorrectly! Try to pay attention this time and answer the questions correctly.")
+                    return true; // loop
+                }
+            }
         }
         var test_procedure = {
-            timeline: [fixation, test, certainty],
+            timeline: [begin_test_prompt, fixation, timeout_procedure, test, end_test_prompt],
             timeline_variables: test_stimuli,
             randomize_order: true,
-            repetitions: 5
+            repetitions: 1
         }
         var debrief_block = {
             type: jsPsychHtmlKeyboardResponse,
@@ -247,11 +574,26 @@
 
             }
             };
-
+        var final_trial = {
+            type: jsPsychHtmlKeyboardResponse,
+            stimulus: `
+                <p>You've finished the last task. Thanks for participating!</p>
+                <p><a href="https://app.prolific.co/submissions/complete?cc=3F388D49">Click here to return to Prolific and complete the study</a>.</p>`,
+            choices: "NO_KEYS"
+            ,
+            on_start: function(data) {
+                jsPsych.data.get().localSave("csv","data/test.csv")
+            }
+        }
+        
         // Push it all to the timeline
-        timeline.push(preload,welcome)
-        timeline.push(instruction_procedure, comprehension_procedure, test_procedure)
-        timeline.push(debrief_block)
+        timeline.push(preload)
+        // timeline.push(welcome)
+        // timeline.push(consent_procedure)
+        // timeline.push(instruction_procedure, comprehension_procedure, starting_experiment)
+        timeline.push(test_procedure)
+        timeline.push(save_data)
+        timeline.push(final_trial)
 
         // Run the experiment
         jsPsych.run(timeline)
