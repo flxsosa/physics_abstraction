@@ -1,24 +1,30 @@
+import os
 import pygame
 import pymunk
 import pymunk.pygame_util
 import handlers
 from main import *
+import math
 from pygame.locals import *
 from pygame.color import *
 from numpy.random import normal, randint
 from handlers import *
 from random import randrange
+from helper import rotate
 
 class Scene:
-    def __init__(self, handlers=None, *args):
+    def __init__(self, handlers=None, objects=None, obj_params=None, wh=(0,0)):
+        # Object parameters
+        self._objects = objects
+        self._object_args = obj_params
+        self.goal = 0
+        # Scene parameters
+        self.width, self.height = wh
         # Global parameters
         self.running = False
         self.step = False
         self.fps = 60
-        self.width, self.height = 812,1012
         self.gravity = (0,150)
-        self._objects = args[0]
-        self._object_args = args[1]
         self.objects = None
         self.space = pymunk.Space()
         self.space.gravity = self.gravity
@@ -26,15 +32,25 @@ class Scene:
         self.clock = None
         self.draw_options = None
         self.coll_handlers = [h for h in handlers] if handlers else None
-        self.goal = 0
         self.draw_params = {}
         self.instantiated = False
+        # Simulation parameters
+        self.stopping_epsilon = 1e-2
+        self.tick = 0
+        self.ball_pos = None
+        self.stopping_timer = 0
+        self.goal_ball_collision = False
+        self.trajectories = {
+            "collision":False,
+            "ball":[],
+            "ticks":0}
 
-    def instantiate_scene(self,func=None,*args):
+    def instantiate_hamrick(self,func=None,*args):
         '''
         Wrapping functions and their args in *args operator
         '''
-        GameBorder(self.space)
+        self.width, self.height = 900, 650
+        GameBorder2(self.space,p0=(10, 10), p1=(self.width-10, self.height-10))
         objs = []
         self.draw_params['color_ball']=pygame.Color(randrange(256),
                                                     randrange(256),
@@ -43,7 +59,40 @@ class Scene:
                                                     randrange(256),
                                                     randrange(256))
         
-        print(func)
+        # Funcs and args; allowing for additions
+        if args:
+            funcs,fargs=self._objects+args[0],self._object_args+args[1]
+        else:
+            funcs,fargs=self._objects,self._object_args
+        # Call funcs with their respective args
+        for i in range(len(funcs)):
+            print(funcs[i])
+            print(*fargs[i])
+            obj = funcs[i](*fargs[i])
+            objs.append(obj)
+            if func: 
+                func[0](obj)
+            if type(obj).__name__ == "Ball":
+                self.force_obj = obj      
+            self.space.add(*obj.components)
+        self.objects = objs
+        # if func: func[0](self.objects)
+        self.instantiated = True
+
+    def instantiate_scene(self,func=None,*args):
+        '''
+        Wrapping functions and their args in *args operator
+        '''
+        border = PlinkoBorder((self.width, self.height))
+        self.space.add(*border.components)
+        objs = [border]
+        self.draw_params['color_ball']=pygame.Color(randrange(156),
+                                                    randrange(156),
+                                                    randrange(156))
+        self.draw_params['color_goal']=pygame.Color(randrange(156),
+                                                    randrange(156),
+                                                    randrange(156))
+        
         # Funcs and args; allowing for additions
         if args:
             funcs,fargs=self._objects+args[0],self._object_args+args[1]
@@ -54,13 +103,9 @@ class Scene:
             obj = funcs[i](*fargs[i])
             objs.append(obj)
             if func: 
-                theta = 90
-                func[0](obj,theta)
-                print(theta)
+                func[0](obj)
             self.space.add(*obj.components)
         self.objects = objs
-        print(self.objects)
-        # if func: func[0](self.objects)
         self.instantiated = True
 
     def instantiate_handlers(self):
@@ -74,24 +119,79 @@ class Scene:
 
     def draw(self,random_color=True):
         self.screen.fill(pygame.Color("gray"))
-        self.space.debug_draw(self.draw_options)
-        pygame.display.flip()
+        # self.space.debug_draw(self.draw_options)
         for o in self.objects:
+            # Drawing the ball
             if type(o).__name__ == "Ball":
                 color = self.draw_params['color_ball'] if random_color else o.shape.color
-                pygame.draw.circle(self.screen, color, o.body.position, o.radius+1)
+                pygame.draw.circle(self.screen, color, o.body.position, o.radius)
+            # Drawing the goal
             elif type(o).__name__ == "Goal":
                 color = self.draw_params['color_goal'] if random_color else o.shape.color
                 r = pygame.Rect(0,0,o.l+1,o.w+1)
                 r.center = o.body.position
                 pygame.draw.rect(self.screen, color, r)
+            # Drawing border and containers
+            else:
+                color = pygame.Color("black")
+                # We skip the first element in the components because that's the body
+                for line in o.components[1:]:
+                    # Grab the body
+                    body = o.components[0]
+                    # Offset for sprites
+                    offset = body.position
+                    # Rotate the sprites
+                    a = rotate(body, line.a)
+                    b = rotate(body, line.b)
+                    # Draw
+                    pygame.draw.line(self.screen, color, a+offset, b+offset,5)
+        # Update display
+        pygame.display.update()
 
     def events(self):
         for event in pygame.event.get():
             if event.type == KEYDOWN and (event.key in [K_q, K_ESCAPE]):
                 self.running = False
             elif event.type == KEYDOWN and (event.key in [K_SPACE]):
-                self.step = True
+                self.step = not self.step
+        if handlers.GOAL_BALL:
+            self.running=False
+            self.goal_ball_collision = True
+
+    def apply_forces(self,obj,direction=(0,650)):
+        velocity = 100
+        if obj.body.velocity.length < velocity:
+            direction = direction - obj.body.position
+            direction = direction.normalized()
+            direction = direction.normalized()
+            impulse = (velocity - obj.body.velocity.length)*direction
+            obj.body.apply_impulse_at_local_point(impulse)
+
+    def record(self,end):
+        if end:
+            self.trajectories['collision'] = True
+            self.trajectories['ticks'] = self.tick
+            self.trajectories['objects'] = [o.__name__ for o in self._objects]
+            self.trajectories['object_params'] = self._object_args
+        else:
+            for i in range(len(self.objects)):
+                if type(self.objects[i]).__name__ == "Ball":
+                    ball = self.objects[i]
+            self.trajectories['ball'].append((ball.body.position[0],ball.body.position[1]))
+
+    def listen(self):
+        for o in self.objects:
+            if type(o).__name__ == "Ball":
+                if not self.ball_pos:
+                    self.ball_pos = o.body.position
+                    continue
+                diff = math.sqrt((o.body.position[0] - self.ball_pos[0])**2+
+                                (o.body.position[1] - self.ball_pos[1])**2)
+                self.ball_pos = o.body.position
+                if diff < self.stopping_epsilon and self.tick > 10:
+                    self.stopping_timer += 1
+                    if self.stopping_timer > 50:
+                        self.running = False
 
     def forward(self, view=True, img_capture=False, fname="scene"):
         # Create callable instances of pymunk and pygame components
@@ -100,6 +200,7 @@ class Scene:
             self.screen = pygame.display.set_mode((self.width,self.height))
             self.draw_options = pymunk.pygame_util.DrawOptions(self.screen)
             self.clock = pygame.time.Clock()
+            self.screen.fill(pygame.Color("gray"))
         
         self.running = True
         # Create callable scene components
@@ -111,12 +212,18 @@ class Scene:
         while self.running:
             self.events()
             self.draw()
+            if self.step:
+                self.listen()
+                self.tick += 1
+                self.record(False)
             self.clock.tick(self.fps)
             dt = 1./self.fps
             if self.step: self.space.step(dt)
             if img_capture:
                 pygame.image.save(self.screen,fname+".jpg")
                 self.running=False
+        self.record(True)
+        # Reset after simulation
         self.reset()
 
     def forward_stochastic(self,view=True):

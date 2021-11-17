@@ -13,45 +13,43 @@ ball = 0
 goal = 1
 '''
 
-class GameBorder:
-    def __init__(self, space, p0=(10, 210), p1=(width-10, height-10), d=2):
-        x0, y0 = p0
-        x1, y1 = p1
+class SceneBorder:
+    def __init__(self, span, d=2):
+        self.body = pymunk.Body(body_type=pymunk.Body.STATIC)
+        self.body.position = 0,0
+        self.components = [self.body]
+        x0, y0 = (10, 10)
+        x1, y1 = span[0]-10,span[1]-10
         pts = [(x0, y0), (x1, y0), (x1, y1), (x0, y1)]
-        segments = [
-            [(x0,y1),(x1,y1)], # Bottom
-            [(x0,y1),(x0,y0)], # Left
-            [(x1,y1),(x1,y0)] # Right
-            ]
+        for i in range(4):
+            segment = pymunk.Segment(self.body, pts[i], pts[(i+1)%4], d)
+            segment.elasticity = 1
+            segment.friction = 1
+            segment.color = pygame.Color("black")
+            self.components.append(segment)
+
+class PlinkoBorder:
+    def __init__(self, span, d=2):
+        self.body = pymunk.Body(body_type=pymunk.Body.STATIC)
+        self.components = [self.body]
+        x0, y0 = 10, span[1]*0.2+10
+        x1, y1 = span[0]-10,span[1]-10
+        segments = [(x0,y0),(x0,y1),(x1,y1),(x1,y0)] # Right
         # Left and Rigth
-        for s in segments[1:]:
-            seg = pymunk.Segment(space.static_body, s[0],s[1],d)
-            seg.elasticity = 1
-            seg.friction = 1
-            seg.color = pygame.Color("black")
-            space.add(seg)
-            
-        # Bottom 
-        s = segments[0]
-        seg = pymunk.Segment(space.static_body, s[0],s[1],d)
-        seg.elasticity = 1
-        seg.friction = 1
-        seg.collision_type = 2
-        seg.color = pygame.Color("black")
-        space.add(seg)
-        # for i in range(4):
-        #     segment = pymunk.Segment(space.static_body, pts[i], pts[(i+1)%4], d)
-        #     segment.elasticity = 1
-        #     segment.friction = 1
-        #     space.add(segment)
+        for i in range(3):
+            segment = pymunk.Segment(self.body, segments[i], segments[(i+1)%4], d)
+            segment.elasticity = 1
+            segment.friction = 1
+            segment.color = pygame.Color("black")
+            self.components.append(segment)
 
 class Container:
-    def __init__(self, pos=(width/2,height/2), w=40, l=80, d=2):
+    def __init__(self, pos=(width/2,height/2), w=40, l=80, angle=0,d=2):
         self.init_position = pos
         self.body = pymunk.Body(body_type=pymunk.Body.STATIC)
         self.body.position = pos
-        x,y = pos
-        # self.body.angle = 0
+        self.body.angle = math.radians(angle)
+        self.area = []
         b_y = l
         b_x1 = w + d + 1
         b_x2 = -w -d -1
@@ -72,11 +70,14 @@ class Container:
         self.components = self.body,b_segment,l_segment,r_segment
 
 class Platform:
-    def __init__(self, space, pos=(width/2,height/2), l=80,d=2):
+    def __init__(self, pos=(10,10), l=80, rot=0,d=2):
+        pos = pos[0]/4, pos[1]/2
+        self.body = pymunk.Body(body_type=pymunk.Body.STATIC)
+        self.body.angle = rot
         self.pos = pos
         x,y=pos
-        segment = pymunk.Segment(space.static_body, (x-l/2,y),(x+l/2,y),d)
-        space.add(segment)
+        segment = pymunk.Segment(self.body, (150,10), (150,640), d)
+        self.components = self.body, segment
 
 class Slide:
     def __init__(self, space, pos=(width/2, height/2), degree=45, l=80, d=2):
