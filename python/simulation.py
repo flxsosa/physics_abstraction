@@ -1,6 +1,8 @@
 # For Physics and Object
+from re import S
 import pymunk
-from handlers import is_colliding
+from pyparsing import col
+from handlers import is_colliding, not_colliding
 # For Graphics
 import pygame
 import pymunk.pygame_util
@@ -9,7 +11,13 @@ from pygame.color import *
 from math import cos,sin,sqrt
 # For general
 from random import randrange
-from helper import draw_circle_alpha
+from helper import draw_circle_alpha, adjust_body_angle
+# For abstraction
+from objects import Sensor
+from math import cos, sin, degrees, pi, radians
+import numpy as np
+from pymunk.pygame_util import *
+from abstraction import *
 
 class Listener:
     '''
@@ -36,7 +44,6 @@ class Listener:
         '''
         return self.object.tick
 
-
 class Graphics:
     '''
     A Graphics renders PObjects onto a screen.
@@ -47,9 +54,11 @@ class Graphics:
         self.screen = None
         self.size = width,height
         self.clock = None
-        self.fps = 60
+        self.fps = fps
         self.screen_recorder = None
         self.running = True
+        self.initialized = False
+        self.debug_options = None
         self.draw_params = {
             'Ball':pygame.Color(randrange(156),randrange(156),randrange(156)),
             'Goal':pygame.Color(randrange(156),randrange(156),randrange(156)),
@@ -64,6 +73,12 @@ class Graphics:
         '''
         self.screen_recorder = self._record_screen(dir,fname)
 
+    def instantiate_camera(self, dir, fname):
+        '''
+        Method for instantiating the camera.
+        '''
+        self.screen_recorder = self._take_snapshot(dir,fname)
+
     def _record_screen(self,dir,fname):
         '''
         Private method for recording frames from a Graphic's screen.
@@ -76,7 +91,38 @@ class Graphics:
             self.framework.image.save(self.screen,file_name)
             yield
     
-    def draw(self,objects,tick):
+    def _take_snapshot(self,dir,fname,collision):
+        file_name = dir+fname+"_"+collision+".jpg"
+        self.framework.image.save(self.screen,file_name)
+        print("g")
+
+    def draw_x_ball(self,objects,color=pygame.Color("Black")):
+        for o in objects:
+            if o.name == "Ball":
+                posx,posy = o.body.position
+                r = o.components[1].radius
+                pygame.draw.line(self.screen, color, (posx-r,posy-r),(posx+r,posy+r),4)
+                pygame.draw.line(self.screen, color, (posx+r,posy-r),(posx-r,posy+r),4)
+
+    def draw_bb(self, shape):
+            pos = shape.bb.left, shape.bb.bottom
+            w = shape.bb.right - shape.bb.left
+            h = shape.bb.top - shape.bb.bottom
+            p = to_pygame(pos, self.screen)
+            pygame.draw.rect(self.screen, pygame.Color("Blue"), (*p, w, h), 1)
+
+    def draw_circle_at_point(self,pos):
+        color = pygame.Color("Black")
+        pygame.draw.circle(self.screen, color, pos, 20)
+
+    def update_display(self):
+        # Update display
+        pygame.display.update()
+        # If recording screen, record screen
+        if self.screen_recorder:
+            next(self.screen_recorder)
+
+    def draw(self,objects,tick=None):
         # Fill screen with background, and refresh each frame
         self.screen.fill(pygame.Color("gray"))
         # Iterate and draw objects
@@ -95,7 +141,11 @@ class Graphics:
                         self.running = False
                 else:
                     color = self.draw_params['Ball']
-                    pygame.draw.circle(self.screen, color, o.body.position, 20)
+                    pygame.draw.circle(self.screen, color, to_pygame(o.body.position,self.screen), 20)
+                    for line in o.components[2:]:
+                        body = o.components[0]
+                        offset = body.position
+                        pygame.draw.line(self.screen, color, line.a+offset, line.b+offset,5)
             # Drawing the goal
             elif o.name == "Goal":
                 color = self.draw_params['Goal']
@@ -122,11 +172,14 @@ class Graphics:
                     a = self.rotate(body, line.a)
                     b = self.rotate(body, line.b)
                     pygame.draw.line(self.screen, color, a+offset, b+offset,5)
-        # Update display
-        pygame.display.update()
-        # If recording screen, record screen
-        if self.screen_recorder:
-            next(self.screen_recorder)
+            elif o.name == "Sensor":
+                color = self.draw_params['Ball']
+                points = o.components[1].get_vertices()
+                pygame.draw.polygon(self.screen,color,points)
+    
+    def debug_draw(self,space):
+        self.screen.fill((0,0,0))
+        space.debug_draw(self.debug_options)
 
     def rotate(self,body,point):
         rotatedx = point[0] * cos(body.angle) - point[1] * sin(body.angle)
@@ -134,6 +187,8 @@ class Graphics:
         return (rotatedx, rotatedy)
     
     def initialize_graphics(self):
+        self.initialized = True
+        self.debug_options = pymunk.pygame_util.DrawOptions(self.screen)
         self.screen = self.framework.display.set_mode(self.size)
         self.clock = self.framework.time.Clock()
         self.framework.init()
@@ -152,8 +207,8 @@ class Physics:
         self.tick = 0
         self.handlers = {}
         self.instantiate_handlers() # Instantiate collision handlers
-    
-    def instantiate_handlers(self):
+        
+    def instantiate_handlers(self,args=None):
         '''
         Instantiate collision handlers.
         '''
@@ -172,6 +227,24 @@ class Physics:
         self.handlers["ball_container"].data['colliding'] = False
         self.handlers["ball_container"].post_solve = is_colliding
 
+        # Sensor and goal
+        self.handlers["sensor_goal"] = self.space.add_collision_handler(9,1)
+        self.handlers["sensor_goal"].data['colliding'] = False
+        self.handlers['sensor_goal'].separate = not_colliding
+        self.handlers["sensor_goal"].post_solve = is_colliding
+
+        # Sensor and floor
+        self.handlers["sensor_floor"] = self.space.add_collision_handler(9,2)
+        self.handlers["sensor_floor"].data['colliding'] = False
+        self.handlers['sensor_floor'].separate = not_colliding
+        self.handlers["sensor_floor"].post_solve = is_colliding
+
+        # Sensor and containers
+        self.handlers["sensor_container"] = self.space.add_collision_handler(9,3)
+        self.handlers["sensor_container"].data['colliding'] = False
+        self.handlers['sensor_container'].separate = not_colliding
+        self.handlers["sensor_container"].post_solve = is_colliding
+
     def collision(self):
         '''
         Outputs data from handlers for Scene to use
@@ -188,15 +261,14 @@ class Physics:
         self.space.step(self.dt)
         self.tick += 1 
 
-class PObject:
-    '''
-    An PObject is a simulated physical object that evolves over time according
-    to a Physics.
-    '''
-    def __init__(self,name,body,components):
-        self.name = name # Name of the object
-        self.body = body # Pymunk body of the object
-        self.components = components # Body and shapes for object
+    def abstraction(self):
+        '''
+        Outputs data from handlers for Scene to use
+        '''
+        rval = self.handlers["sensor_goal"].data['colliding']
+        rval += self.handlers["sensor_floor"].data['colliding']
+        rval *= not self.handlers['sensor_container'].data['colliding']
+        return rval
 
 class Scene:
     '''
@@ -213,6 +285,7 @@ class Scene:
         self.tick_samples = []
         # Flag for user to pause simulation
         self.pause = False
+        self.sensor_obj = None
     
     def event(self):
         '''
@@ -230,27 +303,85 @@ class Scene:
                         o.body.position = pos
                         o.body.velocity = (0,0)
 
-    def run(self,view=True):
+    def run_path(self,view=True,N=10,D=100,E=0.9):
         '''
         Forward method for the scene. Evolves PObjects over time according
         to a Physics and renders the simulation to the screen with a Graphics
         '''
-        if view:
+        epsilon = E
+        if view and not self.graphics.initialized:
             self.graphics.initialize_graphics()
-        while self.running and not self.pause:
+        while self.running:
+            # Get projected path and end positio of path
+            ball_pos_pp, valid_pp = path_projection(self.objects,self.graphics,self.physics,D)
+            # Step simulator forward N times
+            for _ in range(int(N)):
+                # Physics
+                self.physics.forward()
+                self.running *= not self.listener.listen()
+                self.running *= not self.physics.collision()
+                self.running *= self.graphics.running
+                if view:
+                    self.graphics.draw(self.objects)
+                    self.graphics.draw_circle_at_point(ball_pos_pp)
+                    self.graphics.clock.tick(self.graphics.fps)
+                    self.graphics.update_display()
+            if self.physics.tick > 1000:
+                self.running = False
+            # Get the ball
+            for obj in self.objects:
+                if obj.name == "Ball":
+                    ball = obj
+            # Get end position of simulation run
+            ball_pos_sim = ball.body.position
+            # Detemrine cosine similaroty between simulation and path projection
+            normsim = ball_pos_sim.length
+            normpp = ball_pos_pp.length
+            dot = ball_pos_sim.dot(ball_pos_pp)
+            cossim = dot / (normsim * normpp)
+            if cossim > epsilon and valid_pp:
+                ball.body.position = ball_pos_pp
+                self.physics.space.reindex_shapes_for_body(ball.body)
+            # Graphics
+            if view:
+                self.graphics.draw(self.objects)
+                self.graphics.draw_circle_at_point(ball_pos_pp)
+                # self.graphics.debug_draw(self.physics.space)
+                self.graphics.clock.tick(self.graphics.fps)
+                self.graphics.update_display()
+                # User Events
+                self.event()
+
+    def run(self,view=True,subroutine=None,name=None):
+        '''
+        Forward method for the scene. Evolves PObjects over time according
+        to a Physics and renders the simulation to the screen with a Graphics
+        '''
+        straight_path = False
+        if view and not self.graphics.initialized:
+            self.graphics.initialize_graphics()
+        while self.running:
             # Physics
-            self.physics.forward()
-            self.running = not self.listener.listen()
-            self.running *= not self.physics.collision()
-            self.running *= self.graphics.running
+            if not self.pause:
+                self.physics.forward()
+                self.running *= not self.listener.listen()
+                self.running *= not self.physics.collision()
+                self.running *= self.graphics.running
+                if subroutine:
+                    straight_path, collision = subroutine(self.objects,self.graphics,self.physics)
             if self.physics.tick > 1000:
                 self.running = False
             # Graphics
             if view:
                 self.graphics.draw(self.objects,self.physics.tick)
+                if subroutine:
+                    straight_path, collision = subroutine(self.objects,self.graphics,self.physics)
                 self.graphics.clock.tick(self.graphics.fps)
+                self.graphics.update_display()
                 # User Events
                 self.event()
+            if straight_path:
+                self.running = False
 
     def instantiate_scene(self):
         for obj in self.objects:
@@ -277,6 +408,7 @@ class SceneBuilder(Scene):
             'goal_args':None,
             'line_args':[]
         }
+        self.shape = None
 
     def print_args(self):
         print([obj.name for obj in self.objects])
@@ -329,14 +461,13 @@ class SceneBuilder(Scene):
                 obj = self.pallete['g']((pos[0],1000))
                 self.objects.append(obj)
                 self.object_record = (self.pallete['g'])
-                self.object_arg_record['goal_args']= [pos]
+                self.object_arg_record['goal_args']= [(pos[0],1000)]
                 self.physics.space.add(*obj.components)
             else:
                 for obj in self.objects:
                     if obj.name == "Goal":
                         obj.body.position = (pos[0],1000)
                         self.object_arg_record['goal_args'] = [(pos[0],1000)]
-        assert all(map(lambda x: type(x) == list, self.object_arg_record.values()))
 
     def event(self):
         '''
@@ -381,7 +512,51 @@ class SceneBuilder(Scene):
         self.physics.handlers["ball_goal"].data['colliding'] = False
         self.physics.handlers["ball_floor"].data['colliding'] = False
 
-    def run(self):
+    def run_path(self,view=True):
+        '''
+        Forward method for the scene. Evolves PObjects over time according
+        to a Physics and renders the simulation to the screen with a Graphics
+        '''
+        N = 10
+        epsilon = 0.9
+        self.graphics.initialize_graphics()
+        while self.running:
+            # Get projected path and end positio of path
+            ball_pos_pp, valid_pp = path_projection(self.objects,self.graphics,self.physics)
+            # Step simulator forward N times
+            for _ in range(N):
+                # Physics
+                self.physics.forward()
+                if view:
+                    self.graphics.draw(self.objects)
+                    self.graphics.draw_circle_at_point(ball_pos_pp)
+                    self.graphics.clock.tick(self.graphics.fps)
+                    self.graphics.update_display()
+            # Get the ball
+            for obj in self.objects:
+                if obj.name == "Ball":
+                    ball = obj
+            # Get end position of simulation run
+            ball_pos_sim = ball.body.position
+            # Detemrine cosine similaroty between simulation and path projection
+            normsim = ball_pos_sim.length
+            normpp = ball_pos_pp.length
+            dot = ball_pos_sim.dot(ball_pos_pp)
+            cossim = dot / (normsim * normpp)
+            if cossim > epsilon and valid_pp:
+                ball.body.position = ball_pos_pp
+                self.physics.space.reindex_shapes_for_body(ball.body)
+            # Graphics
+            if view:
+                self.graphics.draw(self.objects)
+                self.graphics.draw_circle_at_point(ball_pos_pp)
+                # self.graphics.debug_draw(self.physics.space)
+                self.graphics.clock.tick(self.graphics.fps)
+                self.graphics.update_display()
+                # User Events
+                self.event()
+
+    def run(self,view=True,subroutine=None,subroutine_args=None):
         '''
         Forward method for the scene. Evolves PObjects over time according
         to a Physics and renders the simulation to the screen with a Graphics
@@ -390,17 +565,29 @@ class SceneBuilder(Scene):
         while self.running:
             if self.step:
                 # Physics
+                # Check if shape is colliding with anything
                 self.physics.forward()
+                for obj in self.objects:
+                    if obj.name == "Ball":
+                        ball = obj
+                        print(f"Kinetic E: {ball.body.kinetic_energy}")
+                # coll_b,coll_g,coll_c = check_collision(self.shape,self.objects,self.physics.handlers)
+                straight_path_collision(self.objects,self.graphics,self.physics)
                 if self.physics.collision():
                     print(f'tick: {self.physics.tick}')
                     self.step = False
                     self.reset_physics_vars()
             # Graphics
             self.graphics.draw(self.objects)
+            # self.graphics.debug_draw(self.physics.space)
             self.graphics.clock.tick(self.graphics.fps)
+            # draw_shape(self.shape,self.graphics.screen)
+            straight_path_collision(self.objects,self.graphics,self.physics)
+            self.graphics.update_display()
             # User Events
             self.event()
 
     def instantiate_scene(self):
+        # Get the ball
         for obj in self.objects:
             self.physics.space.add(*obj.components)

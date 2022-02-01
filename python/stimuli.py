@@ -4,7 +4,7 @@ import pymunk
 from handlers import goal_ball
 import json
 
-def generate_container_args(n,nc,ball_args,goal_args,line_args):
+def generate_container_args(n,nc,ball_args,goal_args,line_args=None):
     '''
     Generate a list of arguments for containers to be added to a Scene.
 
@@ -67,16 +67,15 @@ def generate_container_args(n,nc,ball_args,goal_args,line_args):
             for container in candidate_args[:-1]+opt_args:
                 # Extract parameters of other container
                 _, _, _, _, otr, obl = container
-                print(line_args[0][0])
                 # Map the contianer args onto a pymunk bounding box
                 bb = pymunk.BB(left=bl[0],right=tr[0],top=bl[1],bottom=tr[1])
                 obb = pymunk.BB(left=obl[0],right=otr[0],top=obl[1],bottom=otr[1])
-                lbb = pymunk.BB(left=line_args[0][0][0],right=line_args[0][1][0],top=line_args[0][1][0],bottom=line_args[0][1][1])
+                # lbb = pymunk.BB(left=line_args[0][0][0],right=line_args[0][1][0],top=line_args[0][1][0],bottom=line_args[0][1][1])
                 # Check for intersection
                 if bb.intersects(obb):
                     overlaps=True
-                elif bb.intersects(lbb):
-                    overlaps=True
+                # elif bb.intersects(lbb):
+                #     overlaps=True
 
             # If overlaps don't include in container arguments
             if overlaps:

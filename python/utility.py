@@ -53,7 +53,7 @@ def add_containers(dir,ddir):
         scene.run()
         vid_from_img(sname,ddir)
 
-def scene_json_to_video(odir,ddir):
+def scene_json_to_video(odir,ddir,subroutine=None):
     '''
     Converts all of the scene json files into videos.
 
@@ -67,10 +67,37 @@ def scene_json_to_video(odir,ddir):
         print(sname)
         scene = load_scene(odir+file)
         scene.graphics.instantiate_screen_recorder(ddir,sname)
-        scene.graphics.draw_params['ball_alpha'] = True
+        # scene.graphics.draw_params['ball_alpha'] = True
         scene.instantiate_scene()
-        scene.run()
+        # scene.run(view=True,\
+        #     subroutine=subroutine,
+        #     name=sname)
+        scene.run_path(view=True)
         vid_from_img(sname,ddir)
+
+def scene_json_to_snapshot(odir,ddir):
+    '''
+    Runs a Scene from a json file until the Scene
+    stops via abstraction. Takes a snapshot of the last tick in the Scene.
+    Used for debugging the abstraction model.
+
+    :param odir: The directory with the JSONs
+    :param dir: The directory to save the snapshots to
+    '''
+    json_files = [jsonf for jsonf in os.listdir(odir) if jsonf.endswith('.json')]
+
+    for file in json_files:
+        sname = file.split('.')[0]
+        physics = Physics()
+        graphics = Graphics()
+        objects = load_objects(odir+file)
+        scene = Scene(physics, objects, graphics)
+        scene.graphics.framework.display.set_caption(file)
+        scene.graphics.initialize_graphics()
+        scene.instantiate_scene()
+        scene.run(view=True,\
+            subroutine=straight_path_collision,
+            name=sname)
 
 def save_scene(dir, name, scene, o_args):
     '''

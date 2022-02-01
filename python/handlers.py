@@ -36,3 +36,6 @@ def is_colliding(arbiter, space, data):
 def not_colliding(arbiter, space, data):
     data['colliding'] = False
     return True
+
+def straight_path(arbiter,space,data):
+    return True

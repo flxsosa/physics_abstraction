@@ -6,15 +6,15 @@ from objects import *
 from simulation import *
 from models import *
 
-# Object map
-obj_map = {
-    "Ball":Ball,
-    "Container":Container,
-    "Goal":Goal     
-}
-
 # Dictionary for reading data
-scene_vals = {'name':[],'ticks':[], 'tick_mean':[]}
+scene_vals = {
+    'name':[],
+    'deterministic':[], 
+    'stochastic':[],
+    'sprt':[],
+    'abstraction_sp':[],
+    'abstraction_pp':[]
+    }
 # Directory where scene JSONs are
 dir = "../data/json/pilot3/"
 # Directory to write CSV to
@@ -26,14 +26,23 @@ for file in json_files:
     with open(dir+file, 'r') as f:
         scene_args = json.loads(f.read())
         scene_vals['name'].append(scene_args['name'])
-        try:
-            scene_vals['ticks'].append(scene_args['tick_samples'])
-            scene_vals['tick_mean'].append(np.mean(scene_args['tick_samples']))
-        except KeyError:
-            scene_vals['ticks'].append([scene_args['tick']])
-            scene_vals['tick_mean'].append(scene_args['tick'])
-
-with open(w_dir+'simulation_vals.json', 'w') as f:
+        scene_vals['deterministic'].append(determinstic_simulation(
+            (scene_args)
+        ))
+        scene_vals['stochastic'].append(stochastic_simulation(
+            (scene_args)
+        ))
+        scene_vals['sprt'].append(sprt(
+            (scene_args)
+        ))
+        scene_vals['abstraction_sp'].append(abstraction_simulation_sp(
+            (scene_args)
+        ))
+        scene_vals['abstraction_pp'].append(abstraction_simulation_pp(
+            (scene_args)
+        ))
+        
+with open(w_dir+'models.json', 'w') as f:
     json.dump(scene_vals, f)
 
     
