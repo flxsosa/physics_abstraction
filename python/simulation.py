@@ -1,7 +1,5 @@
 # For Physics and Object
-from re import S
 import pymunk
-from pyparsing import col
 from handlers import is_colliding, not_colliding
 # For Graphics
 import pygame
@@ -11,11 +9,9 @@ from pygame.color import *
 from math import cos,sin,sqrt
 # For general
 from random import randrange
-from helper import draw_circle_alpha, adjust_body_angle
+from helper import draw_circle_alpha
 # For abstraction
-from objects import Sensor
-from math import cos, sin, degrees, pi, radians
-import numpy as np
+from math import cos, sin
 from pymunk.pygame_util import *
 from abstraction import *
 
@@ -303,7 +299,7 @@ class Scene:
                         o.body.position = pos
                         o.body.velocity = (0,0)
 
-    def run_path(self,view=True,N=10,D=100,E=0.9):
+    def run_path(self,view=True,N=25,D=20,E=0.07):
         '''
         Forward method for the scene. Evolves PObjects over time according
         to a Physics and renders the simulation to the screen with a Graphics

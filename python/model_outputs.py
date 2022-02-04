@@ -13,7 +13,8 @@ scene_vals = {
     'stochastic':[],
     'sprt':[],
     'abstraction_sp':[],
-    'abstraction_pp':[]
+    'abstraction_pp':[],
+    'abstraction_pp_fit':[]
     }
 # Directory where scene JSONs are
 dir = "../data/json/pilot3/"
@@ -40,6 +41,9 @@ for file in json_files:
         ))
         scene_vals['abstraction_pp'].append(abstraction_simulation_pp(
             (scene_args)
+        ))
+        scene_vals['abstraction_pp_fit'].append(abstraction_simulation_pp(
+            (scene_args),N=25,D=20,E=0.07
         ))
         
 with open(w_dir+'models.json', 'w') as f:

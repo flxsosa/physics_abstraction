@@ -1,10 +1,8 @@
-from math import cos, sin, pi, radians
-from turtle import Vec2D
+from math import pi, radians
 import numpy as np
 import pymunk
 import pygame
 from pymunk.pygame_util import *
-from pymunk import Transform, Vec2d
 from helper import rotate
 
 # Straight Path

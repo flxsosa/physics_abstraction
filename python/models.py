@@ -249,4 +249,4 @@ def abstraction_simulation_pp(scene_args,N=5,D=100,E=0.9):
     # Get collision probability
     collision_prob += scene.physics.handlers['ball_goal'].data['colliding']
     
-    return ticks[0]
+    return collision_prob, 1, ticks
