@@ -1,11 +1,10 @@
+import argparse
 import pandas as pd
 import pymc3 as pm
 import numpy as np
 import os
-import sys
 import json
 import theano.tensor as tt
-import arviz as az
 from models import abstraction_simulation_pp
 
 def my_model(theta,x):
@@ -63,53 +62,80 @@ class LogLike(tt.Op):
 
         outputs[0][0] = np.array(logl)  # output the log-likelihood
 
-data = pd.read_json('../data/cleaned_data.json')
-scenedir = "../data/scenes/"
-scene_files = [s_json for s_json in os.listdir(scenedir) if s_json.endswith('.json')]
+# Data directory
 
-scene_args = {}
-for file in scene_files:
-    with open(scenedir+file, 'r') as f:
-        sargs = (json.loads(f.read()))
-        scene_args[sargs['name'].split(".")[0]] = sargs
+def main():
+    parser = argparse.ArgumentParser(
+        description="Automatically submit jobs using a json file")
+    parser.add_argument('datadir', 
+        help="read-directory where participant data is")
+    parser.add_argument('scenedir',
+        help='read-directory where scene simulation parameter files are')
+    parser.add_argument('savedir',
+        help='write-directory where model parameter files saved to')
+    parser.add_argument('numsamples', default=1,
+        help='number of samples to draw per chain')
+    parser.add_argument('burnin', default=1,
+        help='number of samples for burn-in')
+    parser.add_argument('-t','--test',action='store_false',
+        help='test scripts without submitting them')
+    args = parser.parse_args()
 
-# Observed RT
-RT_y_mean = data.groupby('scene').rt.apply(np.mean)
-RT_y_std = data.groupby('scene').rt.apply(np.std).mean()
-RT_x = RT_y_mean.index.to_list()
-
-abstraction_model = pm.Model()
-loglike = LogLike(log_likelihood,RT_y_mean,RT_x,RT_y_std)
-
-with abstraction_model:
-    # Priors on model parameters
-    # Number of samples to take from simulator
-    N = pm.DiscreteUniform("N",lower=1,upper=25)
-    # Length of path projection
-    D = pm.TruncatedNormal("D",sigma=10, lower=20)
-    # Cosine similarity threshold
-    E = pm.TruncatedNormal("E",sigma=0.1,lower=0,upper=1)
+    # Extract args
+    data = pd.read_json(args.datadir)
+    scenedir = args.scenedir
+    ndraws = args.numsamples  # number of draws from the distribution
+    nburn = args.burnin  # number of "burn-in points" (which we'll discard)
     
-    theta = tt.as_tensor_variable([N,D,E])
-    
-    pm.Potential("likelihood",loglike(theta))
-    
-ndraws = 3000  # number of draws from the distribution
-nburn = 1000  # number of "burn-in points" (which we'll discard)
+    # Collect scene parameter files for simulator
+    scene_files = [s_json for s_json in os.listdir(scenedir) if s_json.endswith('.json')]
+    scene_args = {}
+    for file in scene_files:
+        with open(scenedir+file, 'r') as f:
+            sargs = (json.loads(f.read()))
+            scene_args[sargs['name'].split(".")[0]] = sargs
 
-with abstraction_model:
-    trace = pm.sample(ndraws,tune=nburn, 
-                      cores=4,
-                      discard_tuned_samples=True, 
-                      step=pm.Metropolis(),
-                      start = {
-                          'N': 10,
-                          'D': 100.0,
-                          'E': 0.9
-                      })
-    print(pm.summary(trace).to_string())
+    # Collect observed mean RT from empirical data
+    RT_y_mean = data.groupby('scene').rt.apply(np.mean)
+    RT_y_std = data.groupby('scene').rt.apply(np.std).mean()
+    RT_x = RT_y_mean.index.to_list()
 
-with abstraction_model:
-  df = pm.trace_to_dataframe(trace)
+    # Define model
+    abstraction_model = pm.Model()
+    loglike = LogLike(log_likelihood,RT_y_mean,RT_x,RT_y_std)
+    with abstraction_model:
+        # Priors on model parameters
+        # Number of samples to take from simulator
+        N = pm.DiscreteUniform("N",lower=1,upper=25)
+        # Length of path projection
+        D = pm.TruncatedNormal("D",sigma=10, lower=20)
+        # Cosine similarity threshold
+        E = pm.TruncatedNormal("E",sigma=0.1,lower=0,upper=1)
+        
+        theta = tt.as_tensor_variable([N,D,E])
+        
+        pm.Potential("likelihood",loglike(theta))
 
-df.to_json("../data/abstraction_model_pp_fit_1.json")
+    # Check if test run
+    if not args.test:
+        # If not, run model
+        with abstraction_model:
+            trace = pm.sample(ndraws,tune=nburn, 
+                            cores=4,
+                            discard_tuned_samples=True, 
+                            step=pm.Metropolis(),
+                            start = {
+                                'N': 10,
+                                'D': 100.0,
+                                'E': 0.9
+                            })
+            print(pm.summary(trace).to_string())
+        # Save model to storage
+        with abstraction_model:
+            df = pm.trace_to_dataframe(trace)
+        df.to_json(args.savedir)
+    else:
+        print(f"All seems to have gone well...")
+
+if __name__ == "__main__":
+    main()
