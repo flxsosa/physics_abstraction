@@ -56,7 +56,7 @@ def main():
         y_pred = []
         # Get model predictins for each scene
         for scene in x:
-            y_pred.append(abstraction_simulation_pp(scene_args[scene],int(N),D,E)[-1])
+            y_pred.append(abstraction_simulation_pp(scene_args[scene],int(N),D,E)[-1][0])
         # Convert to array
         y_pred = np.array(y_pred)
         return y_pred
