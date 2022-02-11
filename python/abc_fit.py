@@ -27,8 +27,8 @@ def main():
     # Extract args
     data = pd.read_json(args.datadir)
     scenedir = args.scenedir
-    ndraws = args.numsamples  # number of draws from the distribution
-    nburn = args.burnin  # number of "burn-in points" (which we'll discard)
+    ndraws = int(args.numsamples)  # number of draws from the distribution
+    nburn = int(args.burnin)  # number of "burn-in points" (which we'll discard)
     
     # Collect scene parameter files for simulator
     scene_files = [s_json for s_json in os.listdir(scenedir) if s_json.endswith('.json')]
