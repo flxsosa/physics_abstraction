@@ -22,8 +22,6 @@ def main():
         help='number of samples to draw per chain')
     parser.add_argument('burnin', default=1,
         help='number of samples for burn-in')
-    parser.add_argument('-t','--test',action='store_false',
-        help='test scripts without submitting them')
     args = parser.parse_args()
 
     # Extract args
@@ -116,26 +114,24 @@ def main():
         
         pm.Potential("likelihood",loglike(theta))
 
-    # Check if test run
-    if not args.test:
-        # If not, run model
-        with abstraction_model:
-            trace = pm.sample(ndraws,tune=nburn, 
-                            cores=4,
-                            discard_tuned_samples=True, 
-                            step=pm.Metropolis(),
-                            start = {
-                                'N': 10,
-                                'D': 100.0,
-                                'E': 0.9
-                            })
-            print(pm.summary(trace).to_string())
-        # Save model to storage
-        with abstraction_model:
-            df = pm.trace_to_dataframe(trace)
-        df.to_json(args.savedir)
-    else:
-        print(f"All seems to have gone well...")
+    # If not, run model
+    with abstraction_model:
+        trace = pm.sample(ndraws,tune=nburn, 
+                        cores=1,
+                        chains=1,
+                        discard_tuned_samples=True, 
+                        step=pm.Metropolis(),
+                        start = {
+                            'N': 10,
+                            'D': 100.0,
+                            'E': 0.9
+                        })
+        print(pm.summary(trace).to_string())
+    # Save model to storage
+    with abstraction_model:
+        df = pm.trace_to_dataframe(trace)
+    df.to_json(args.savedir)
+    print(f"All seems to have gone well...")
 
 if __name__ == "__main__":
     main()
