@@ -1,5 +1,5 @@
 from objects import *
-from simulation import *
+from simulation import Scene, Physics, Graphics
 from numpy.random import normal
 from abstraction import straight_path_collision
 
