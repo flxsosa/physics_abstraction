@@ -3,7 +3,6 @@ import pymunk
 from handlers import is_colliding, not_colliding
 # For Graphics
 import pygame
-import pymunk.pygame_util
 from pygame.locals import *
 from pygame.color import *
 from math import cos,sin,sqrt
@@ -12,7 +11,6 @@ from random import randrange
 from helper import draw_circle_alpha
 # For abstraction
 from math import cos, sin
-from pymunk.pygame_util import *
 from abstraction import *
 
 class Listener:
