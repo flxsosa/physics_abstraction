@@ -7,61 +7,6 @@ import json
 import theano.tensor as tt
 from models import abstraction_simulation_pp
 
-def my_model(theta,x):
-    '''
-    :param theta: Expected theta == [N, D, E]
-    :param x: Expected list of scene arguments
-    '''
-    # Unpack model params
-    N,D,E = theta
-    # Model predictions
-    y_pred = []
-    # Get model predictins for each scene
-    for scene in x:
-        y_pred.append(abstraction_simulation_pp(scene_args[scene],int(N),D,E))
-    # Convert to array
-    y_pred = np.array(y_pred)
-    return y_pred
-
-# The loglikelihood function
-def log_likelihood(theta, x, data, sigma):
-    '''
-    Normal log-likelihoood
-    
-    :param data: Empirical repsonse times
-    :param sigma: Empirical response time stddev
-    :param x: Scene arguments, expected: [scene_1,scene2,...]
-    :param theta: Model parameters, expected: [N,D,E]
-    '''
-    
-    # Model simulation times
-    y_pred = my_model(theta,x)
-    
-    # Divergence from data
-    retval = -(0.5 / sigma ** 2) * np.sum((data - y_pred) ** 2)
-    return retval
-
-# define a theano Op for our likelihood function
-class LogLike(tt.Op):
-    itypes = [tt.dvector]  # expects a vector of parameter values when called
-    otypes = [tt.dscalar]  # outputs a single scalar value (the log likelihood)
-
-    def __init__(self, loglike, data, x, sigma):
-        # add inputs as class attributes
-        self.likelihood = loglike
-        self.data = data
-        self.x = x
-        self.sigma = sigma
-
-    def perform(self, node, inputs, outputs):
-        # the method that is used when calling the Op
-        (theta,) = inputs  # this will contain my variables
-
-        # call the log-likelihood function
-        logl = self.likelihood(theta, self.x, self.data, self.sigma)
-
-        outputs[0][0] = np.array(logl)  # output the log-likelihood
-
 # Data directory
 
 def main():
@@ -100,6 +45,61 @@ def main():
     RT_y_std = data.groupby('scene').rt.apply(np.std).mean()
     RT_x = RT_y_mean.index.to_list()
 
+    def my_model(theta,x):
+        '''
+        :param theta: Expected theta == [N, D, E]
+        :param x: Expected list of scene arguments
+        '''
+        # Unpack model params
+        N,D,E = theta
+        # Model predictions
+        y_pred = []
+        # Get model predictins for each scene
+        for scene in x:
+            y_pred.append(abstraction_simulation_pp(scene_args[scene],int(N),D,E))
+        # Convert to array
+        y_pred = np.array(y_pred)
+        return y_pred
+
+    # The loglikelihood function
+    def log_likelihood(theta, x, data, sigma):
+        '''
+        Normal log-likelihoood
+        
+        :param data: Empirical repsonse times
+        :param sigma: Empirical response time stddev
+        :param x: Scene arguments, expected: [scene_1,scene2,...]
+        :param theta: Model parameters, expected: [N,D,E]
+        '''
+        
+        # Model simulation times
+        y_pred = my_model(theta,x)
+        
+        # Divergence from data
+        retval = -(0.5 / sigma ** 2) * np.sum((data - y_pred) ** 2)
+        return retval
+
+    # define a theano Op for our likelihood function
+    class LogLike(tt.Op):
+        itypes = [tt.dvector]  # expects a vector of parameter values when called
+        otypes = [tt.dscalar]  # outputs a single scalar value (the log likelihood)
+
+        def __init__(self, loglike, data, x, sigma):
+            # add inputs as class attributes
+            self.likelihood = loglike
+            self.data = data
+            self.x = x
+            self.sigma = sigma
+
+        def perform(self, node, inputs, outputs):
+            # the method that is used when calling the Op
+            (theta,) = inputs  # this will contain my variables
+
+            # call the log-likelihood function
+            logl = self.likelihood(theta, self.x, self.data, self.sigma)
+
+            outputs[0][0] = np.array(logl)  # output the log-likelihood
+    
     # Define model
     abstraction_model = pm.Model()
     loglike = LogLike(log_likelihood,RT_y_mean,RT_x,RT_y_std)
