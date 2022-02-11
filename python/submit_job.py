@@ -28,10 +28,10 @@ def main():
             submit_command = (
                 "sbatch " + # sbatch command
                 # Output log files here
-                f"- o ~/projects/physabs/.out/{fname}.job_log " +
+                f"-o ~/projects/physabs/.out/{fname}.job_log " +
                 # Job name
                 f"--job-name={fname} " +
-                f"--export=FNAME={fname} " +
+                f"--export=FNAME={fname},NUMSAMPLES={num_samples},BURNIN={burnin} " +
                 # The job script!
                 args.jobscript)
             # Check if job is a test job
