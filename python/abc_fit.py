@@ -117,8 +117,8 @@ def main():
     # If not, run model
     with abstraction_model:
         trace = pm.sample(ndraws,tune=nburn, 
-                        cores=1,
-                        chains=1,
+                        cores=10,
+                        chains=10,
                         discard_tuned_samples=True, 
                         step=pm.Metropolis(),
                         start = {
