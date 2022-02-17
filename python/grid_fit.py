@@ -21,9 +21,9 @@ def main():
     args = parser.parse_args()
 
     # Parameter spaces
-    N = range(5,7)
-    D = range(100,101)
-    E = np.arange(0.98,1.0,0.01)
+    N = range(5,50)
+    D = range(100,500)
+    E = np.arange(0.1,1.0,0.01)
     # Import empirical data
     data = pd.read_json(args.datadir)
     # Import scene configuration files
