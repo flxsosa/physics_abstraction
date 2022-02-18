@@ -25,7 +25,7 @@ def main():
             # Job name
             f"--job-name={fname} " +
             # Export relevant variables to jobscript
-            f"--export=NRANGE={n},DRANGE={d},FNAME={fname} " +
+            f"--export=NRANGE={str(n)},DRANGE={str(d)},FNAME={fname} " +
             # The job script
             args.jobscript)
         # Execute sbatch command
