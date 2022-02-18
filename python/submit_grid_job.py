@@ -17,15 +17,19 @@ def main():
     for param_setting in ((n,d) for n in n_ranges for d in d_ranges):
         # N and d parameter ranges
         n, d = param_setting
+        n1, n2 = n[0],n[1]
+        d1, d2 = d[0],d[1]
+
         # Get the filename for storage
-        fname = f"grid_fits_n{n[0]}_{n[1]}_d{d[0]}_{d[1]}"
+        fname = f"grid_fits_n{n1}_{n2}_d{d1}_{d2}"
         # The sbatch command
         submit_command = (
             "sbatch " + # sbatch command
             # Job name
             f"--job-name={fname} " +
             # Export relevant variables to jobscript
-            f"--export=NRANGE={str(n)},DRANGE={str(d)},FNAME={fname} " +
+            f"--export=NRANGE1={n1},NRANGE2={n2}, \
+                DRANGE1={d1},DRANGE2={d2},FNAME={fname} " +
             # The job script
             args.jobscript)
         # Execute sbatch command

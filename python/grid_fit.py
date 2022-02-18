@@ -20,15 +20,19 @@ def main():
         help='read-directory where scene simulation parameter files are')
     parser.add_argument('savedir',
         help='write-directory where model parameter files saved to')
-    parser.add_argument('nrange',
+    parser.add_argument('nrange1',
         help='the range of values for N')
-    parser.add_argument('drange',
+    parser.add_argument('nrange2',
+        help='the range of values for N')
+    parser.add_argument('drange1',
         help="the range of values for D")
+    parser.add_argument('nrange2',
+        help='the range of values for N')
     args = parser.parse_args()
 
     # Parameter spaces
-    N = ast.literal_eval(args.nrange)
-    D = ast.literal_eval(args.drange)
+    N = range(args.nrange1,args.nrange2)
+    D = range(args.nrange1,args.nrange2)
     E = np.arange(0.1,1.0,0.01)
 
     # Import empirical data
