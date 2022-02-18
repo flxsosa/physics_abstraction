@@ -8,6 +8,8 @@ import theano.tensor as tt
 import arviz as az
 from statsmodels.formula.api import ols
 from models import abstraction_simulation_pp
+import time
+import ast
 
 def main():
     parser = argparse.ArgumentParser(
@@ -18,14 +20,20 @@ def main():
         help='read-directory where scene simulation parameter files are')
     parser.add_argument('savedir',
         help='write-directory where model parameter files saved to')
+    parser.add_argument('nrange',
+        help='the range of values for N')
+    parser.add_argument('drange',
+        help="the range of values for D")
     args = parser.parse_args()
 
     # Parameter spaces
-    N = range(5,50)
-    D = range(100,500)
+    N = ast.literal_eval(args.nrange)
+    D = ast.literal_eval(args.drange)
     E = np.arange(0.1,1.0,0.01)
+
     # Import empirical data
     data = pd.read_json(args.datadir)
+
     # Import scene configuration files
     scene_files = [scene_json for scene_json in os.listdir(args.scenedir) if scene_json.endswith('.json')]
     scene_args = {}
@@ -33,13 +41,13 @@ def main():
         with open(args.scenedir+file, 'r') as f:
             sargs = (json.loads(f.read()))
             scene_args[sargs['name'].split(".")[0]] = sargs
+
     # Observed RT
     rt_mean = data.groupby('scene').rt.apply(np.mean).to_frame()
     scenes = rt_mean.index.to_list()
+
     # Regression parameters
     formula = 'rt ~ y_pred'
-    # Top 10 models
-    max_pe = 10
 
     def my_model(N,D,E):
         '''
@@ -73,7 +81,10 @@ def main():
                     l[0] = m
         return l
 
+    # List for best parameters
     point_estimates = []
+    max_pe = 1
+
     # Grid search
     for n_i in N:
         for d_i in D:
@@ -83,8 +94,9 @@ def main():
                 model_fit = ols(formula, df).fit()
                 point_estimates = add_to_list(point_estimates, model_fit)
 
+    # Save the models
     for i in range(len(point_estimates)):
-        point_estimates[i].save(f"grid_fit_{i}.pickle")
+        point_estimates[i].save(f"{args.savedir}_{i}.pickle")
 
 if __name__ == "__main__":
     main()
