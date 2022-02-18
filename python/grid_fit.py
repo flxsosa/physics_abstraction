@@ -20,13 +20,13 @@ def main():
         help='read-directory where scene simulation parameter files are')
     parser.add_argument('savedir',
         help='write-directory where model parameter files saved to')
-    parser.add_argument('nrange1',
+    parser.add_argument('nrange1',type=int,
         help='the range of values for N')
-    parser.add_argument('nrange2',
+    parser.add_argument('nrange2',type=int,
         help='the range of values for N')
-    parser.add_argument('drange1',
+    parser.add_argument('drange1',type=int,
         help="the range of values for D")
-    parser.add_argument('nrange2',
+    parser.add_argument('nrange2',type=int,
         help='the range of values for N')
     args = parser.parse_args()
 
