@@ -306,7 +306,7 @@ class Scene:
             self.graphics.initialize_graphics()
         while self.running:
             # Get projected path and end positio of path
-            ball_pos_pp, valid_pp = path_projection(self.objects,self.graphics,self.physics,D)
+            ball_pos_pp, valid_pp = path_projection(self.objects,self.physics,D)
             # Step simulator forward N times
             for _ in range(int(N)):
                 # Physics
@@ -509,12 +509,13 @@ class SceneBuilder(Scene):
         Forward method for the scene. Evolves PObjects over time according
         to a Physics and renders the simulation to the screen with a Graphics
         '''
-        N = 10
+        N = 35
         epsilon = 0.9
+        D = 200
         self.graphics.initialize_graphics()
         while self.running:
             # Get projected path and end positio of path
-            ball_pos_pp, valid_pp = path_projection(self.objects,self.graphics,self.physics)
+            ball_pos_pp, valid_pp = path_projection(self.objects,self.physics, D)
             # Step simulator forward N times
             for _ in range(N):
                 # Physics
