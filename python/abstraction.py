@@ -205,9 +205,13 @@ def check_collision_all(sensorshape,objects,verbose=False):
 
 # Path Projection
 
-def path_projection(objects, graphics, physics, D=100):
+def path_projection(objects, physics, D=100):
     '''
     Could check out position_func in pymunk
+
+    :param objects: Set of objects in the scene
+    :param physics: Physics backend for scene
+    :param D: Length of path projection
     '''
     # Get the ball
     for obj in objects:
