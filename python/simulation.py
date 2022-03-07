@@ -8,7 +8,6 @@ from pygame.color import *
 from math import cos,sin,sqrt
 # For general
 from random import randrange
-from helper import draw_circle_alpha
 # For abstraction
 from math import cos, sin
 from abstraction import *
@@ -297,7 +296,7 @@ class Scene:
                         o.body.position = pos
                         o.body.velocity = (0,0)
 
-    def run_path(self,view=True,N=25,D=20,E=0.07):
+    def run_path(self,view=True,N=None,D=None,E=None):
         '''
         Forward method for the scene. Evolves PObjects over time according
         to a Physics and renders the simulation to the screen with a Graphics
@@ -320,8 +319,9 @@ class Scene:
                     self.graphics.draw_circle_at_point(ball_pos_pp)
                     self.graphics.clock.tick(self.graphics.fps)
                     self.graphics.update_display()
-            if self.physics.tick > 1000:
+            if self.physics.tick > 5000:
                 self.running = False
+                self.physics.tick = 1e5
             # Get the ball
             for obj in self.objects:
                 if obj.name == "Ball":
@@ -340,7 +340,6 @@ class Scene:
             if view:
                 self.graphics.draw(self.objects)
                 self.graphics.draw_circle_at_point(ball_pos_pp)
-                # self.graphics.debug_draw(self.physics.space)
                 self.graphics.clock.tick(self.graphics.fps)
                 self.graphics.update_display()
                 # User Events
@@ -417,7 +416,6 @@ class SceneBuilder(Scene):
         name = input("Name the scene: ")
         record = {}
         record['name'] = name
-        # record['collision_prob'] = scene.listeners['collision_prob']
         record['screen_size'] = self.graphics.screen_size
         record['tick'] = None
         record['objects'] = [obj.name for obj in self.objects]
@@ -544,13 +542,12 @@ class SceneBuilder(Scene):
             if view:
                 self.graphics.draw(self.objects)
                 self.graphics.draw_circle_at_point(ball_pos_pp)
-                # self.graphics.debug_draw(self.physics.space)
                 self.graphics.clock.tick(self.graphics.fps)
                 self.graphics.update_display()
                 # User Events
                 self.event()
 
-    def run(self,view=True,subroutine=None,subroutine_args=None):
+    def run(self):
         '''
         Forward method for the scene. Evolves PObjects over time according
         to a Physics and renders the simulation to the screen with a Graphics
@@ -561,22 +558,13 @@ class SceneBuilder(Scene):
                 # Physics
                 # Check if shape is colliding with anything
                 self.physics.forward()
-                for obj in self.objects:
-                    if obj.name == "Ball":
-                        ball = obj
-                        print(f"Kinetic E: {ball.body.kinetic_energy}")
-                # coll_b,coll_g,coll_c = check_collision(self.shape,self.objects,self.physics.handlers)
-                straight_path_collision(self.objects,self.graphics,self.physics)
                 if self.physics.collision():
                     print(f'tick: {self.physics.tick}')
                     self.step = False
                     self.reset_physics_vars()
             # Graphics
             self.graphics.draw(self.objects)
-            # self.graphics.debug_draw(self.physics.space)
             self.graphics.clock.tick(self.graphics.fps)
-            # draw_shape(self.shape,self.graphics.screen)
-            straight_path_collision(self.objects,self.graphics,self.physics)
             self.graphics.update_display()
             # User Events
             self.event()
