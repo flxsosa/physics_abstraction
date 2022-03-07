@@ -4,6 +4,11 @@ from numpy.random import normal
 from abstraction import straight_path_collision
 
 def load_object_arg_pairs(scene_args):
+    '''
+    Instantiates objects via (object, argument) tuples
+
+    :param scene_args: Arguments for scenes
+    '''
     obj_map = {
         "Ball":Ball,
         "Container":Container,
@@ -44,6 +49,8 @@ def determinstic_simulation(scene_args):
     Deterministic physics simulator. Model outputs are end
     state of the scene and the number of ticks of one run 
     of a scene with no noise.
+
+    :param scene_args: Arguments for scenes
     '''
     ticks = []
     collision_prob = 0
@@ -75,6 +82,10 @@ def stochastic_simulation(scene_args,samples=100,noise=0.02):
     probability ratings for end states and the
     averaged number of ticks over N runs of a scene with 
     S noise.
+
+    :param scene_args: Arguments for scenes
+    :param samples: Number of samples to draw
+    :param noise: Noise injected into simulator
     '''
     ticks = []
     collision_prob = 0
@@ -111,6 +122,11 @@ def sprt_closed(scene_args,T=2,samples=100,noise=0.02):
     Wald, 1947). Model outputs are the probability ratings
     for end states and the number of samples needed to decide
     on an end state.
+
+    :param scene_args: Arguments for scenes
+    :param T: Stopping threshold for SPRT
+    :param samples: Number of samples to take
+    :param noise: Noise to inject into simulator
     '''
     ticks = []
     collision_prob = 0
@@ -155,6 +171,10 @@ def sprt(scene_args,noise=0.02,T=2):
     Wald, 1947). Model outputs are the probability ratings
     for end states and the number of samples needed to decide
     on an end state.
+
+    :param scene_args: Arguments for scenes
+    :param noise: Noise to inject into simulator
+    :param T: Stopping threshold for SPRT
     '''
     # Stopping criterion
     yn = 0
@@ -197,6 +217,8 @@ def abstraction_simulation_sp(scene_args):
     Deterministic physics simulator. Model outputs are end
     state of the scene and the number of ticks of one run 
     of a scene with no noise.
+
+    :param scene_args: Arguments for scenes
     '''
     ticks = []
     collision_prob = 0
@@ -227,6 +249,11 @@ def abstraction_simulation_pp(scene_args,N=5,D=100,E=0.9):
     Deterministic physics simulator. Model outputs are end
     state of the scene and the number of ticks of one run 
     of a scene with no noise.
+
+    :param scene_args: Arguments for scenes
+    :param N: Number of forward passes of physics engine
+    :param D: Length of path projection
+    :oparam E: Cossim threshold for accepting abstraction
     '''
     ticks = []
     collision_prob = 0
