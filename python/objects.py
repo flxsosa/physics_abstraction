@@ -35,7 +35,7 @@ class PlinkoBorder(PObject):
         x0, y0 = 10, span[1]*0.2+10
         x1, y1 = span[0]-10,span[1]-10
         segments = [(x0,y0),(x0,y1),(x1,y1),(x1,y0)] # Right
-        # Left and Rigth
+        # Left and Right
         for i in range(3):
             if i == 1:
                 continue
@@ -157,7 +157,6 @@ class SensorBall(PObject):
         shape.collision_type = 0
         shape2 = pymunk.Segment(body,(0,0),(100,100), 4)
         shape2.collision_type = 9
-        # shape2.sensor = True
         shape2.color = "black"
         components = [body,shape,shape2]
         super().__init__("Ball",body,components)
