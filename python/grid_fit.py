@@ -96,11 +96,7 @@ def main():
                 y_ = my_model(n_i,d_i,e_i)
                 df = rt_mean.merge(y_, on="scene")
                 model_fit = ols(formula, df).fit()
-                point_estimates = add_to_list(point_estimates, model_fit)
-
-    # Save the models
-    for i in range(len(point_estimates)):
-        point_estimates[i].save(f"{args.savedir}_{i}.pickle")
+                model_fit.save(f"{args.savedir}_n_{n_i}_d_{d_i}_e_{e_i}.pickle")
 
 if __name__ == "__main__":
     main()
