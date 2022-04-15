@@ -11,6 +11,8 @@ from random import randrange
 # For abstraction
 from math import cos, sin
 from abstraction import *
+import objects
+from helper import draw_circle_alpha
 
 class Listener:
     '''
@@ -56,10 +58,9 @@ class Graphics:
             'Ball':pygame.Color(randrange(156),randrange(156),randrange(156)),
             'Goal':pygame.Color(randrange(156),randrange(156),randrange(156)),
             'Container':pygame.Color("Black"),
-            'Border':pygame.Color("Black"),
-            'ball_alpha':False # Flag for whether we're making fading videos or not
+            'Border':pygame.Color("Black")
             }
-    
+
     def instantiate_screen_recorder(self, dir, fname):
         '''
         Method for instantiating the screen recorder.
@@ -84,10 +85,9 @@ class Graphics:
             self.framework.image.save(self.screen,file_name)
             yield
     
-    def _take_snapshot(self,dir,fname,collision):
-        file_name = dir+fname+"_"+collision+".jpg"
+    def _take_snapshot(self,dir,fname):
+        file_name = dir+fname+".jpg"
         self.framework.image.save(self.screen,file_name)
-        print("g")
 
     def draw_x_ball(self,objects,color=pygame.Color("Black")):
         for o in objects:
@@ -97,10 +97,10 @@ class Graphics:
                 pygame.draw.line(self.screen, color, (posx-r,posy-r),(posx+r,posy+r),4)
                 pygame.draw.line(self.screen, color, (posx+r,posy-r),(posx-r,posy+r),4)
 
-    def draw_bb(self, shape):
-            pos = shape.bb.left, shape.bb.bottom
-            w = shape.bb.right - shape.bb.left
-            h = shape.bb.top - shape.bb.bottom
+    def draw_bb(self, bb):
+            pos = bb.left, bb.bottom
+            w = bb.right - bb.left
+            h = bb.top - bb.bottom
             p = to_pygame(pos, self.screen)
             pygame.draw.rect(self.screen, pygame.Color("Blue"), (*p, w, h), 1)
 
@@ -122,7 +122,7 @@ class Graphics:
         for o in objects:
             # Drawing the ball
             if o.name == "Ball":
-                if self.draw_params['ball_alpha']:
+                if self.draw_params.get('ball_alpha'):
                     # Get color object of Ball
                     color = self.draw_params['Ball']
                     # Set alpha value of color object according to curent tick
@@ -130,8 +130,22 @@ class Graphics:
                     # Draw circle
                     draw_circle_alpha(self.screen, color, o.body.position, 20)
                     # Once shape disappears, end simulation
-                    if color.a == 0:
-                        self.running = False
+                    # if color.a == 0:
+                    #     self.running = False
+                elif self.draw_params.get('trace'):
+                    color = pygame.Color("Black")
+                    self.draw_params['trace'].append(o.body.position)
+                    for point in self.draw_params['trace']:
+                        pygame.draw.circle(self.screen, color, to_pygame(point,self.screen), 20)
+                    color = self.draw_params['Ball']
+                    pygame.draw.circle(self.screen, color, to_pygame(o.body.position,self.screen), 20)
+                    for line in o.components[2:]:
+                        body = o.components[0]
+                        offset = body.position
+                        pygame.draw.line(self.screen, color, line.a+offset, line.b+offset,5)
+                elif self.draw_params.get('bounding_boxes'):
+                    for bb in self.draw_params['bounding_boxes']:
+                        self.draw_bb(bb)
                 else:
                     color = self.draw_params['Ball']
                     pygame.draw.circle(self.screen, color, to_pygame(o.body.position,self.screen), 20)
@@ -156,7 +170,7 @@ class Graphics:
                     b = self.rotate(body, line.b)
                     pygame.draw.line(self.screen, color, a+offset, b+offset,5)
             # Drawing border and containers
-            elif "Border" in o.name:# == "Container":
+            elif "Border" in o.name:
                 color = self.draw_params['Border']
                 # We skip the first element in the components because that's the body
                 for line in o.components[1:]:
@@ -165,6 +179,7 @@ class Graphics:
                     a = self.rotate(body, line.a)
                     b = self.rotate(body, line.b)
                     pygame.draw.line(self.screen, color, a+offset, b+offset,5)
+            # Drawing body sensors
             elif o.name == "Sensor":
                 color = self.draw_params['Ball']
                 points = o.components[1].get_vertices()
@@ -279,6 +294,7 @@ class Scene:
         # Flag for user to pause simulation
         self.pause = False
         self.sensor_obj = None
+        self.trace = []
     
     def event(self):
         '''
@@ -345,36 +361,36 @@ class Scene:
                 # User Events
                 self.event()
 
-    def run(self,view=True,subroutine=None,name=None):
+    def run(self,view=True,fname=None):
         '''
         Forward method for the scene. Evolves PObjects over time according
         to a Physics and renders the simulation to the screen with a Graphics
         '''
-        straight_path = False
+        if True:
+            camera = self.graphics._record_screen("/Users/lollipop/Desktop/tmp/",fname)
         if view and not self.graphics.initialized:
             self.graphics.initialize_graphics()
         while self.running:
             # Physics
             if not self.pause:
+                for o in self.objects:
+                    if o.name == "Ball":
+                        self.trace.append(o.body.position)
                 self.physics.forward()
-                self.running *= not self.listener.listen()
                 self.running *= not self.physics.collision()
                 self.running *= self.graphics.running
-                if subroutine:
-                    straight_path, collision = subroutine(self.objects,self.graphics,self.physics)
             if self.physics.tick > 1000:
                 self.running = False
             # Graphics
             if view:
                 self.graphics.draw(self.objects,self.physics.tick)
-                if subroutine:
-                    straight_path, collision = subroutine(self.objects,self.graphics,self.physics)
                 self.graphics.clock.tick(self.graphics.fps)
                 self.graphics.update_display()
+                next(camera)
                 # User Events
                 self.event()
-            if straight_path:
-                self.running = False
+        if view:
+            pygame.image.save(self.graphics.screen,fname+".jpg")
 
     def instantiate_scene(self):
         for obj in self.objects:
@@ -387,12 +403,11 @@ class SceneBuilder(Scene):
     Convenience class for using the mouse to build Scenes
     '''
 
-    def __init__(self, physics, objects, graphics, pallete):
+    def __init__(self, physics, objects, graphics):
         super().__init__(physics,objects,graphics)
         self.pos1 = None
         self.pos2 = None
         self.brush = None
-        self.pallete = pallete
         self.step = False
         self.starting_pos = None
         self.object_record = []
@@ -430,17 +445,17 @@ class SceneBuilder(Scene):
                 self.pos1 = pos
             else:
                 self.pos2 = pos
-                obj = self.pallete['c'](self.pos1,self.pos2)
+                obj = objects.Line(self.pos1,self.pos2)
                 self.objects.append(obj)
-                self.object_record = (self.pallete['c'])
+                self.object_record = (objects.Line)
                 self.object_arg_record['line_args'].append([self.pos1,self.pos2])
                 self.physics.space.add(*obj.components)
                 self.pos1, self.pos2 = None, None
         elif self.brush == 'b':
             if self.object_arg_record['ball_args'] == None:
-                obj = self.pallete['b'](pos)
+                obj = objects.Ball(pos)
                 self.objects.append(obj)
-                self.object_record = (self.pallete['b'])
+                self.object_record = (objects.Ball)
                 self.object_arg_record['ball_args']= [pos]
                 self.physics.space.add(*obj.components)
             else:
@@ -450,9 +465,9 @@ class SceneBuilder(Scene):
                         self.object_arg_record['ball_args'] = [pos]
         elif self.brush == 'g':
             if self.object_arg_record['goal_args'] == None:
-                obj = self.pallete['g']((pos[0],1000))
+                obj = objects.Goal((pos[0],1000))
                 self.objects.append(obj)
-                self.object_record = (self.pallete['g'])
+                self.object_record = (objects.Goal)
                 self.object_arg_record['goal_args']= [(pos[0],1000)]
                 self.physics.space.add(*obj.components)
             else:
@@ -560,7 +575,6 @@ class SceneBuilder(Scene):
                 # Check if shape is colliding with anything
                 self.physics.forward()
                 if self.physics.collision():
-                    print(f'tick: {self.physics.tick}')
                     self.step = False
                     self.reset_physics_vars()
             # Graphics

@@ -205,7 +205,7 @@ def check_collision_all(sensorshape,objects,verbose=False):
 
 # Path Projection
 
-def path_projection(objects, physics, D=100):
+def path_projection(objects, physics, D):
     '''
     Could check out position_func in pymunk
 

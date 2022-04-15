@@ -13,4 +13,4 @@ echo $DATADIR $SCENEDIR $SAVEDIR${FNAME}
 # conda activate physabs
 
 # Run the analysis 
-# python abc_fit.py $DATADIR $SCENEDIR $SAVEDIR${FNAME}
+# python abc_fit.py $DATADIR $SCENEDIR $SAVEDIR${FNAME} $NUMSAMPLES $BURNIN

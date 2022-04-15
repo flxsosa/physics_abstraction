@@ -9,9 +9,11 @@ def main():
     args = parser.parse_args()
 
     # Range for parameter N -- (100,151), ..., (450,501)
-    d_ranges = [(n*50, (n+1)*50+1) for n in range(2,10)]
+    d_ranges = [(1,50),(51,100)]
+    d_ranges += [(n*50, (n+1)*50+1) for n in range(2,15)]
     # Range for parameter D -- (5,11), ..., (40,46)
-    n_ranges = [(n*5, (n+1)*5+1) for n in range(1,9)]
+    n_ranges = [(1,5)]
+    n_ranges += [(n*5, (n+1)*5+1) for n in range(1,15)]
     
     # Submit a job per parameter setting
     for param_setting in ((n,d) for n in n_ranges for d in d_ranges):

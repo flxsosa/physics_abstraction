@@ -134,6 +134,41 @@ def fix_json(dir):
             with open(dir+file, 'w') as f:
                 json.dump(scene_args,f)
 
+def load_objects_from_args(args):
+    '''
+    Load objects from given JSON arguments for a Scene.
+
+    :param args: Path to scene.
+    '''
+    obj_map = {
+        "Ball":Ball,
+        "Container":Container,
+        "Goal":Goal,
+        "PlinkoBorder":PlinkoBorder,
+        "BottomBorder":BottomBorder,
+        "Line":Line
+    }
+    objects = []
+    scene_args = args
+    for obj in scene_args['objects']:
+        if obj == "Ball":
+            objects.append(obj_map[obj](*scene_args["ball_args"]))
+        elif obj == "Goal":
+            objects.append(obj_map[obj](*scene_args["goal_args"]))
+        elif obj == "Container":
+            for i in range(len(scene_args["container_args"])):
+                objects.append(obj_map[obj](*scene_args["container_args"][i]))
+        elif obj == "Line":
+            for i in range(len(scene_args["line_args"])):
+                objects.append(obj_map[obj](*scene_args["line_args"][i]))
+        elif obj == "PlinkoBorder":
+            objects.append(obj_map[obj]())
+        elif obj == "BottomBorder":
+            objects.append(obj_map[obj]())
+        else:
+            raise ValueError(f"Received an invalid value in load_objects: obj=={obj}")
+    return objects
+
 def load_objects(dir):
     '''
     Load objects from saved JSON arguments for a Scene.
@@ -169,6 +204,20 @@ def load_objects(dir):
             else:
                 raise ValueError(f"Received an invalid value in load_objects: obj=={obj}")
     return objects
+
+def load_scene_from_args(args):
+    '''
+    Load a Scene from given JSON arguments.
+
+    :param args: Path to scene.
+    '''
+    physics = Physics()
+    graphics = Graphics()
+    objects = load_objects_from_args(args)
+
+    scene = Scene(physics, objects, graphics)
+    scene.graphics.framework.display.set_caption(args['name'])
+    return scene
 
 def load_scene(dir):
     '''

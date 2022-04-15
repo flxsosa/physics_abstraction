@@ -26,13 +26,13 @@ def main():
         help='the range of values for N')
     parser.add_argument('drange1',type=int,
         help="the range of values for D")
-    parser.add_argument('nrange2',type=int,
-        help='the range of values for N')
+    parser.add_argument('drange2',type=int,
+        help='the range of values for D')
     args = parser.parse_args()
 
     # Parameter spaces
     N = range(args.nrange1,args.nrange2)
-    D = range(args.nrange1,args.nrange2)
+    D = range(args.drange1,args.drange2)
     E = np.arange(0.1,1.0,0.01)
 
     # Import empirical data
