@@ -277,3 +277,30 @@ def abstraction_simulation_pp(scene_args,N=5,D=100,E=0.9):
     collision_prob += scene.physics.handlers['ball_goal'].data['colliding']
     
     return collision_prob, 1, ticks
+
+def abstraction_stochastic(scene_args,N=5,D=100,E=0.9,num_samples=100):
+    '''
+    Deterministic physics simulator. Model outputs are end
+    state of the scene and the number of ticks of one run 
+    of a scene with no noise.
+
+    :param scene_args: Arguments for scenes
+    :param N: Number of forward passes of physics engine
+    :param D: Length of path projection
+    :oparam E: Cossim threshold for accepting abstraction
+    '''
+    ns = normal(N,N/10,num_samples)
+    ds = normal(D,D/10,num_samples)
+    es = normal(E,E/10,num_samples)
+    dist = {
+        "collision_probability":[],
+        "simulation_time":[]
+        }
+    for i in range(num_samples):
+        n,d,e = ns[i], ds[i], es[i]
+
+        coll_prob, _, sim_time = abstraction_simulation_pp(scene_args,N=n,D=d,E=e)
+        dist['collision_probability'].append(coll_prob)
+        dist['simulation_time'].append(sim_time)
+
+    return dist 
