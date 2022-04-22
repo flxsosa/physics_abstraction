@@ -1,12 +1,6 @@
 from simulation import Scene, Physics, Graphics
 from objects import PlinkoBorder, BottomBorder
-import os
-from utility import load_scene,load_scene_from_args
-import pandas as pd
 import json
-import pymunk
-import numpy as np
-import random
 from helper import vid_from_img
 from pilot4 import make_video
 
