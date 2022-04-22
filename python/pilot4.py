@@ -1,11 +1,10 @@
 import os
-from utility import load_scene,load_scene_from_args
+from utility import load_scene,load_scene_from_args, vid_from_img
 import pandas as pd
 import json
 import pymunk
 import numpy as np
 import random
-from helper import vid_from_img
 
 def scene_trace(fname):
     # Get Ball position trace
@@ -291,11 +290,3 @@ def flip_movies():
         clip = VideoFileClip(dir+file)
         reversed_clip = clip.fx(vfx.mirror_x)
         reversed_clip.write_videofile(dir+file)  
-
-# dir = "/Users/lollipop/projects/physics_abstraction/data/json/pilot4/comprehension/"
-# path_to_json = dir
-# json_files = [pos_json for pos_json in os.listdir(path_to_json) if pos_json.endswith('.json')]
-# for file in ['comp_0.json', 'comp_1.json', 'comp_2.json']:
-#     fname = file.split(".")[0]
-#     make_video(dir,file)
-#     vid_from_img(fname,"/Users/lollipop/Desktop/tmp/")

@@ -1,4 +1,3 @@
-# from simulation import PObject
 import pygame
 import pymunk
 import pymunk.pygame_util
@@ -129,34 +128,4 @@ class Ball(PObject):
         shape.color = pygame.Color("red")
         shape.collision_type = 0
         components = [body,shape]
-        super().__init__("Ball",body,components)
-
-class Sensor(PObject):
-    def __init__(self, o):
-        body = o.body
-        shape = pymunk.Poly(body, [
-            (o.components[1].radius,0), 
-            (-o.components[1].radius,0), 
-            (o.components[1].radius,1000),
-            (-o.components[1].radius,1000)
-        ])
-        shape.collision_type = 9
-        shape.sensor = True
-        components = [body,shape]
-        super().__init__("Sensor",body,components)
-
-class SensorBall(PObject):
-    def __init__(self, pos=(100,100), r=20):
-        self.radius = r
-        body = pymunk.Body(10.0, 10)
-        body.position = pos
-        shape = pymunk.Circle(body, r)   
-        shape.elasticity = 0.8
-        shape.friction = 1
-        shape.color = pygame.Color("red")
-        shape.collision_type = 0
-        shape2 = pymunk.Segment(body,(0,0),(100,100), 4)
-        shape2.collision_type = 9
-        shape2.color = "black"
-        components = [body,shape,shape2]
         super().__init__("Ball",body,components)

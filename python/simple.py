@@ -35,23 +35,28 @@ def sim(scene_args,N=5,D=100,E=0.9):
     
     return collision_prob, 1, ticks
 
-N,D,E = 10, 100, 0.95
+def main():
 
-data = pd.read_json("../experiments/experiment3/data/cleaned_data.json")
-data['rt_norm'] = (data.rt-data.rt.mean())/data.rt.std()
-RT_y_mean = data.groupby('scene').rt.apply(np.mean)
-data = RT_y_mean
+    N,D,E = 10, 100, 0.95
 
-# Collect scene parameter files for simulator
-scenedir = "../data/json/pilot3/"
-scene_files = [s_json for s_json in os.listdir(scenedir) if s_json.endswith('.json')]
-scene_args = {}
-for file in scene_files:
-    with open(scenedir+file, 'r') as f:
-        sargs = (json.loads(f.read()))
-        scene_args[sargs['name'].split(".")[0]] = sargs
-RT_x = RT_y_mean.index.to_list()
+    data = pd.read_json("../experiments/experiment3/data/cleaned_data.json")
+    data['rt_norm'] = (data.rt-data.rt.mean())/data.rt.std()
+    RT_y_mean = data.groupby('scene').rt.apply(np.mean)
+    data = RT_y_mean
 
-for x_ in RT_x:
-    t = sim(scene_args[x_], int(N), D, E)[-1][0]
-    print(t)
+    # Collect scene parameter files for simulator
+    scenedir = "../data/json/pilot3/"
+    scene_files = [s_json for s_json in os.listdir(scenedir) if s_json.endswith('.json')]
+    scene_args = {}
+    for file in scene_files:
+        with open(scenedir+file, 'r') as f:
+            sargs = (json.loads(f.read()))
+            scene_args[sargs['name'].split(".")[0]] = sargs
+    RT_x = RT_y_mean.index.to_list()
+
+    for x_ in RT_x:
+        t = sim(scene_args[x_], int(N), D, E)[-1][0]
+        print(t)
+
+if __name__ == "__main__":
+    main()

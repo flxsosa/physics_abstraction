@@ -1,5 +1,4 @@
-from cv2 import convexHull
-from numpy.random.mtrand import normal, beta, randint, uniform
+from numpy.random.mtrand import normal, randint, uniform
 import pymunk
 from handlers import goal_ball
 import json

@@ -1,4 +1,6 @@
 import numpy as np
+import cv2
+import glob
 from objects import *
 from simulation import *
 from numpy.random import normal
@@ -443,3 +445,29 @@ def sample_scenes_pilot3(dir,conditions=None,n=1,k=1):
             rt = conditions['rt']
             col = 'yes' if conditions['bgc'] else 'no'
             save_scene(dir,f'{rt}_{col}col_{sp}sp_{bins[bin_id]}', scene, o_args)
+
+def vid_from_img(scene_name,dir,filetype="*.jpg"):
+    '''
+    Takes images generated from make_video and stitches them into a video
+    [DEPRECATED]
+    :param scene_name: Name of the simulation for file naming
+    :param filetype: Glob parameter
+    :param dir: Location to save video to
+    '''
+    print(f"Passed movie directory: {dir}")
+    print(f"Passed movie Scene Name: {scene_name}")
+    img_dic = {}
+    img_str = []
+    size = 0,0
+    for filename in glob.glob(dir+filetype):
+        img = cv2.imread(filename)
+        h,w,l =img.shape
+        size = (img.shape[1],img.shape[0])
+        img_str.append(filename)
+        img_dic[filename] = img
+    out = cv2.VideoWriter(dir+scene_name+'.mp4', cv2.VideoWriter_fourcc(*'avc1'),60,size)
+    img_str.sort()
+    for i in img_str:
+        out.write(img_dic[i])
+    out.release()
+    os.system("rm "+ dir +"*.jpg")
