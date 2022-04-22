@@ -2,14 +2,9 @@ import argparse
 import pandas as pd
 import numpy as np
 import os
-import sys
 import json
-import theano.tensor as tt
-import arviz as az
 from statsmodels.formula.api import ols
 from models import abstraction_simulation_pp
-import time
-import ast
 
 def main():
     parser = argparse.ArgumentParser(
