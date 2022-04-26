@@ -1,7 +1,6 @@
 from objects import *
 from simulation import Scene, Physics, Graphics
 from numpy.random import normal
-from abstraction import straight_path_collision
 
 def load_object_arg_pairs(scene_args):
     '''
@@ -211,38 +210,6 @@ def sprt(scene_args,noise=0.02,T=2):
     else:
         prob_choosing_yes = 1
     return prob_choosing_yes, N, ticks
-
-def abstraction_simulation_sp(scene_args):
-    '''
-    Deterministic physics simulator. Model outputs are end
-    state of the scene and the number of ticks of one run 
-    of a scene with no noise.
-
-    :param scene_args: Arguments for scenes
-    '''
-    ticks = []
-    collision_prob = 0
-    # Run scene
-    objects = []
-    objs,args = load_object_arg_pairs(scene_args)
-    for o,a in zip(objs, args):
-        try:
-            objects.append(o(*a))
-        except TypeError:
-            objects.append(o())
-    physics = Physics()
-    graphics = Graphics()
-
-    # Scene
-    scene = Scene(physics, objects, graphics)
-    scene.instantiate_scene()
-    scene.run(view=False,\
-        subroutine=straight_path_collision)
-    ticks.append(scene.physics.tick)
-    # Get collision probability
-    collision_prob += scene.physics.handlers['ball_goal'].data['colliding']
-    
-    return collision_prob, 1, ticks
 
 def abstraction_simulation_pp(scene_args,N=5,D=100,E=0.9):
     '''
