@@ -105,16 +105,16 @@ class Line(PObject):
         super().__init__("Line",body,components)
 
 class Goal(PObject):
-    def __init__(self, pos=(200,200), l=40):
+    def __init__(self, pos=(200,200), l=80):
         body = pymunk.Body(body_type=pymunk.Body.STATIC)
         body.position = pos[0], pos[1]
-        shape = pymunk.Poly.create_box(body, (l, l))
+        shape = pymunk.Poly.create_box(body, (l/2, l))
         shape.color = pygame.Color("green")
         shape.collision_type = 1
         components = [body,shape]
         # Convenience properties for accessing length and width
         self.l = l
-        self.w = l
+        self.w = l/2
         super().__init__("Goal",body,components)
 
 class Ball(PObject):
