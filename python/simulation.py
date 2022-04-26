@@ -5,7 +5,7 @@ from handlers import is_colliding, not_colliding
 import pygame
 from pygame.locals import *
 from pygame.color import *
-from math import cos,sin,sqrt
+from math import cos,sin
 # For general
 from random import randrange
 # For abstraction
@@ -130,8 +130,8 @@ class Graphics:
                     # Draw circle
                     draw_circle_alpha(self.screen, color, o.body.position, 20)
                     # Once shape disappears, end simulation
-                    # if color.a == 0:
-                    #     self.running = False
+                    if color.a == 0:
+                        self.running = False
                 elif self.draw_params.get('trace'):
                     color = pygame.Color("Black")
                     self.draw_params['trace'].append(o.body.position)
@@ -361,12 +361,12 @@ class Scene:
                 # User Events
                 self.event()
 
-    def run(self,view=True,fname=None):
+    def run(self,view=True,fname=None,record=False):
         '''
         Forward method for the scene. Evolves PObjects over time according
         to a Physics and renders the simulation to the screen with a Graphics
         '''
-        if True:
+        if record:
             camera = self.graphics._record_screen("/Users/lollipop/Desktop/tmp/",fname)
         if view and not self.graphics.initialized:
             self.graphics.initialize_graphics()
@@ -386,11 +386,10 @@ class Scene:
                 self.graphics.draw(self.objects,self.physics.tick)
                 self.graphics.clock.tick(self.graphics.fps)
                 self.graphics.update_display()
-                next(camera)
+                if record:
+                    next(camera)
                 # User Events
                 self.event()
-        if view:
-            pygame.image.save(self.graphics.screen,fname+".jpg")
 
     def instantiate_scene(self):
         for obj in self.objects:
