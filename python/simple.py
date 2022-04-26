@@ -2,15 +2,22 @@ from objects import *
 from simulation import Scene, Physics, Graphics
 import pandas as pd
 import numpy as np
+from numpy.random import normal
 import os
 import json
 from models import load_object_arg_pairs
 
-def sim(scene_args,N=5,D=100,E=0.9):
+
+def abstraction_simulation_pp(scene_args,N=5,D=100,E=0.9):
     '''
     Deterministic physics simulator. Model outputs are end
     state of the scene and the number of ticks of one run 
     of a scene with no noise.
+
+    :param scene_args: Arguments for scenes
+    :param N: Number of forward passes of physics engine
+    :param D: Length of path projection
+    :oparam E: Cossim threshold for accepting abstraction
     '''
     ticks = []
     collision_prob = 0
@@ -35,28 +42,55 @@ def sim(scene_args,N=5,D=100,E=0.9):
     
     return collision_prob, 1, ticks
 
+def sim(scene_args,N=5,D=100,E=0.9,num_samples=100):
+    '''
+    Deterministic physics simulator. Model outputs are end
+    state of the scene and the number of ticks of one run 
+    of a scene with no noise.
+
+    :param scene_args: Arguments for scenes
+    :param N: Number of forward passes of physics engine
+    :param D: Length of path projection
+    :oparam E: Cossim threshold for accepting abstraction
+    '''
+    ns = normal(N,N/10,num_samples)
+    ds = normal(D,D/10,num_samples)
+    es = normal(E,E/100,num_samples)
+    dist = {
+        "collision_probability":[],
+        "simulation_time":[]
+        }
+    for i in range(num_samples):
+        n,d,e = ns[i], ds[i], es[i]
+        coll_prob, _, sim_time = abstraction_simulation_pp(scene_args,N=n,D=d,E=e)
+        dist['collision_probability'].append(coll_prob)
+        dist['simulation_time'].append(sim_time)
+        print(f"Running with N:{n}, D:{d}, E:{e}. Simtime: {sim_time}")
+
+    return dist 
+
 def main():
 
-    N,D,E = 10, 100, 0.95
+    # Working parameters (for now)
+    model_parameters = (15, 200, 0.99)
 
-    data = pd.read_json("../experiments/experiment3/data/cleaned_data.json")
-    data['rt_norm'] = (data.rt-data.rt.mean())/data.rt.std()
-    RT_y_mean = data.groupby('scene').rt.apply(np.mean)
-    data = RT_y_mean
+    # Director with relevant JSONs
+    loaddir = "../data/json/pilot4/trial/"
+    # Gather all of the json files in the directory of trial stimuli
+    json_files = [pos_json for pos_json in os.listdir(loaddir) if pos_json.endswith('.json')]
+    json_files = [pos_json for pos_json in json_files if 'stim_2' in pos_json]
+    # Dictionary that will contain our model results
+    model_distributions = {}
 
-    # Collect scene parameter files for simulator
-    scenedir = "../data/json/pilot3/"
-    scene_files = [s_json for s_json in os.listdir(scenedir) if s_json.endswith('.json')]
-    scene_args = {}
-    for file in scene_files:
-        with open(scenedir+file, 'r') as f:
-            sargs = (json.loads(f.read()))
-            scene_args[sargs['name'].split(".")[0]] = sargs
-    RT_x = RT_y_mean.index.to_list()
-
-    for x_ in RT_x:
-        t = sim(scene_args[x_], int(N), D, E)[-1][0]
-        print(t)
+    for file in json_files[0:1]:
+        # Scene name
+        scene_name = file.split(".")[0]
+        # Open the JSON file
+        with open(loaddir+file, 'r') as f:
+            # Grab the scene arguments
+            scene_args = json.loads(f.read())
+        print(f"Running scene {scene_name}")
+        model_distributions[scene_name] = sim(scene_args,*model_parameters,5)
 
 if __name__ == "__main__":
     main()
