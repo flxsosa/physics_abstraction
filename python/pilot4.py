@@ -249,7 +249,7 @@ def make_video(dir,fname):
     # Run the scene
     scene.instantiate_scene()
     # scene.graphics.draw_params['ball_alpha'] = True
-    scene.run(True,fname.split(".")[0])
+    scene.run(view=True,fname=fname.split(".")[0],record=True)
 
 def fix_stimuli(fname):
     dir = "/Users/lollipop/Desktop/potential/tmp/"
@@ -269,24 +269,27 @@ def fix_stimuli(fname):
         json.dump(scene_args, f)
 
 def generate_pilot4_stimuli():
-    dir = "/Users/lollipop/projects/physics_abstraction/data/json/pilot4/trial/"
+    dir = "/Users/lollipop/projects/physics_abstraction/data/json/pilot4/comprehension/"
     path_to_json = dir
-    json_files = [pos_json for pos_json in os.listdir(path_to_json) if pos_json.endswith('.json')]
-    for file in json_files:
+    name = ''
+    json_files = [pos_json for pos_json in os.listdir(path_to_json) if pos_json.endswith('.json') and name in pos_json]
+    for file in ['comp_0.json','comp_1.json','comp_2.json']:
         fname = file.split(".")[0]
         make_video(dir,file)
         vid_from_img(fname,"/Users/lollipop/Desktop/tmp/")
 
 def flip_movies():
+    from moviepy.editor import VideoFileClip, vfx
     dir = "/Users/lollipop/Desktop/tmp/"
     savedir = dir+'flipped/'
     mp4_files = [pos_mp4 for pos_mp4 in os.listdir(dir) if pos_mp4.endswith('.mp4')]
     # print(mp4_files)
     idx = list(range(len(mp4_files)))
     mp4_samples = random.sample(idx, int(len(idx)/2))
-    from moviepy.editor import VideoFileClip, vfx
     for idx in mp4_samples:
         file = mp4_files[idx]
         clip = VideoFileClip(dir+file)
         reversed_clip = clip.fx(vfx.mirror_x)
         reversed_clip.write_videofile(dir+file)  
+
+generate_pilot4_stimuli()
