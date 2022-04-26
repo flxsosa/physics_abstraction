@@ -152,7 +152,7 @@
                     for (let i = 1; i < 5; i++){
                         cr = col == 'yes' ? yes.toLowerCase() : no.toLowerCase();
                         test_stimuli.push({
-                            stimulus: ['img/stimuli/pilot3/trial/'+rt+'_'+col+'col_'+sp+'sp_'+String(i)+'.mp4'], 
+                            stimulus: ['img/stimuli/trial/'+rt+'_'+col+'col_'+sp+'sp_'+String(i)+'.mp4'], 
                             width: 200, 
                             correct_response: cr, 
                             collision: col,
@@ -176,7 +176,7 @@
                     In this experiment, you will see 48 short clips of scenes like the one below. 
                 </p>
                 <div>
-                    <img src='img/stimuli/pilot2/instruction/scene_cp_2_arrow.jpg' style='width: 200px;'></img>
+                    <img src='img/stimuli/instruction/scene_cp_2_arrow.jpg' style='width: 200px;'></img>
                 </div>
                 <p>
                     In each clip, there will be a <strong>BALL</strong>, a <strong>Goal</strong>, and multiple <strong>SLIDES</strong>.
@@ -257,7 +257,7 @@
         ]
         var comprehension_stimuli = [
             { 
-                stimulus: ['img/stimuli/pilot3/comprehension/comp_0.mp4'], 
+                stimulus: ['img/stimuli/comprehension/comp_0.mp4'], 
                 correct_response: no.toLowerCase(), 
                 width: 200,
                 response_ends_trial: false,
@@ -280,7 +280,7 @@
                 `
             },
             { 
-                stimulus: ['img/stimuli/pilot3/comprehension/comp_1.mp4'], 
+                stimulus: ['img/stimuli/comprehension/comp_1.mp4'], 
                 correct_response: yes.toLowerCase(), 
                 width: 200,
                 response_ends_trial: false,
@@ -303,7 +303,7 @@
                 ` 
             },
             {
-                stimulus: ['img/stimuli/pilot3/comprehension/comp_2.mp4'], 
+                stimulus: ['img/stimuli/comprehension/comp_2.mp4'], 
                 correct_response: yes.toLowerCase(), 
                 width: 200,
                 response_ends_trial: false,
@@ -326,7 +326,7 @@
                 `
             },
             {
-                stimulus: ['img/stimuli/pilot3/comprehension/comp_3.mp4'], 
+                stimulus: ['img/stimuli/comprehension/comp_3.mp4'], 
                 correct_response: yes.toLowerCase(), 
                 width: 200, 
                 response_ends_trial: true,
@@ -349,7 +349,7 @@
                 `
             },
             {
-                stimulus: ['img/stimuli/pilot3/comprehension/comp_4.mp4'], 
+                stimulus: ['img/stimuli/comprehension/comp_4.mp4'], 
                 correct_response: no.toLowerCase(), 
                 width: 200, 
                 response_ends_trial: true,
@@ -372,7 +372,7 @@
                 `
             },
             {
-                stimulus: ['img/stimuli/pilot3/comprehension/comp_5.mp4'], 
+                stimulus: ['img/stimuli/comprehension/comp_5.mp4'], 
                 correct_response: no.toLowerCase(), 
                 width: 200, 
                 response_ends_trial: true,
@@ -454,7 +454,7 @@
                 for (let sp of stim_sp) {
                     for (let i = 1; i < 5; i++){
                         cr = col == 'yes' ? yes.toLowerCase() : no.toLowerCase();
-                            videos.push(['img/stimuli/pilot3/trial/'+rt+'_'+col+'col_'+sp+'sp_'+String(i)+'.mp4']);
+                            videos.push(['img/stimuli/trial/'+rt+'_'+col+'col_'+sp+'sp_'+String(i)+'.mp4']);
                     }
                 }
             }
