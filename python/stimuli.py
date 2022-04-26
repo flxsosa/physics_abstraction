@@ -1,6 +1,5 @@
 from numpy.random.mtrand import normal, randint, uniform
 import pymunk
-from handlers import goal_ball
 import json
 
 def generate_container_args(n,nc,ball_args,goal_args,line_args=None):
@@ -150,7 +149,6 @@ def x_away_from_ball(x,n):
 
 def generate_scene():
     # Objects
-    handlers = [(0, 1, goal_ball)]
     scene_size = (800,1000)
     objs = [Ball, Goal]
     # Objects parameters
@@ -165,7 +163,6 @@ def generate_scene():
 
 def generate_simple_scene():
     # Objects
-    handlers = [(0, 1, goal_ball)]
     scene_size = (800,1000)
     objs = [Ball, Goal,Container,Container]
     # Objects parameters
