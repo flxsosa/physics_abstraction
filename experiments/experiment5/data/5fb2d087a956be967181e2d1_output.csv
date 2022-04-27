@@ -1,0 +1,1779 @@
+"success","timeout","failed_images","failed_audio","failed_video","trial_type","trial_index","time_elapsed","internal_node_id","subject_id","study_id","session_id","condition","rt","stimulus","response","task","correct_response","attempts","correct","value","task_condition","scene","scene_type","scene_index","scene_sp","scene_col","timed_out"
+"true","false","[]","[]","[]","preload","0","1034","0.0-0.0","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","1","3573","0.0-1.0","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","2538","Welcome to the experiment. Press spacebar to begin."," ","","","","","","","","","","","",""
+"","","","","","html-button-response","2","59810","0.0-2.0-0.0","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","56234","
+                <div style=""width:800px; text-align: left;"">
+                <p>
+                    <strong>LABORATORY FOR COMPUTATION COGNITION & DEVELOPMENT</strong>
+                    <br>
+                    Department of Psychology
+                    <br>
+                    Harvard University
+                </p>
+                <p>
+                    Dear Participants,
+                </p>
+                <p>
+                    Thank you for your interest! In this study, you will:
+                </p>
+                <p>
+                    <strong>
+                        You will be shown 90 simple scenes containing different objects. Before viewing each scene, you will be asked a question about the scene
+                        and tasked with answering that question as fast as possible when you see the scene.
+                    </strong>
+                </p>
+                <p>
+                    You are being asked to participate in a project being conducted by a research team at Harvard University, under the direction of Dr. Tomer Ullman. 
+                    We are interested in how people are able to reason quickly and in a commonsense way about the different objects and people they encounter in the world around them. 
+                    A better understanding of commonsense reasoning has implications for building more intelligent machines that can reason in a more human-like way, lowering risk in 
+                    different physical situations. During this study, you will be presented with textual descriptions of scenes. To assess your resulting mental image, you will be asked 
+                    questions and you will respond by selecting an appropriate response. 
+                </p>
+                <p>
+                    The study will last around 25 minutes. Your participation in this study is completely voluntary. You may refuse to participate, or you may choose to 
+                    withdraw from participation at any time, without penalty or loss of benefit to which you are otherwise entitled. There has been no harm to people involved 
+                    in this study and there are no risks associated with participation.
+                </p>
+                <p>
+                    All information collected from the study will be associated with a randomly generated Prolific code number or Prolific ID, which 
+                    is the only identifying data you will be requested to provide. Unless your profile is set to private, MTurk ID’s can be used to link back to user account. 
+                    We suggest you set your profile to private. This ID will be changed to Study IDs upon payment. Only researchers associated with this project will have access 
+                    to the data. In order to make a research transparent to the scientific and broader community our study design and unidentifiable data might be made publicly 
+                    available on Open Science Framework, a network of research materials and collaboration software, but your data will not be in anyway identifiable.
+                </p>
+                <p>
+                    We will also provide you with a demographic questionnaire. The form does not include any personal identifying information other than your Prolific ID. Your 
+                    contribution to this questionnaire is voluntary; if you choose to provide the requested information, your responses will be confidential. You will be reimbursed 
+                    at a rate of [$10/hr] for your participation. You might be requested to provide you Mechanical Turk ID for reimbursement purposes, but these numbers will be deleted 
+                    immediately after reimbursement. 
+                </p>
+                <p>
+                    Your participation in our study would be greatly appreciated. If you have any questions about the project please feel free to contact us at the Lab for 
+                    Computation, Cognition, and Development at the Department of Psychology, 33 Kirkland Street, Cambridge, MA 02138, or via email at cocodev@fas.harvard.edu. 
+                    You may also contact the faculty member supervising this work: Tomer Ullman, Assistant Professor of Psychology, 1320 William James Hall, 33 Kirkland Street, 
+                    Cambridge, MA, 02138, email: tullman@fas.harvard.edu
+                </p>
+                <p>
+                    Whom to contact about your rights in this research, for questions, concerns, suggestions, or complaints that are not being addressed by the researcher, 
+                    or research-related harm: Committee on the Use of Human Subjects in Research at Harvard University. Phone:  617-496-CUHS (2847).  Email: cuhs@harvard.edu. 
+                    Please print this screen for your records.
+                </p>
+                <p>
+                    <strong>Consent Statement</strong>
+                </p>
+                <p>
+                    If you agree to participate, please click the consent button below. Thank you very much for your time and consideration.
+                </p>
+                <p>
+                    By selecting the <strong>Consent</strong> button below, I acknowledge that I am 18 or older, have read this consent form, and I agree to take part in the Commonsense Reasoning 
+                    about Physics and Psychology project conducted by the research lab of Dr. Tomer Ullman.
+                </p>
+                <p>
+                    If you do NOT agree to participate in this study, please click the <strong>Decline</strong> button below.
+                </p>
+                <div>
+                ","0","consent","","","","","","","","","","",""
+"","","","","","html-keyboard-response","3","94893","0.0-3.0-0.0","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","35082","
+                <div style='width:800px;'>
+                <p>
+                    In this experiment, you will see 90 short clips of scenes like the one below. 
+                </p>
+                <div>
+                    <img src='img/stimuli/instruction/scene_cp_2_arrow.jpg' style='width: 200px;'></img>
+                </div>
+                <p>
+                    In each clip, there will be a <strong>BALL</strong>, a <strong>GOAL</strong>, and multiple <strong>SLIDES</strong>.
+                </p>
+                <p>
+                    The <strong>BALL</strong> will always be a circle. 
+                </p>
+                <p>
+                    The <strong>GOAL</strong> will always be a square. 
+                </p>
+                <p>
+                    The <strong>SLIDES</strong> and <strong>GOAL</strong> might change location and size from clip to clip.
+                </p>
+                <p>
+                    The <strong>BALL</strong> and <strong>GOAL</strong> may change colors from clip to clip.
+                </p>
+                <p>
+                    In each clip, the <strong>BALL</strong> will turn invisible, but you are to assume it’s still in the scene.
+                </p>
+                <p>
+                    <strong><u>YOUR TASK:</u></strong>
+                </p>
+                <p>
+                    1. Judge whether the <strong>BALL</strong> will ever reach the <strong>GOAL</strong>.
+                </p>
+                <p>
+                    Press spacebar for further instructions.
+                </p>
+                </div>
+                "," ","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","4","119747","0.0-3.0-0.1","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","24852","
+                <div style='width:800px;'>
+                <p>
+                    If the Ball <strong>will reach the Goal</strong>: press the letter f on your keyboard.
+                </p>
+                <p>
+                    If the Ball <strong>won't reach the Goal</strong>: press the letter j on your keyboard.
+                </p>
+                <p>
+                    Each clip will only be available for 5 seconds.
+                </p>
+                <p>
+                    <strong>Please answer as fast and as accurately as possible!</strong>
+                </p>
+                <p>
+                    <strong>You do not have to wait for the clip to finish to answer!</strong>
+                </p>
+                <img src='img/keyboard_f.jpeg'></img>
+                <p>
+                    Press spacebar to continue.
+                </p>
+                </div>
+                "," ","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","5","140843","0.0-3.0-0.2","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","21096","
+                <div style='width:800px;'>
+                <p>
+                    We are almost ready for the study. 
+                    Before we start, we have a few comprehension questions, 
+                    to make sure you understand the task.
+                </p>
+                <p>
+                    You will see a few clips and be asked to determine wheter the Ball will reach the Goal
+                    in each clip.
+                </p>
+                <p> 
+                    The first few clips will be full clips of a Ball falling in a scene.
+                </p>
+                <p> 
+                    After the first few clips, the Ball will begin to disappear after the first few frames 
+                    of each clip, just like it will in the experiment.
+                </p>
+                <p>
+                    Press spacebar to begin.
+                </p>
+                </div>
+                "," ","","","","","","","","","","","",""
+"","","","","","html-keyboard-response","6","152328","0.0-4.0-0.0","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","11484","
+                <div style=""font-size:30px;"">
+                    <p>
+                        Check 1: In the next page you will see a clip.
+                    </p>
+                    <p> 
+                        Please use your keyboard to answer: <strong>Will the Ball 
+                        reach the goal?</strong>
+                    </p>
+                    <p>
+                        Remember F means yes and J means no.
+                    </p>
+                    <p>(Press spacebar to begin)</p>
+                </div>
+                "," ","comp_prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","7","152588","0.0-4.0-1.0","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","video-keyboard-response","8","154376","0.0-4.0-2.0","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","[""img/stimuli/comprehension/comp_0.mp4""]","null","comprehension","f","1","false","","","","","","","",""
+"","","","","","html-keyboard-response","9","155879","0.0-4.0-3.0","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","comp_prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","10","166037","0.0-4.0-0.1","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","10158","
+                <div style=""font-size:30px;"">
+                    <p>
+                        Check 2: In the next page you will see a clip.
+                    </p>
+                    <p> 
+                        Please use your keyboard to answer: <strong>Will the Ball 
+                        reach the goal?</strong>
+                    </p>
+                    <p>
+                        Remember F means yes and J means no.
+                    </p>
+                    <p>(Press spacebar to begin)</p>
+                </div>
+                "," ","comp_prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","11","166542","0.0-4.0-1.1","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","video-keyboard-response","12","170045","0.0-4.0-2.1","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1342","[""img/stimuli/comprehension/comp_1.mp4""]","j","comprehension","f","1","false","","","","","","","",""
+"","","","","","html-keyboard-response","13","171555","0.0-4.0-3.1","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","comp_prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","14","175469","0.0-4.0-0.2","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","3913","
+                <div style=""font-size:30px;"">
+                    <p>
+                        Check 3: In the next page you will see a clip.
+                    </p>
+                    <p> 
+                        Please use your keyboard to answer: <strong>Will the 
+                        Ball reach the goal?</strong>
+                    </p>
+                    <p>
+                        Remember F means yes and J means no.
+                    </p>
+                    <p>(Press spacebar to begin)</p>
+                </div>
+                "," ","comp_prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","15","175735","0.0-4.0-1.2","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","video-keyboard-response","16","179221","0.0-4.0-2.2","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1546","[""img/stimuli/comprehension/comp_2.mp4""]","j","comprehension","j","1","true","","","","","","","",""
+"","","","","","html-keyboard-response","17","180738","0.0-4.0-3.2","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","comp_prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","18","182751","0.0-4.0-0.3","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","2011","
+                <div style=""font-size:30px;"">
+                    <p>
+                        Check 4: In the next page you will see a clip.
+                    </p>
+                    <p> 
+                        Please use your keyboard to answer: <strong>Will the 
+                        Ball reach the goal?</strong>
+                    </p>
+                    <p>
+                        Remember F means yes and J means no.
+                    </p>
+                    <p>(Press spacebar to begin)</p>
+                </div>
+                "," ","comp_prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","19","183512","0.0-4.0-1.3","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","video-keyboard-response","20","185547","0.0-4.0-2.3","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1148","[""img/stimuli/comprehension/comp_3.mp4""]","f","comprehension","f","1","true","","","","","","","",""
+"","","","","","html-keyboard-response","21","187057","0.0-4.0-3.3","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","comp_prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","22","188623","0.0-4.0-0.4","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1566","
+                <div style=""font-size:30px;"">
+                    <p>
+                        Check 5: In the next page you will see a clip.
+                    </p>
+                    <p> 
+                        Please use your keyboard to answer: <strong>Will the 
+                        Ball reach the goal?</strong>
+                    </p>
+                    <p>
+                        Remember F means yes and J means no.
+                    </p>
+                    <p>(Press spacebar to begin)</p>
+                </div>
+                "," ","comp_prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","23","189139","0.0-4.0-1.4","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","video-keyboard-response","24","192409","0.0-4.0-2.4","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1159","[""img/stimuli/comprehension/comp_4.mp4""]","j","comprehension","j","1","true","","","","","","","",""
+"","","","","","html-keyboard-response","25","193910","0.0-4.0-3.4","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","comp_prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","26","195008","0.0-4.0-0.5","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1096","
+                <div style=""font-size:30px;"">
+                    <p>
+                        Check 6: In the next page you will see a clip.
+                    </p>
+                    <p> 
+                        Please use your keyboard to answer: <strong>Will the 
+                        Ball reach the goal?</strong>
+                    </p>
+                    <p>
+                        Remember F means yes and J means no.
+                    </p>
+                    <p>(Press spacebar to begin)</p>
+                </div>
+                "," ","comp_prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","27","195273","0.0-4.0-1.5","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","video-keyboard-response","28","197820","0.0-4.0-2.5","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1210","[""img/stimuli/comprehension/comp_5.mp4""]","j","comprehension","j","1","true","","","","","","","",""
+"","","","","","html-keyboard-response","29","199325","0.0-4.0-3.5","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","comp_prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","30","207510","0.0-4.1-0.6","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","2283","
+                <div style=""font-size:30px;"">
+                    <p>
+                        Check 1: In the next page you will see a clip.
+                    </p>
+                    <p> 
+                        Please use your keyboard to answer: <strong>Will the Ball 
+                        reach the goal?</strong>
+                    </p>
+                    <p>
+                        Remember F means yes and J means no.
+                    </p>
+                    <p>(Press spacebar to begin)</p>
+                </div>
+                "," ","comp_prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","31","208264","0.0-4.1-1.6","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","video-keyboard-response","32","209893","0.0-4.1-2.6","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1244","[""img/stimuli/comprehension/comp_0.mp4""]","f","comprehension","f","2","true","","","","","","","",""
+"","","","","","html-keyboard-response","33","211398","0.0-4.1-3.6","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","comp_prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","34","212866","0.0-4.1-0.7","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1467","
+                <div style=""font-size:30px;"">
+                    <p>
+                        Check 2: In the next page you will see a clip.
+                    </p>
+                    <p> 
+                        Please use your keyboard to answer: <strong>Will the Ball 
+                        reach the goal?</strong>
+                    </p>
+                    <p>
+                        Remember F means yes and J means no.
+                    </p>
+                    <p>(Press spacebar to begin)</p>
+                </div>
+                "," ","comp_prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","35","213618","0.0-4.1-1.7","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","video-keyboard-response","36","216804","0.0-4.1-2.7","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","2258","[""img/stimuli/comprehension/comp_1.mp4""]","f","comprehension","f","2","true","","","","","","","",""
+"","","","","","html-keyboard-response","37","218316","0.0-4.1-3.7","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","comp_prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","38","219359","0.0-4.1-0.8","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1043","
+                <div style=""font-size:30px;"">
+                    <p>
+                        Check 3: In the next page you will see a clip.
+                    </p>
+                    <p> 
+                        Please use your keyboard to answer: <strong>Will the 
+                        Ball reach the goal?</strong>
+                    </p>
+                    <p>
+                        Remember F means yes and J means no.
+                    </p>
+                    <p>(Press spacebar to begin)</p>
+                </div>
+                "," ","comp_prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","39","219620","0.0-4.1-1.8","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","video-keyboard-response","40","222798","0.0-4.1-2.8","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","947","[""img/stimuli/comprehension/comp_2.mp4""]","j","comprehension","j","2","true","","","","","","","",""
+"","","","","","html-keyboard-response","41","224302","0.0-4.1-3.8","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","comp_prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","42","225049","0.0-4.1-0.9","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","747","
+                <div style=""font-size:30px;"">
+                    <p>
+                        Check 4: In the next page you will see a clip.
+                    </p>
+                    <p> 
+                        Please use your keyboard to answer: <strong>Will the 
+                        Ball reach the goal?</strong>
+                    </p>
+                    <p>
+                        Remember F means yes and J means no.
+                    </p>
+                    <p>(Press spacebar to begin)</p>
+                </div>
+                "," ","comp_prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","43","225314","0.0-4.1-1.9","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","video-keyboard-response","44","227161","0.0-4.1-2.9","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1285","[""img/stimuli/comprehension/comp_3.mp4""]","f","comprehension","f","2","true","","","","","","","",""
+"","","","","","html-keyboard-response","45","228665","0.0-4.1-3.9","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","comp_prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","46","229264","0.0-4.1-0.10","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","598","
+                <div style=""font-size:30px;"">
+                    <p>
+                        Check 5: In the next page you will see a clip.
+                    </p>
+                    <p> 
+                        Please use your keyboard to answer: <strong>Will the 
+                        Ball reach the goal?</strong>
+                    </p>
+                    <p>
+                        Remember F means yes and J means no.
+                    </p>
+                    <p>(Press spacebar to begin)</p>
+                </div>
+                "," ","comp_prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","47","229777","0.0-4.1-1.10","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","video-keyboard-response","48","232740","0.0-4.1-2.10","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","956","[""img/stimuli/comprehension/comp_4.mp4""]","j","comprehension","j","2","true","","","","","","","",""
+"","","","","","html-keyboard-response","49","234253","0.0-4.1-3.10","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","comp_prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","50","234624","0.0-4.1-0.11","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","370","
+                <div style=""font-size:30px;"">
+                    <p>
+                        Check 6: In the next page you will see a clip.
+                    </p>
+                    <p> 
+                        Please use your keyboard to answer: <strong>Will the 
+                        Ball reach the goal?</strong>
+                    </p>
+                    <p>
+                        Remember F means yes and J means no.
+                    </p>
+                    <p>(Press spacebar to begin)</p>
+                </div>
+                "," ","comp_prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","51","235127","0.0-4.1-1.11","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","video-keyboard-response","52","237503","0.0-4.1-2.11","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1085","[""img/stimuli/comprehension/comp_5.mp4""]","j","comprehension","j","2","true","","","","","","","",""
+"","","","","","html-keyboard-response","53","239021","0.0-4.1-3.11","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","comp_prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","54","300830","0.0-5.0","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","61808","
+            <div"">
+                <p>You passed the comprehension check! We will now begin the experiment.</p>
+                <p><strong>REMEMBER</strong>: In the experiment, your task is to say “will the ball reach the goal?"" (F: yes, J: no)
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","start","","","","","","","","","","",""
+"","","","","","html-keyboard-response","55","304402","0.0-6.0-0.0","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","3572","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","56","305410","0.0-6.0-1.0","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","57","305411","0.0-6.0-2.0","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","58","307040","0.0-6.0-3.0","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1627","[""img/stimuli/trial/stim_4_goalpos_8_negative.mp4""]","f","response","j","","false","","no","stim_4_goalpos_8_negative.mp4","stim_4_goalpos_","8","","no","false"
+"","","","","","html-keyboard-response","59","308556","0.0-6.0-4.0","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","60","309445","0.0-6.0-0.1","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","889","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","61","310201","0.0-6.0-1.1","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","62","310201","0.0-6.0-2.1","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","63","311055","0.0-6.0-3.1","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","852","[""img/stimuli/trial/stim_6_goalpos_1_negative.mp4""]","j","response","j","","true","","no","stim_6_goalpos_1_negative.mp4","stim_6_goalpos_","1","","no","false"
+"","","","","","html-keyboard-response","64","312569","0.0-6.0-4.1","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","65","313541","0.0-6.0-0.2","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","972","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","66","313800","0.0-6.0-1.2","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","67","313800","0.0-6.0-2.2","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","68","315204","0.0-6.0-3.2","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1401","[""img/stimuli/trial/stim_2_goalpos_12.mp4""]","f","response","f","","true","","yes","stim_2_goalpos_12.mp4","stim_2_goalpos_","12","","yes","false"
+"","","","","","html-keyboard-response","69","316717","0.0-6.0-4.2","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","70","317549","0.0-6.0-0.3","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","831","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","71","318303","0.0-6.0-1.3","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","72","318304","0.0-6.0-2.3","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","73","319066","0.0-6.0-3.3","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","760","[""img/stimuli/trial/stim_2_goalpos_1_negative.mp4""]","j","response","j","","true","","no","stim_2_goalpos_1_negative.mp4","stim_2_goalpos_","1","","no","false"
+"","","","","","html-keyboard-response","74","320577","0.0-6.0-4.3","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","75","321167","0.0-6.0-0.4","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","590","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","76","321920","0.0-6.0-1.4","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","77","321920","0.0-6.0-2.4","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","78","322981","0.0-6.0-3.4","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1058","[""img/stimuli/trial/stim_4_goalpos_13.mp4""]","f","response","f","","true","","yes","stim_4_goalpos_13.mp4","stim_4_goalpos_","13","","yes","false"
+"","","","","","html-keyboard-response","79","324487","0.0-6.0-4.4","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","80","325417","0.0-6.0-0.5","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","930","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","81","326430","0.0-6.0-1.5","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","82","326431","0.0-6.0-2.5","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","83","327638","0.0-6.0-3.5","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1206","[""img/stimuli/trial/stim_2_goalpos_2.mp4""]","j","response","f","","false","","yes","stim_2_goalpos_2.mp4","stim_2_goalpos_","2","","yes","false"
+"","","","","","html-keyboard-response","84","329155","0.0-6.0-4.5","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","85","329839","0.0-6.0-0.6","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","683","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","86","330350","0.0-6.0-1.6","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","87","330350","0.0-6.0-2.6","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","88","331278","0.0-6.0-3.6","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","926","[""img/stimuli/trial/stim_6_goalpos_12_negative.mp4""]","j","response","j","","true","","no","stim_6_goalpos_12_negative.mp4","stim_6_goalpos_","12","","no","false"
+"","","","","","html-keyboard-response","89","332782","0.0-6.0-4.6","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","90","333069","0.0-6.0-0.7","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","286","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","91","334074","0.0-6.0-1.7","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","92","334074","0.0-6.0-2.7","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","93","335019","0.0-6.0-3.7","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","943","[""img/stimuli/trial/stim_6_goalpos_3.mp4""]","f","response","f","","true","","yes","stim_6_goalpos_3.mp4","stim_6_goalpos_","3","","yes","false"
+"","","","","","html-keyboard-response","94","336527","0.0-6.0-4.7","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","95","337086","0.0-6.0-0.8","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","558","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","96","337350","0.0-6.0-1.8","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","97","337350","0.0-6.0-2.8","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","98","338441","0.0-6.0-3.8","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1064","[""img/stimuli/trial/stim_4_goalpos_4.mp4""]","f","response","f","","true","","yes","stim_4_goalpos_4.mp4","stim_4_goalpos_","4","","yes","false"
+"","","","","","html-keyboard-response","99","339953","0.0-6.0-4.8","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","100","340719","0.0-6.0-0.9","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","764","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","101","341224","0.0-6.0-1.9","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","102","341225","0.0-6.0-2.9","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","103","342389","0.0-6.0-3.9","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1162","[""img/stimuli/trial/stim_4_goalpos_11.mp4""]","f","response","f","","true","","yes","stim_4_goalpos_11.mp4","stim_4_goalpos_","11","","yes","false"
+"","","","","","html-keyboard-response","104","343892","0.0-6.0-4.9","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","105","344332","0.0-6.0-0.10","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","440","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","106","345090","0.0-6.0-1.10","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","107","345091","0.0-6.0-2.10","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","108","345889","0.0-6.0-3.10","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","796","[""img/stimuli/trial/stim_2_goalpos_5_negative.mp4""]","j","response","j","","true","","no","stim_2_goalpos_5_negative.mp4","stim_2_goalpos_","5","","no","false"
+"","","","","","html-keyboard-response","109","347392","0.0-6.0-4.10","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","110","347872","0.0-6.0-0.11","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","480","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","111","348387","0.0-6.0-1.11","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","112","348387","0.0-6.0-2.11","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","113","349487","0.0-6.0-3.11","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1097","[""img/stimuli/trial/stim_4_goalpos_6.mp4""]","f","response","f","","true","","yes","stim_4_goalpos_6.mp4","stim_4_goalpos_","6","","yes","false"
+"","","","","","html-keyboard-response","114","350990","0.0-6.0-4.11","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","115","351468","0.0-6.0-0.12","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","477","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","116","351970","0.0-6.0-1.12","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","117","351971","0.0-6.0-2.12","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","118","352660","0.0-6.0-3.12","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","687","[""img/stimuli/trial/stim_2_goalpos_10_negative.mp4""]","j","response","j","","true","","no","stim_2_goalpos_10_negative.mp4","stim_2_goalpos_","10","","no","false"
+"","","","","","html-keyboard-response","119","354162","0.0-6.0-4.12","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","120","354594","0.0-6.0-0.13","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","432","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","121","355606","0.0-6.0-1.13","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","122","355607","0.0-6.0-2.13","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","123","356298","0.0-6.0-3.13","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","689","[""img/stimuli/trial/stim_6_goalpos_6.mp4""]","f","response","f","","true","","yes","stim_6_goalpos_6.mp4","stim_6_goalpos_","6","","yes","false"
+"","","","","","html-keyboard-response","124","357813","0.0-6.0-4.13","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","125","358253","0.0-6.0-0.14","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","439","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","126","359018","0.0-6.0-1.14","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","127","359019","0.0-6.0-2.14","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","128","360108","0.0-6.0-3.14","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1087","[""img/stimuli/trial/stim_4_goalpos_12_negative.mp4""]","j","response","j","","true","","no","stim_4_goalpos_12_negative.mp4","stim_4_goalpos_","12","","no","false"
+"","","","","","html-keyboard-response","129","361623","0.0-6.0-4.14","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","130","362228","0.0-6.0-0.15","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","604","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","131","362494","0.0-6.0-1.15","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","132","362495","0.0-6.0-2.15","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","133","363739","0.0-6.0-3.15","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1242","[""img/stimuli/trial/stim_4_goalpos_7_negative.mp4""]","f","response","j","","false","","no","stim_4_goalpos_7_negative.mp4","stim_4_goalpos_","7","","no","false"
+"","","","","","html-keyboard-response","134","365240","0.0-6.0-4.15","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","135","365813","0.0-6.0-0.16","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","572","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","136","366574","0.0-6.0-1.16","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","137","366574","0.0-6.0-2.16","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","138","367355","0.0-6.0-3.16","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","780","[""img/stimuli/trial/stim_6_goalpos_9_negative.mp4""]","j","response","j","","true","","no","stim_6_goalpos_9_negative.mp4","stim_6_goalpos_","9","","no","false"
+"","","","","","html-keyboard-response","139","368871","0.0-6.0-4.16","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","140","369304","0.0-6.0-0.17","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","433","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","141","370314","0.0-6.0-1.17","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","142","370314","0.0-6.0-2.17","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","143","371103","0.0-6.0-3.17","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","786","[""img/stimuli/trial/stim_4_goalpos_14.mp4""]","f","response","f","","true","","yes","stim_4_goalpos_14.mp4","stim_4_goalpos_","14","","yes","false"
+"","","","","","html-keyboard-response","144","372617","0.0-6.0-4.17","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","145","373105","0.0-6.0-0.18","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","487","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","146","373859","0.0-6.0-1.18","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","147","373860","0.0-6.0-2.18","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","148","374778","0.0-6.0-3.18","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","916","[""img/stimuli/trial/stim_2_goalpos_8.mp4""]","f","response","f","","true","","yes","stim_2_goalpos_8.mp4","stim_2_goalpos_","8","","yes","false"
+"","","","","","html-keyboard-response","149","376293","0.0-6.0-4.18","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","150","376883","0.0-6.0-0.19","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","589","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","151","377645","0.0-6.0-1.19","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","152","377645","0.0-6.0-2.19","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","153","378660","0.0-6.0-3.19","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1013","[""img/stimuli/trial/stim_4_goalpos_10_negative.mp4""]","f","response","j","","false","","no","stim_4_goalpos_10_negative.mp4","stim_4_goalpos_","10","","no","false"
+"","","","","","html-keyboard-response","154","380163","0.0-6.0-4.19","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","155","380832","0.0-6.0-0.20","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","668","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","156","381091","0.0-6.0-1.20","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","157","381092","0.0-6.0-2.20","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","158","381741","0.0-6.0-3.20","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","647","[""img/stimuli/trial/stim_2_goalpos_9_negative.mp4""]","j","response","j","","true","","no","stim_2_goalpos_9_negative.mp4","stim_2_goalpos_","9","","no","false"
+"","","","","","html-keyboard-response","159","383254","0.0-6.0-4.20","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","160","383634","0.0-6.0-0.21","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","379","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","161","384139","0.0-6.0-1.21","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","162","384139","0.0-6.0-2.21","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","163","384908","0.0-6.0-3.21","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","766","[""img/stimuli/trial/stim_6_goalpos_2_negative.mp4""]","f","response","j","","false","","no","stim_6_goalpos_2_negative.mp4","stim_6_goalpos_","2","","no","false"
+"","","","","","html-keyboard-response","164","386415","0.0-6.0-4.21","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","165","386945","0.0-6.0-0.22","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","528","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","166","387707","0.0-6.0-1.22","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","167","387708","0.0-6.0-2.22","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","168","388710","0.0-6.0-3.22","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","987","[""img/stimuli/trial/stim_4_goalpos_5_negative.mp4""]","j","response","j","","true","","no","stim_4_goalpos_5_negative.mp4","stim_4_goalpos_","5","","no","false"
+"","","","","","html-keyboard-response","169","390221","0.0-6.0-4.22","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","170","390474","0.0-6.0-0.23","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","251","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","171","390734","0.0-6.0-1.23","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","172","390734","0.0-6.0-2.23","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","173","391616","0.0-6.0-3.23","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","879","[""img/stimuli/trial/stim_6_goalpos_8.mp4""]","f","response","f","","true","","yes","stim_6_goalpos_8.mp4","stim_6_goalpos_","8","","yes","false"
+"","","","","","html-keyboard-response","174","393119","0.0-6.0-4.23","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","175","393537","0.0-6.0-0.24","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","418","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","176","393791","0.0-6.0-1.24","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","177","393791","0.0-6.0-2.24","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","178","395008","0.0-6.0-3.24","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1215","[""img/stimuli/trial/stim_4_goalpos_11_negative.mp4""]","j","response","j","","true","","no","stim_4_goalpos_11_negative.mp4","stim_4_goalpos_","11","","no","false"
+"","","","","","html-keyboard-response","179","396514","0.0-6.0-4.24","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","180","397012","0.0-6.0-0.25","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","497","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","181","397521","0.0-6.0-1.25","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","182","397521","0.0-6.0-2.25","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","183","398397","0.0-6.0-3.25","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","873","[""img/stimuli/trial/stim_6_goalpos_10_negative.mp4""]","j","response","j","","true","","no","stim_6_goalpos_10_negative.mp4","stim_6_goalpos_","10","","no","false"
+"","","","","","html-keyboard-response","184","399904","0.0-6.0-4.25","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","185","400327","0.0-6.0-0.26","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","422","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","186","400589","0.0-6.0-1.26","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","187","400590","0.0-6.0-2.26","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","188","401352","0.0-6.0-3.26","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","760","[""img/stimuli/trial/stim_6_goalpos_6_negative.mp4""]","j","response","j","","true","","no","stim_6_goalpos_6_negative.mp4","stim_6_goalpos_","6","","no","false"
+"","","","","","html-keyboard-response","189","402865","0.0-6.0-4.26","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","190","403342","0.0-6.0-0.27","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","476","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","191","403600","0.0-6.0-1.27","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","192","403601","0.0-6.0-2.27","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","193","404761","0.0-6.0-3.27","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1158","[""img/stimuli/trial/stim_2_goalpos_7.mp4""]","f","response","f","","true","","yes","stim_2_goalpos_7.mp4","stim_2_goalpos_","7","","yes","false"
+"","","","","","html-keyboard-response","194","406267","0.0-6.0-4.27","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","195","406635","0.0-6.0-0.28","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","367","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","196","407639","0.0-6.0-1.28","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","197","407639","0.0-6.0-2.28","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","198","408358","0.0-6.0-3.28","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","716","[""img/stimuli/trial/stim_2_goalpos_7_negative.mp4""]","j","response","j","","true","","no","stim_2_goalpos_7_negative.mp4","stim_2_goalpos_","7","","no","false"
+"","","","","","html-keyboard-response","199","409866","0.0-6.0-4.28","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","200","410171","0.0-6.0-0.29","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","304","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","201","411187","0.0-6.0-1.29","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","202","411188","0.0-6.0-2.29","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","203","411927","0.0-6.0-3.29","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","737","[""img/stimuli/trial/stim_6_goalpos_7_negative.mp4""]","j","response","j","","true","","no","stim_6_goalpos_7_negative.mp4","stim_6_goalpos_","7","","no","false"
+"","","","","","html-keyboard-response","204","413431","0.0-6.0-4.29","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","205","414029","0.0-6.0-0.30","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","598","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","206","414786","0.0-6.0-1.30","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","207","414786","0.0-6.0-2.30","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","208","415997","0.0-6.0-3.30","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1208","[""img/stimuli/trial/stim_4_goalpos_8.mp4""]","f","response","f","","true","","yes","stim_4_goalpos_8.mp4","stim_4_goalpos_","8","","yes","false"
+"","","","","","html-keyboard-response","209","417502","0.0-6.0-4.30","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","210","418067","0.0-6.0-0.31","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","564","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","211","418823","0.0-6.0-1.31","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","212","418824","0.0-6.0-2.31","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","213","419514","0.0-6.0-3.31","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","688","[""img/stimuli/trial/stim_2_goalpos_8_negative.mp4""]","j","response","j","","true","","no","stim_2_goalpos_8_negative.mp4","stim_2_goalpos_","8","","no","false"
+"","","","","","html-keyboard-response","214","421024","0.0-6.0-4.31","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","215","421932","0.0-6.0-0.32","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","908","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","216","422189","0.0-6.0-1.32","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","217","422189","0.0-6.0-2.32","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","218","422946","0.0-6.0-3.32","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","755","[""img/stimuli/trial/stim_4_goalpos_10.mp4""]","f","response","f","","true","","yes","stim_4_goalpos_10.mp4","stim_4_goalpos_","10","","yes","false"
+"","","","","","html-keyboard-response","219","424448","0.0-6.0-4.32","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","220","425165","0.0-6.0-0.33","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","716","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","221","425673","0.0-6.0-1.33","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","222","425673","0.0-6.0-2.33","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","223","426943","0.0-6.0-3.33","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1267","[""img/stimuli/trial/stim_2_goalpos_10.mp4""]","j","response","f","","false","","yes","stim_2_goalpos_10.mp4","stim_2_goalpos_","10","","yes","false"
+"","","","","","html-keyboard-response","224","428452","0.0-6.0-4.33","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","225","428928","0.0-6.0-0.34","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","475","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","226","429683","0.0-6.0-1.34","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","227","429683","0.0-6.0-2.34","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","228","430772","0.0-6.0-3.34","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1086","[""img/stimuli/trial/stim_2_goalpos_11.mp4""]","j","response","f","","false","","yes","stim_2_goalpos_11.mp4","stim_2_goalpos_","11","","yes","false"
+"","","","","","html-keyboard-response","229","432284","0.0-6.0-4.34","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","230","432498","0.0-6.0-0.35","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","213","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","231","433260","0.0-6.0-1.35","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","232","433261","0.0-6.0-2.35","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","233","434527","0.0-6.0-3.35","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1263","[""img/stimuli/trial/stim_4_goalpos_14_negative.mp4""]","j","response","j","","true","","no","stim_4_goalpos_14_negative.mp4","stim_4_goalpos_","14","","no","false"
+"","","","","","html-keyboard-response","234","436042","0.0-6.0-4.35","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","235","436515","0.0-6.0-0.36","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","472","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","236","437267","0.0-6.0-1.36","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","237","437267","0.0-6.0-2.36","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","238","438125","0.0-6.0-3.36","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","855","[""img/stimuli/trial/stim_4_goalpos_3.mp4""]","f","response","f","","true","","yes","stim_4_goalpos_3.mp4","stim_4_goalpos_","3","","yes","false"
+"","","","","","html-keyboard-response","239","439637","0.0-6.0-4.36","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","240","440010","0.0-6.0-0.37","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","373","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","241","440771","0.0-6.0-1.37","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","242","440772","0.0-6.0-2.37","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","243","441963","0.0-6.0-3.37","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1188","[""img/stimuli/trial/stim_6_goalpos_8_negative.mp4""]","j","response","j","","true","","no","stim_6_goalpos_8_negative.mp4","stim_6_goalpos_","8","","no","false"
+"","","","","","html-keyboard-response","244","443468","0.0-6.0-4.37","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","245","443934","0.0-6.0-0.38","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","465","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","246","444449","0.0-6.0-1.38","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","247","444449","0.0-6.0-2.38","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","248","445186","0.0-6.0-3.38","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","733","[""img/stimuli/trial/stim_6_goalpos_5_negative.mp4""]","j","response","j","","true","","no","stim_6_goalpos_5_negative.mp4","stim_6_goalpos_","5","","no","false"
+"","","","","","html-keyboard-response","249","446694","0.0-6.0-4.38","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","250","447058","0.0-6.0-0.39","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","363","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","251","447570","0.0-6.0-1.39","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","252","447570","0.0-6.0-2.39","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","253","448457","0.0-6.0-3.39","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","884","[""img/stimuli/trial/stim_6_goalpos_12.mp4""]","f","response","f","","true","","yes","stim_6_goalpos_12.mp4","stim_6_goalpos_","12","","yes","false"
+"","","","","","html-keyboard-response","254","449960","0.0-6.0-4.39","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","255","450437","0.0-6.0-0.40","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","477","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","256","450703","0.0-6.0-1.40","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","257","450704","0.0-6.0-2.40","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","258","451914","0.0-6.0-3.40","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1207","[""img/stimuli/trial/stim_4_goalpos_9.mp4""]","f","response","f","","true","","yes","stim_4_goalpos_9.mp4","stim_4_goalpos_","9","","yes","false"
+"","","","","","html-keyboard-response","259","453416","0.0-6.0-4.40","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","260","453897","0.0-6.0-0.41","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","480","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","261","454159","0.0-6.0-1.41","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","262","454160","0.0-6.0-2.41","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","263","455650","0.0-6.0-3.41","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1488","[""img/stimuli/trial/stim_2_goalpos_12_negative.mp4""]","j","response","j","","true","","no","stim_2_goalpos_12_negative.mp4","stim_2_goalpos_","12","","no","false"
+"","","","","","html-keyboard-response","264","457163","0.0-6.0-4.41","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","265","457604","0.0-6.0-0.42","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","440","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","266","458369","0.0-6.0-1.42","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","267","458369","0.0-6.0-2.42","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","268","459843","0.0-6.0-3.42","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1472","[""img/stimuli/trial/stim_6_goalpos_14.mp4""]","f","response","f","","true","","yes","stim_6_goalpos_14.mp4","stim_6_goalpos_","14","","yes","false"
+"","","","","","html-keyboard-response","269","461357","0.0-6.0-4.42","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","270","461783","0.0-6.0-0.43","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","426","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","271","462799","0.0-6.0-1.43","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","272","462799","0.0-6.0-2.43","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","273","464174","0.0-6.0-3.43","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1373","[""img/stimuli/trial/stim_4_goalpos_5.mp4""]","f","response","f","","true","","yes","stim_4_goalpos_5.mp4","stim_4_goalpos_","5","","yes","false"
+"","","","","","html-keyboard-response","274","465683","0.0-6.0-4.43","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","275","466225","0.0-6.0-0.44","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","541","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","276","466729","0.0-6.0-1.44","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","277","466729","0.0-6.0-2.44","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","278","468247","0.0-6.0-3.44","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1515","[""img/stimuli/trial/stim_4_goalpos_2_negative.mp4""]","j","response","j","","true","","no","stim_4_goalpos_2_negative.mp4","stim_4_goalpos_","2","","no","false"
+"","","","","","html-keyboard-response","279","469761","0.0-6.0-4.44","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","280","470926","0.0-6.0-0.45","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1164","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","281","471435","0.0-6.0-1.45","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","282","471435","0.0-6.0-2.45","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","283","472583","0.0-6.0-3.45","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1146","[""img/stimuli/trial/stim_2_goalpos_2_negative.mp4""]","j","response","j","","true","","no","stim_2_goalpos_2_negative.mp4","stim_2_goalpos_","2","","no","false"
+"","","","","","html-keyboard-response","284","474092","0.0-6.0-4.45","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","285","474658","0.0-6.0-0.46","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","565","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","286","475171","0.0-6.0-1.46","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","287","475171","0.0-6.0-2.46","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","288","476558","0.0-6.0-3.46","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1384","[""img/stimuli/trial/stim_4_goalpos_6_negative.mp4""]","j","response","j","","true","","no","stim_4_goalpos_6_negative.mp4","stim_4_goalpos_","6","","no","false"
+"","","","","","html-keyboard-response","289","478071","0.0-6.0-4.46","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","290","479398","0.0-6.0-0.47","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1325","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","291","479910","0.0-6.0-1.47","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","292","479911","0.0-6.0-2.47","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","293","483008","0.0-6.0-3.47","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","3094","[""img/stimuli/trial/stim_6_goalpos_9.mp4""]","f","response","f","","true","","yes","stim_6_goalpos_9.mp4","stim_6_goalpos_","9","","yes","false"
+"","","","","","html-keyboard-response","294","484919","0.0-6.0-4.47","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","295","486908","0.0-6.0-0.48","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1989","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","296","487917","0.0-6.0-1.48","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","297","487917","0.0-6.0-2.48","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","298","488735","0.0-6.0-3.48","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","815","[""img/stimuli/trial/stim_6_goalpos_1.mp4""]","f","response","f","","true","","yes","stim_6_goalpos_1.mp4","stim_6_goalpos_","1","","yes","false"
+"","","","","","html-keyboard-response","299","490242","0.0-6.0-4.48","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","300","491612","0.0-6.0-0.49","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1369","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","301","491868","0.0-6.0-1.49","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","302","491869","0.0-6.0-2.49","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","303","492784","0.0-6.0-3.49","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","912","[""img/stimuli/trial/stim_6_goalpos_10.mp4""]","f","response","f","","true","","yes","stim_6_goalpos_10.mp4","stim_6_goalpos_","10","","yes","false"
+"","","","","","html-keyboard-response","304","494298","0.0-6.0-4.49","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","305","495011","0.0-6.0-0.50","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","712","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","306","495525","0.0-6.0-1.50","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","307","495525","0.0-6.0-2.50","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","308","496264","0.0-6.0-3.50","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","736","[""img/stimuli/trial/stim_6_goalpos_2.mp4""]","f","response","f","","true","","yes","stim_6_goalpos_2.mp4","stim_6_goalpos_","2","","yes","false"
+"","","","","","html-keyboard-response","309","497775","0.0-6.0-4.50","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","310","498450","0.0-6.0-0.51","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","674","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","311","498954","0.0-6.0-1.51","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","312","498955","0.0-6.0-2.51","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","313","499909","0.0-6.0-3.51","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","951","[""img/stimuli/trial/stim_2_goalpos_1.mp4""]","f","response","f","","true","","yes","stim_2_goalpos_1.mp4","stim_2_goalpos_","1","","yes","false"
+"","","","","","html-keyboard-response","314","501425","0.0-6.0-4.51","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","315","501981","0.0-6.0-0.52","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","555","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","316","502236","0.0-6.0-1.52","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","317","502236","0.0-6.0-2.52","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","318","503214","0.0-6.0-3.52","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","975","[""img/stimuli/trial/stim_2_goalpos_14.mp4""]","j","response","f","","false","","yes","stim_2_goalpos_14.mp4","stim_2_goalpos_","14","","yes","false"
+"","","","","","html-keyboard-response","319","504723","0.0-6.0-4.52","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","320","505694","0.0-6.0-0.53","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","971","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","321","506197","0.0-6.0-1.53","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","322","506198","0.0-6.0-2.53","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","323","507391","0.0-6.0-3.53","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1190","[""img/stimuli/trial/stim_4_goalpos_0.mp4""]","f","response","f","","true","","yes","stim_4_goalpos_0.mp4","stim_4_goalpos_","0","","yes","false"
+"","","","","","html-keyboard-response","324","508895","0.0-6.0-4.53","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","325","509379","0.0-6.0-0.54","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","483","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","326","509882","0.0-6.0-1.54","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","327","509883","0.0-6.0-2.54","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","328","511162","0.0-6.0-3.54","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1277","[""img/stimuli/trial/stim_4_goalpos_7.mp4""]","f","response","f","","true","","yes","stim_4_goalpos_7.mp4","stim_4_goalpos_","7","","yes","false"
+"","","","","","html-keyboard-response","329","512678","0.0-6.0-4.54","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","330","513283","0.0-6.0-0.55","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","603","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","331","513792","0.0-6.0-1.55","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","332","513793","0.0-6.0-2.55","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","333","515331","0.0-6.0-3.55","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1536","[""img/stimuli/trial/stim_4_goalpos_1.mp4""]","j","response","f","","false","","yes","stim_4_goalpos_1.mp4","stim_4_goalpos_","1","","yes","false"
+"","","","","","html-keyboard-response","334","516846","0.0-6.0-4.55","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","335","517524","0.0-6.0-0.56","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","677","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","336","518538","0.0-6.0-1.56","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","337","518538","0.0-6.0-2.56","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","338","519626","0.0-6.0-3.56","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1086","[""img/stimuli/trial/stim_4_goalpos_1_negative.mp4""]","j","response","j","","true","","no","stim_4_goalpos_1_negative.mp4","stim_4_goalpos_","1","","no","false"
+"","","","","","html-keyboard-response","339","521135","0.0-6.0-4.56","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","340","521610","0.0-6.0-0.57","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","474","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","341","521861","0.0-6.0-1.57","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","342","521861","0.0-6.0-2.57","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","343","523780","0.0-6.0-3.57","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1918","[""img/stimuli/trial/stim_4_goalpos_12.mp4""]","f","response","f","","true","","yes","stim_4_goalpos_12.mp4","stim_4_goalpos_","12","","yes","false"
+"","","","","","html-keyboard-response","344","525285","0.0-6.0-4.57","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","345","525719","0.0-6.0-0.58","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","433","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","346","526226","0.0-6.0-1.58","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","347","526226","0.0-6.0-2.58","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","348","527131","0.0-6.0-3.58","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","902","[""img/stimuli/trial/stim_6_goalpos_11_negative.mp4""]","j","response","j","","true","","no","stim_6_goalpos_11_negative.mp4","stim_6_goalpos_","11","","no","false"
+"","","","","","html-keyboard-response","349","528637","0.0-6.0-4.58","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","350","528993","0.0-6.0-0.59","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","355","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","351","529759","0.0-6.0-1.59","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","352","529759","0.0-6.0-2.59","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","353","531016","0.0-6.0-3.59","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1254","[""img/stimuli/trial/stim_4_goalpos_3_negative.mp4""]","f","response","j","","false","","no","stim_4_goalpos_3_negative.mp4","stim_4_goalpos_","3","","no","false"
+"","","","","","html-keyboard-response","354","532526","0.0-6.0-4.59","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","355","532984","0.0-6.0-0.60","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","458","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","356","533248","0.0-6.0-1.60","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","357","533249","0.0-6.0-2.60","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","358","533965","0.0-6.0-3.60","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","713","[""img/stimuli/trial/stim_2_goalpos_11_negative.mp4""]","j","response","j","","true","","no","stim_2_goalpos_11_negative.mp4","stim_2_goalpos_","11","","no","false"
+"","","","","","html-keyboard-response","359","535473","0.0-6.0-4.60","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","360","535742","0.0-6.0-0.61","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","268","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","361","536000","0.0-6.0-1.61","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","362","536000","0.0-6.0-2.61","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","363","536934","0.0-6.0-3.61","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","931","[""img/stimuli/trial/stim_2_goalpos_4_negative.mp4""]","j","response","j","","true","","no","stim_2_goalpos_4_negative.mp4","stim_2_goalpos_","4","","no","false"
+"","","","","","html-keyboard-response","364","538443","0.0-6.0-4.61","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","365","538893","0.0-6.0-0.62","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","449","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","366","539398","0.0-6.0-1.62","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","367","539399","0.0-6.0-2.62","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","368","540511","0.0-6.0-3.62","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1109","[""img/stimuli/trial/stim_2_goalpos_14_negative.mp4""]","f","response","j","","false","","no","stim_2_goalpos_14_negative.mp4","stim_2_goalpos_","14","","no","false"
+"","","","","","html-keyboard-response","369","542016","0.0-6.0-4.62","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","370","542973","0.0-6.0-0.63","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","956","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","371","543982","0.0-6.0-1.63","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","372","543983","0.0-6.0-2.63","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","373","546605","0.0-6.0-3.63","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","2620","[""img/stimuli/trial/stim_4_goalpos_9_negative.mp4""]","f","response","j","","false","","no","stim_4_goalpos_9_negative.mp4","stim_4_goalpos_","9","","no","false"
+"","","","","","html-keyboard-response","374","548119","0.0-6.0-4.63","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","375","548603","0.0-6.0-0.64","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","484","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","376","548856","0.0-6.0-1.64","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","377","548856","0.0-6.0-2.64","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","378","549780","0.0-6.0-3.64","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","922","[""img/stimuli/trial/stim_6_goalpos_7.mp4""]","f","response","f","","true","","yes","stim_6_goalpos_7.mp4","stim_6_goalpos_","7","","yes","false"
+"","","","","","html-keyboard-response","379","551293","0.0-6.0-4.64","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","380","551586","0.0-6.0-0.65","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","292","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","381","552340","0.0-6.0-1.65","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","382","552341","0.0-6.0-2.65","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","383","553886","0.0-6.0-3.65","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1543","[""img/stimuli/trial/stim_2_goalpos_6.mp4""]","f","response","f","","true","","yes","stim_2_goalpos_6.mp4","stim_2_goalpos_","6","","yes","false"
+"","","","","","html-keyboard-response","384","555388","0.0-6.0-4.65","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","385","556220","0.0-6.0-0.66","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","831","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","386","556985","0.0-6.0-1.66","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","387","556986","0.0-6.0-2.66","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","388","557829","0.0-6.0-3.66","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","841","[""img/stimuli/trial/stim_2_goalpos_0.mp4""]","f","response","f","","true","","yes","stim_2_goalpos_0.mp4","stim_2_goalpos_","0","","yes","false"
+"","","","","","html-keyboard-response","389","559333","0.0-6.0-4.66","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","390","559722","0.0-6.0-0.67","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","389","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","391","560488","0.0-6.0-1.67","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","392","560489","0.0-6.0-2.67","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","393","561554","0.0-6.0-3.67","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1062","[""img/stimuli/trial/stim_2_goalpos_0_negative.mp4""]","j","response","j","","true","","no","stim_2_goalpos_0_negative.mp4","stim_2_goalpos_","0","","no","false"
+"","","","","","html-keyboard-response","394","563057","0.0-6.0-4.67","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","395","563806","0.0-6.0-0.68","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","748","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","396","564819","0.0-6.0-1.68","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","397","564819","0.0-6.0-2.68","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","398","565796","0.0-6.0-3.68","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","974","[""img/stimuli/trial/stim_6_goalpos_14_negative.mp4""]","j","response","j","","true","","no","stim_6_goalpos_14_negative.mp4","stim_6_goalpos_","14","","no","false"
+"","","","","","html-keyboard-response","399","567302","0.0-6.0-4.68","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","400","567757","0.0-6.0-0.69","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","454","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","401","568763","0.0-6.0-1.69","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","402","568764","0.0-6.0-2.69","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","403","571564","0.0-6.0-3.69","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","2798","[""img/stimuli/trial/stim_4_goalpos_13_negative.mp4""]","j","response","j","","true","","no","stim_4_goalpos_13_negative.mp4","stim_4_goalpos_","13","","no","false"
+"","","","","","html-keyboard-response","404","573079","0.0-6.0-4.69","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","405","573707","0.0-6.0-0.70","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","628","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","406","573970","0.0-6.0-1.70","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","407","573970","0.0-6.0-2.70","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","408","574906","0.0-6.0-3.70","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","935","[""img/stimuli/trial/stim_6_goalpos_13_negative.mp4""]","j","response","j","","true","","no","stim_6_goalpos_13_negative.mp4","stim_6_goalpos_","13","","no","false"
+"","","","","","html-keyboard-response","409","576421","0.0-6.0-4.70","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","410","577272","0.0-6.0-0.71","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","851","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","411","578031","0.0-6.0-1.71","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","412","578031","0.0-6.0-2.71","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","413","579091","0.0-6.0-3.71","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1059","[""img/stimuli/trial/stim_6_goalpos_13.mp4""]","f","response","f","","true","","yes","stim_6_goalpos_13.mp4","stim_6_goalpos_","13","","yes","false"
+"","","","","","html-keyboard-response","414","580599","0.0-6.0-4.71","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","415","581173","0.0-6.0-0.72","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","573","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","416","581687","0.0-6.0-1.72","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","417","581688","0.0-6.0-2.72","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","418","583469","0.0-6.0-3.72","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1779","[""img/stimuli/trial/stim_2_goalpos_4.mp4""]","j","response","f","","false","","yes","stim_2_goalpos_4.mp4","stim_2_goalpos_","4","","yes","false"
+"","","","","","html-keyboard-response","419","584979","0.0-6.0-4.72","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","420","586062","0.0-6.0-0.73","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1083","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","421","586570","0.0-6.0-1.73","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","422","586571","0.0-6.0-2.73","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","423","587374","0.0-6.0-3.73","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","801","[""img/stimuli/trial/stim_6_goalpos_11.mp4""]","f","response","f","","true","","yes","stim_6_goalpos_11.mp4","stim_6_goalpos_","11","","yes","false"
+"","","","","","html-keyboard-response","424","588878","0.0-6.0-4.73","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","425","589915","0.0-6.0-0.74","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1035","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","426","590928","0.0-6.0-1.74","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","427","590930","0.0-6.0-2.74","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","428","591614","0.0-6.0-3.74","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","681","[""img/stimuli/trial/stim_2_goalpos_3.mp4""]","j","response","f","","false","","yes","stim_2_goalpos_3.mp4","stim_2_goalpos_","3","","yes","false"
+"","","","","","html-keyboard-response","429","593127","0.0-6.0-4.74","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","430","593862","0.0-6.0-0.75","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","733","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","431","594866","0.0-6.0-1.75","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","432","594866","0.0-6.0-2.75","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","433","596144","0.0-6.0-3.75","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1275","[""img/stimuli/trial/stim_2_goalpos_5.mp4""]","f","response","f","","true","","yes","stim_2_goalpos_5.mp4","stim_2_goalpos_","5","","yes","false"
+"","","","","","html-keyboard-response","434","597654","0.0-6.0-4.75","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","435","598409","0.0-6.0-0.76","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","754","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","436","599165","0.0-6.0-1.76","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","437","599165","0.0-6.0-2.76","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","438","599909","0.0-6.0-3.76","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","741","[""img/stimuli/trial/stim_2_goalpos_13_negative.mp4""]","j","response","j","","true","","no","stim_2_goalpos_13_negative.mp4","stim_2_goalpos_","13","","no","false"
+"","","","","","html-keyboard-response","439","601417","0.0-6.0-4.76","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","440","601785","0.0-6.0-0.77","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","367","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","441","602292","0.0-6.0-1.77","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","442","602292","0.0-6.0-2.77","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","443","604094","0.0-6.0-3.77","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1799","[""img/stimuli/trial/stim_4_goalpos_0_negative.mp4""]","j","response","j","","true","","no","stim_4_goalpos_0_negative.mp4","stim_4_goalpos_","0","","no","false"
+"","","","","","html-keyboard-response","444","605605","0.0-6.0-4.77","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","445","606075","0.0-6.0-0.78","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","468","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","446","606832","0.0-6.0-1.78","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","447","606832","0.0-6.0-2.78","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","448","607752","0.0-6.0-3.78","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","918","[""img/stimuli/trial/stim_2_goalpos_3_negative.mp4""]","j","response","j","","true","","no","stim_2_goalpos_3_negative.mp4","stim_2_goalpos_","3","","no","false"
+"","","","","","html-keyboard-response","449","609260","0.0-6.0-4.78","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","450","609741","0.0-6.0-0.79","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","480","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","451","610753","0.0-6.0-1.79","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","452","610754","0.0-6.0-2.79","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","453","611680","0.0-6.0-3.79","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","923","[""img/stimuli/trial/stim_6_goalpos_0_negative.mp4""]","j","response","j","","true","","no","stim_6_goalpos_0_negative.mp4","stim_6_goalpos_","0","","no","false"
+"","","","","","html-keyboard-response","454","613190","0.0-6.0-4.79","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","455","613620","0.0-6.0-0.80","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","430","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","456","613872","0.0-6.0-1.80","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","457","613872","0.0-6.0-2.80","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","458","615724","0.0-6.0-3.80","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1822","[""img/stimuli/trial/stim_4_goalpos_2.mp4""]","f","response","f","","true","","yes","stim_4_goalpos_2.mp4","stim_4_goalpos_","2","","yes","false"
+"","","","","","html-keyboard-response","459","617240","0.0-6.0-4.80","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","460","617860","0.0-6.0-0.81","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","619","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","461","618862","0.0-6.0-1.81","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","462","618862","0.0-6.0-2.81","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","463","619550","0.0-6.0-3.81","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","685","[""img/stimuli/trial/stim_6_goalpos_4_negative.mp4""]","j","response","j","","true","","no","stim_6_goalpos_4_negative.mp4","stim_6_goalpos_","4","","no","false"
+"","","","","","html-keyboard-response","464","621062","0.0-6.0-4.81","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","465","621599","0.0-6.0-0.82","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","536","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","466","621854","0.0-6.0-1.82","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","467","621854","0.0-6.0-2.82","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","468","622986","0.0-6.0-3.82","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1130","[""img/stimuli/trial/stim_2_goalpos_6_negative.mp4""]","j","response","j","","true","","no","stim_2_goalpos_6_negative.mp4","stim_2_goalpos_","6","","no","false"
+"","","","","","html-keyboard-response","469","624502","0.0-6.0-4.82","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","470","624908","0.0-6.0-0.83","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","405","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","471","625664","0.0-6.0-1.83","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","472","625664","0.0-6.0-2.83","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","473","626599","0.0-6.0-3.83","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","932","[""img/stimuli/trial/stim_6_goalpos_5.mp4""]","f","response","f","","true","","yes","stim_6_goalpos_5.mp4","stim_6_goalpos_","5","","yes","false"
+"","","","","","html-keyboard-response","474","628105","0.0-6.0-4.83","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","475","628556","0.0-6.0-0.84","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","450","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","476","629322","0.0-6.0-1.84","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","477","629323","0.0-6.0-2.84","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","478","630274","0.0-6.0-3.84","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","949","[""img/stimuli/trial/stim_4_goalpos_4_negative.mp4""]","j","response","j","","true","","no","stim_4_goalpos_4_negative.mp4","stim_4_goalpos_","4","","no","false"
+"","","","","","html-keyboard-response","479","631776","0.0-6.0-4.84","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","480","632343","0.0-6.0-0.85","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","566","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","481","632605","0.0-6.0-1.85","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","482","632605","0.0-6.0-2.85","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","483","633410","0.0-6.0-3.85","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","803","[""img/stimuli/trial/stim_6_goalpos_0.mp4""]","f","response","f","","true","","yes","stim_6_goalpos_0.mp4","stim_6_goalpos_","0","","yes","false"
+"","","","","","html-keyboard-response","484","634922","0.0-6.0-4.85","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","485","635618","0.0-6.0-0.86","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","695","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","486","636131","0.0-6.0-1.86","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","487","636131","0.0-6.0-2.86","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","488","636939","0.0-6.0-3.86","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","806","[""img/stimuli/trial/stim_2_goalpos_13.mp4""]","j","response","f","","false","","yes","stim_2_goalpos_13.mp4","stim_2_goalpos_","13","","yes","false"
+"","","","","","html-keyboard-response","489","638444","0.0-6.0-4.86","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","490","639101","0.0-6.0-0.87","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","656","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","491","639858","0.0-6.0-1.87","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","492","639859","0.0-6.0-2.87","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","493","640712","0.0-6.0-3.87","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","851","[""img/stimuli/trial/stim_6_goalpos_4.mp4""]","f","response","f","","true","","yes","stim_6_goalpos_4.mp4","stim_6_goalpos_","4","","yes","false"
+"","","","","","html-keyboard-response","494","642228","0.0-6.0-4.87","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","495","642811","0.0-6.0-0.88","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","582","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","496","643825","0.0-6.0-1.88","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","497","643825","0.0-6.0-2.88","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","498","644576","0.0-6.0-3.88","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","748","[""img/stimuli/trial/stim_6_goalpos_3_negative.mp4""]","j","response","j","","true","","no","stim_6_goalpos_3_negative.mp4","stim_6_goalpos_","3","","no","false"
+"","","","","","html-keyboard-response","499","646087","0.0-6.0-4.88","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","500","646601","0.0-6.0-0.89","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","512","
+            <div style=""font-size:30px;"">
+                <p>In the next scene: Will the ball reach the goal?</p>
+                <p> F: yes, J: no</p>
+                <p>(Press spacebar to begin)</p>
+            </div>
+            "," ","prompt","","","","","","","","","","",""
+"","","","","","html-keyboard-response","501","647361","0.0-6.0-1.89","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","<div style=""font-size:60px;"">+</div>","null","fixation","","","","","","","","","","",""
+"","","","","","call-function","502","647362","0.0-6.0-2.89","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","","","","","","","","","","","","","","",""
+"","","","","","video-keyboard-response","503","648936","0.0-6.0-3.89","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","1572","[""img/stimuli/trial/stim_2_goalpos_9.mp4""]","f","response","f","","true","","yes","stim_2_goalpos_9.mp4","stim_2_goalpos_","9","","yes","false"
+"","","","","","html-keyboard-response","504","650447","0.0-6.0-4.89","5fb2d087a956be967181e2d1","6267261dfada97807a861b32","62683d3c57e48846184bcf1d","f","null","
+            <div style=""font-size:30px;"">
+                <p>Your response has been logged.</p>
+            </div>
+            ","null","prompt","","","","","","","","","","",""
