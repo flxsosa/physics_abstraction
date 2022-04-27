@@ -292,4 +292,8 @@ def flip_movies():
         reversed_clip = clip.fx(vfx.mirror_x)
         reversed_clip.write_videofile(dir+file)  
 
-generate_pilot4_stimuli()
+def main():
+    generate_pilot4_stimuli()
+
+if __name__ == "__main__":
+    main()
