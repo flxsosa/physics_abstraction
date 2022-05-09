@@ -237,7 +237,7 @@ def generate_negative_pilot4_stimuli():
         with open(f"{savedir}{file.split('.')[0]}_negative.json", 'w') as f:
             json.dump(mutated_scene_args, f)
 
-def make_video(dir,fname):
+def make_video(dir,fname,alpha=False,region_test=False):
     # dir = "/Users/lollipop/projects/physics_abstraction/data/json/pilot4/"
     # savedir = "/Users/lollipop/Desktop/potential/"
 
@@ -245,11 +245,13 @@ def make_video(dir,fname):
     with open(dir+fname, 'r') as f:
         scene_args = json.loads(f.read())
     # Load the new scene
-    scene = load_scene_from_args(scene_args)
+    scene = load_scene_from_args(scene_args,region_test)
     # Run the scene
     scene.instantiate_scene()
-    # scene.graphics.draw_params['ball_alpha'] = True
+    if alpha:
+        scene.graphics.draw_params['ball_alpha'] = True
     scene.run(view=True,fname=fname.split(".")[0],record=True)
+    print(fname,scene.physics.tick)
 
 def fix_stimuli(fname):
     dir = "/Users/lollipop/Desktop/potential/tmp/"
@@ -278,6 +280,24 @@ def generate_pilot4_stimuli():
         make_video(dir,file)
         vid_from_img(fname,"/Users/lollipop/Desktop/tmp/")
 
+def generate_pilot6_stimuli():
+    dir = "/Users/lollipop/projects/physics_abstraction/data/json/pilot4/comprehension/"
+    path_to_json = dir
+    json_files = [pos_json for pos_json in os.listdir(path_to_json) if pos_json.endswith('.json')]
+    for file in ['comp_3.json','comp_4.json','comp_5.json']:
+        fname = file.split(".")[0]
+        make_video(dir,file,region_test=True)
+        vid_from_img(fname,"/Users/lollipop/Desktop/tmp/")
+
+def generate_types():
+    dir = "/Users/lollipop/Desktop/tmp/"
+    path_to_json = dir
+    json_files = [pos_json for pos_json in os.listdir(path_to_json) if pos_json.endswith('.json')]
+    for file in json_files:
+        fname = file.split('.')[0]
+        make_video(dir,file)
+        vid_from_img(fname,"/Users/lollipop/Desktop/tmp/")
+
 def flip_movies():
     from moviepy.editor import VideoFileClip, vfx
     dir = "/Users/lollipop/Desktop/tmp/"
@@ -293,7 +313,7 @@ def flip_movies():
         reversed_clip.write_videofile(dir+file)  
 
 def main():
-    generate_pilot4_stimuli()
+    generate_types()
 
 if __name__ == "__main__":
     main()

@@ -129,3 +129,14 @@ class Ball(PObject):
         shape.collision_type = 0
         components = [body,shape]
         super().__init__("Ball",body,components)
+
+class Region(PObject):
+    def __init__(self, pos=(100,100), r=60):
+        self.radius = r
+        body = pymunk.Body(body_type=pymunk.Body.STATIC)
+        body.position = pos
+        shape = pymunk.Circle(body, r)   
+        shape.color = pygame.Color("red")
+        shape.collision_type = 1
+        components = [body,shape]
+        super().__init__("Region",body,components)

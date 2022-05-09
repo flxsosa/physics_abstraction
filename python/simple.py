@@ -7,6 +7,46 @@ import os
 import json
 from models import load_object_arg_pairs
 
+def load_object_arg_pairs_2(scene_args):
+    '''
+    Instantiates objects via (object, argument) tuples
+
+    :param scene_args: Arguments for scenes
+    '''
+    obj_map = {
+        "Ball":Ball,
+        "Container":Container,
+        "Goal":Region,
+        "PlinkoBorder":PlinkoBorder,
+        "BottomBorder":BottomBorder,
+        "Line":Line
+    }
+    objects = []
+    object_args = []
+    for obj in scene_args['objects']:
+        if obj == "Ball":
+            objects.append(obj_map[obj])
+            object_args.append(scene_args["ball_args"])
+        elif obj == "Goal":
+            objects.append(obj_map[obj])
+            object_args.append(scene_args["goal_args"])
+        elif obj == "Container":
+            for i in range(len(scene_args["container_args"])):
+                objects.append(obj_map[obj])
+                object_args.append(scene_args["container_args"][i])
+        elif obj == "Line":
+            for i in range(len(scene_args["line_args"])):
+                objects.append(obj_map[obj])
+                object_args.append(scene_args["line_args"][i])
+        elif obj == "PlinkoBorder":
+            objects.append(obj_map[obj])
+            object_args.append([])
+        elif obj == "BottomBorder":
+            objects.append(obj_map[obj])
+            object_args.append([])
+        else:
+            raise ValueError(f"Received an invalid value in load_objects: obj=={obj}")
+    return objects, object_args
 
 def abstraction_simulation_pp(scene_args,N=5,D=100,E=0.9):
     '''
@@ -23,7 +63,7 @@ def abstraction_simulation_pp(scene_args,N=5,D=100,E=0.9):
     collision_prob = 0
     # Run scene
     objects = []
-    objs,args = load_object_arg_pairs(scene_args)
+    objs,args = load_object_arg_pairs_2(scene_args)
     for o,a in zip(objs, args):
         try:
             objects.append(o(*a))
@@ -35,7 +75,7 @@ def abstraction_simulation_pp(scene_args,N=5,D=100,E=0.9):
     # Scene
     scene = Scene(physics, objects, graphics)
     scene.instantiate_scene()
-    scene.run_path(view=True,N=N,D=D,E=E)
+    scene.run_path(view=False,N=N,D=D,E=E)
     ticks.append(scene.physics.tick)
     # Get collision probability
     collision_prob += scene.physics.handlers['ball_goal'].data['colliding']
@@ -82,7 +122,7 @@ def main():
     # Dictionary that will contain our model results
     model_distributions = {}
 
-    for file in json_files[0:1]:
+    for file in json_files[1:2]:
         # Scene name
         scene_name = file.split(".")[0]
         # Open the JSON file
@@ -90,7 +130,7 @@ def main():
             # Grab the scene arguments
             scene_args = json.loads(f.read())
         print(f"Running scene {scene_name}")
-        model_distributions[scene_name] = sim(scene_args,*model_parameters,5)
+        model_distributions[scene_name] = sim(scene_args,*model_parameters,1)
 
 if __name__ == "__main__":
     main()

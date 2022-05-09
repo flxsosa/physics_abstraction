@@ -130,8 +130,8 @@ class Graphics:
                     # Draw circle
                     draw_circle_alpha(self.screen, color, o.body.position, 20)
                     # Once shape disappears, end simulation
-                    if color.a == 0:
-                        self.running = False
+                    # if color.a == 0:
+                    #     self.running = False
                 elif self.draw_params.get('trace'):
                     color = pygame.Color("Black")
                     self.draw_params['trace'].append(o.body.position)
@@ -180,10 +180,13 @@ class Graphics:
                     b = self.rotate(body, line.b)
                     pygame.draw.line(self.screen, color, a+offset, b+offset,5)
             # Drawing body sensors
-            elif o.name == "Sensor":
-                color = self.draw_params['Ball']
-                points = o.components[1].get_vertices()
-                pygame.draw.polygon(self.screen,color,points)
+            elif o.name == "Region":
+                color = pygame.Color("Red")
+                color.a = 80
+                draw_circle_alpha(self.screen, color, o.body.position, 60)
+                # pygame.draw.circle(self.screen, color, to_pygame(o.body.position,self.screen), 60)
+                color = pygame.Color("Black")
+                pygame.draw.circle(self.screen, color, to_pygame(o.body.position,self.screen), 60, 2)
     
     def debug_draw(self,space):
         self.screen.fill((0,0,0))
@@ -393,6 +396,7 @@ class Scene:
 
     def instantiate_scene(self):
         for obj in self.objects:
+            print(obj)
             self.physics.space.add(*obj.components)
             if obj.name == "Ball":
                 self.listener = Listener(obj.body)
