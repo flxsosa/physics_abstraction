@@ -396,7 +396,6 @@ class Scene:
 
     def instantiate_scene(self):
         for obj in self.objects:
-            print(obj)
             self.physics.space.add(*obj.components)
             if obj.name == "Ball":
                 self.listener = Listener(obj.body)
