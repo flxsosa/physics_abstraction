@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<meta charset="UTF-8"/>
+<html>
+    <head>
+        <title>My Experiment</title>
+        <script src="jspsych/jspsych.js"></script>
+        <script src="jspsych/plugin-html-keyboard-response.js"></script>
+        <script src="jspsych/plugin-video-keyboard-response.js"></script>
+        <script src="jspsych/plugin-html-button-response.js"></script>
+        <script src="jspsych/plugin-call-function.js"></script>
+        <script src="https://unpkg.com/@jspsych/plugin-image-keyboard-response@1.0.0"></script>
+        <script src="https://unpkg.com/@jspsych/plugin-preload@1.0.0"></script>
+        <script src="https://unpkg.com/@jspsych/plugin-survey-likert@1.0.0"></script>
+        <link href="jspsych/jspsych.css" rel="stylesheet" type="text/css" />
+        <script src="lib/jquery-3.4.1.min.js"></script>
+        <link href="css/style.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body></body>
+    <script>
+        var jsPsych = initJsPsych({
+            show_progress_bar: true,
+            auto_update_progress_bar: false,
+            minimum_valid_rt: 100,
+            experiment_width: 800 
+        });
+        // capture info from Prolific
+        var subject_id = jsPsych.data.getURLVariable('PROLIFIC_PID');
+        var study_id = jsPsych.data.getURLVariable('STUDY_ID');
+        var session_id = jsPsych.data.getURLVariable('SESSION_ID');
+        // Conditions for participants
+        var conditions = ["f", "j"];
+        var condition = jsPsych.randomization.sampleWithoutReplacement(conditions, 1)[0];
+        // Record participant data
+        jsPsych.data.addProperties({
+            subject_id: subject_id,
+            study_id: study_id,
+            session_id: session_id,
+            condition: condition
+        });
+        // Number of stimuli, for progress bar updating
+        var n_stimuli = 90;
+        // Timeline
+        var timeline = [];
+
+        // Stimuli
+        path_to_stimuli = "stimuli/cond_0.json"
+
+        // var mydata = JSON.parse(path_to_stimuli);
+        // alert(mydata);
+
+        var my_data = [];
+        var my_dict = {};
+        $.getJSON( path_to_stimuli, function( data ){
+            my_data.push(data)
+            my_dict['data'] = data
+        })
+
+        console.log(my_data)
+        console.log(my_dict)
+        var a = my_data[0]
+        console.log(a)
+        console.log(my_dict.data.probe[0])
+
+        var comprehension_stimuli = [
+            { 
+                stimulus: ['img/stimuli/comprehension/comp_0.mp4'], 
+                correct_response: yes.toLowerCase(), 
+                width: 200,
+                response_ends_trial: false,
+                trial_duration: null,
+                trial_ends_after_video: true,
+                prompt: `
+                <div style="font-size:30px;">
+                    <p>
+                        Check 1: In the next page you will see a clip.
+                    </p>
+                    <p> 
+                        Please use your keyboard to answer: <strong>Will the Ball 
+                        pass through the Region?</strong>
+                    </p>
+                    <p>
+                        Remember F means `+f_key+` and J means `+j_key+`.
+                    </p>
+                    <p>(Press spacebar to begin)</p>
+                </div>
+                `
+            },
+            { 
+                stimulus: ['img/stimuli/comprehension/comp_1.mp4'], 
+                correct_response: yes.toLowerCase(), 
+                width: 200,
+                response_ends_trial: false,
+                trial_duration: null, 
+                trial_ends_after_video: true,
+                prompt: `
+                <div style="font-size:30px;">
+                    <p>
+                        Check 2: In the next page you will see a clip.
+                    </p>
+                    <p> 
+                        Please use your keyboard to answer: <strong>Will the Ball 
+                        pass through the Region?</strong>
+                    </p>
+                    <p>
+                        Remember F means `+f_key+` and J means `+j_key+`.
+                    </p>
+                    <p>(Press spacebar to begin)</p>
+                </div>
+                ` 
+            },
+            {
+                stimulus: ['img/stimuli/comprehension/comp_2.mp4'], 
+                correct_response: no.toLowerCase(), 
+                width: 200,
+                response_ends_trial: false,
+                trial_duration: null, 
+                trial_ends_after_video: true,
+                prompt: `
+                <div style="font-size:30px;">
+                    <p>
+                        Check 3: In the next page you will see a clip.
+                    </p>
+                    <p> 
+                        Please use your keyboard to answer: <strong>Will the Ball 
+                        pass through the Region?</strong>
+                    </p>
+                    <p>
+                        Remember F means `+f_key+` and J means `+j_key+`.
+                    </p>
+                    <p>(Press spacebar to begin)</p>
+                </div>
+                `
+            },
+            {
+                stimulus: ['img/stimuli/comprehension/comp_3.mp4'], 
+                correct_response: yes.toLowerCase(), 
+                width: 200, 
+                response_ends_trial: false,
+                trial_ends_after_video: true,
+                trial_duration: null, 
+                prompt: `
+                <div style="font-size:30px;">
+                    <p>
+                        Check 4: In the next page you will see a clip.
+                    </p>
+                    <p> 
+                        Please use your keyboard to answer: <strong>Will the Ball 
+                        pass through the Region?</strong>
+                    </p>
+                    <p>
+                        Remember F means `+f_key+` and J means `+j_key+`.
+                    </p>
+                    <p>(Press spacebar to begin)</p>
+                </div>
+                `
+            },
+            {
+                stimulus: ['img/stimuli/comprehension/comp_4.mp4'], 
+                correct_response: no.toLowerCase(), 
+                width: 200, 
+                response_ends_trial: false,
+                trial_duration: null, 
+                trial_ends_after_video: true,
+                prompt: `
+                <div style="font-size:30px;">
+                    <p>
+                        Check 5: In the next page you will see a clip.
+                    </p>
+                    <p> 
+                        Please use your keyboard to answer: <strong>Will the Ball 
+                        pass through the Region?</strong>
+                    </p>
+                    <p>
+                        Remember F means `+f_key+` and J means `+j_key+`.
+                    </p>
+                    <p>(Press spacebar to begin)</p>
+                </div>
+                `
+            },
+            {
+                stimulus: ['img/stimuli/comprehension/comp_5.mp4'], 
+                correct_response: no.toLowerCase(), 
+                width: 200, 
+                response_ends_trial: false,
+                trial_duration: null, 
+                trial_ends_after_video: true,
+                prompt: `
+                <div style="font-size:30px;">
+                    <p>
+                        Check 6: In the next page you will see a clip.
+                    </p>
+                    <p> 
+                        Please use your keyboard to answer: <strong>Will the Ball 
+                        pass through the Region?</strong>
+                    </p>
+                    <p>
+                        Remember F means `+f_key+` and J means `+j_key+`.
+                    </p>
+                    <p>(Press spacebar to begin)</p>
+                </div>
+                `
+            }
+        ]
+        var n_trials = test_stimuli.length + instruction_stimuli.length + comprehension_stimuli.length
+        
+        // Prompts
+        var begin_comp_prompt = {
+            type: jsPsychHtmlKeyboardResponse,
+            stimulus: jsPsych.timelineVariable('prompt'),
+            choices: " ",
+            data: {
+                task: 'comp_prompt'
+            }
+        }
+        var end_comp_prompt = {
+            type: jsPsychHtmlKeyboardResponse,
+            stimulus: `
+            <div style="font-size:30px;">
+                <p>Your response has been logged.</p>
+            </div>
+            `,
+            trial_duration: 1500,
+            choices: "NO_KEYS",
+            data: {
+                task: 'comp_prompt'
+            }
+        }
+
+        // Videos for preload
+        var videos = [];
+        for (let stim of stim_cond) {
+            for (let pos of pos_cond) {
+                for (let goal of goal_cond) {
+                    col = collision_map[pos]
+                    cr = key_response_map[col]
+                    videos.push(['img/stimuli/trial/'+stim+goal+pos+'.mp4']);
+                }
+            }
+        }
+        // Welcome and Preload
+        var preload = {
+            type: jsPsychPreload,
+            auto_preload: true,
+            video: videos,
+            continue_after_error: true
+        }
+
+        // Experiment plugins
+        var comprehension = {
+            type: jsPsychVideoKeyboardResponse,
+            trial_ends_after_video: false,
+            stimulus: jsPsych.timelineVariable('stimulus'),
+            width: jsPsych.timelineVariable('width'),
+            choices: ['f', 'j'],
+            response_ends_trial: jsPsych.timelineVariable('response_ends_trial'),
+            trial_duration: jsPsych.timelineVariable('trial_duration'), 
+            trial_ends_after_video: jsPsych.timelineVariable('trial_ends_after_video'),
+            data: {
+                task: 'comprehension',
+                correct_response: jsPsych.timelineVariable('correct_response'),
+                attempts: 1
+            },
+            on_finish: function(data){
+                data.correct = jsPsych.pluginAPI.compareKeys(data.response, data.correct_response);
+                data.attempts = attempts;
+                var curr_progress_bar_value = jsPsych.getProgressBarCompleted();
+                jsPsych.setProgressBar(curr_progress_bar_value + (1/n_trials));
+            }
+        }
+        var attempts = 1;
+        // Procedures
+        var comprehension_procedure = {
+            timeline: [begin_comp_prompt, fixation, comprehension, end_comp_prompt],
+            timeline_variables: comprehension_stimuli
+        }
+        var final_trial = {
+            type: jsPsychHtmlKeyboardResponse,
+            stimulus: `
+                <p>You've finished the last task. Thanks for participating!</p>
+                <p><a href="https://app.prolific.co/submissions/complete?cc=3F388D49">Click here to return to Prolific and complete the study</a>.</p>`,
+            choices: "NO_KEYS"
+        }
+        
+        // Push it all to the timeline
+        timeline.push(preload)
+        timeline.push(comprehension_procedure)
+        timeline.push(final_trial)
+
+        // Run the experiment
+        jsPsych.run(timeline)
+    </script>
+</html>

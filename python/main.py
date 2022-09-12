@@ -1,36 +1,93 @@
 '''
 File for scratch jobs and testing. Frequently overwritten.
 '''
+from cgi import test
+import utility
+import models
+import pandas as pd
+import seaborn as sns
+import os
+from pymunk.vec2d import Vec2d
 
-from simulation import *
-from abstraction import *
-from objects import *
+def get_scene_name(file_name):
+    '''
+    Returns scene name from file name
+    '''
+    return file_name.split(".")[0]
+
+def get_scene_type(scene_name):
+    '''
+    Returns the scene type for a given scene name.
+    '''
+    split_name = scene_name.split('_')[:2]
+    return '_'.join(split_name)
 
 def main():
-    pallete = {'b':Ball,'c':Line,'g':Goal}
-    physics = Physics()
-    graphics = Graphics()
-    objects = [
-        Ball((700,100)),
-        Line((700,100),(100,400)),
-        Line((200,700),(800,550)),
-        Line((100,800),(500,800)),
-        PlinkoBorder(),
-        BottomBorder()
-        ]
-    # ball_args,goal_args,container_args = sample_object_arguments(1)
-    # # # Perturb those arguments N times
-    # for i in range(1):
-    #     noisy_ball_args = list(*ball_args*normal(1,0.02,2))
-    #     objects = [Ball(noisy_ball_args), Goal(*goal_args), PlinkoBorder(), BottomBorder()]
-    #     for j in range(len(container_args[0])):
-    #         objects.append(Container(*container_args[0][j]))
-
-    scene = SceneBuilder(physics,objects,graphics,pallete)
+    scene_dir = '/Users/lollipop/projects/physics_abstraction/data/json/pilot7/stim_2_goalpos_12.json'
+    scene = utility.load_scene(scene_dir)
     scene.instantiate_scene()
-    scene.graphics.initialize_graphics()
+    for o in scene.objects:
+        print(o,id(o),o.id)
+    # scene.run(view=True)#,N=10,D=100,E=0.99)
+    scene.run_path(view=True,N=5.1409462387944895,D=104.10421721109057,E=0.9010950888058105)
+    print(scene.physics.tick)
+    # scene.instantiate_scene()
 
-    scene.run_path()
+def test_abstraction():
+    loaddir = "../data/json/pilot7/"
+    # Gather all of the json files in the directory of trial stimuli
+    json_files = [pos_json for pos_json in os.listdir(loaddir) if pos_json.endswith('.json')]
+    # Dictionary that will contain distance travelled per scenario 
+    distances = []
+
+    # Iterate through stimuli files
+    for scene_json in json_files:
+        scene_dir = loaddir+scene_json
+        scene_name = get_scene_name(scene_json)
+        scene = utility.load_scene(scene_dir)
+        # Extract the origin (the ball's starting position)
+        origin = scene.args['ball_args'][0]
+        # Extract the goal position
+        goal = scene.args['goal_args'][0]
+        # Convert these points into Vec2d for compatibility with pymunk
+        origin = Vec2d(*origin)
+        goal = Vec2d(*goal)
+        dist = {}
+        # Compute the distance
+        dist['distance'] = origin.get_distance(goal)
+        # Add the scene, distance pair into the dataframe
+        dist['scene'] = scene_name
+        distances.append(dist)
+
+    distances = pd.DataFrame.from_dict(distances)
+
+    abstraction_rt = []
+    for scene_json in json_files:
+        scene_dir = loaddir+scene_json
+        scene_name = get_scene_name(scene_json)
+        if 'negative' in scene_name:
+            collision = False
+        else:
+            collision = True
+        scene_type = get_scene_type(scene_name)
+        # Samples to draw from models
+        samples = 1
+        # Noise (SD on ball starting pos) for simulation model
+        noise = 0.02
+        # Generate a scene
+        scene = utility.load_scene(scene_dir)
+        # Get RT profile from model
+        ## Abstraction
+        abstraction_sample = models.abstraction(scene_args=scene.args,num_samples=samples)
+        abstraction_sample['scene'] = scene_name
+        abstraction_sample['scene_type'] = scene_type
+        abstraction_sample['collision'] = collision
+        abstraction_rt.append(abstraction_sample)
+
+    abstraction_predictions = pd.DataFrame.from_dict(abstraction_rt,orient='columns')
+    abstraction_predictions['model'] = 'abstraction'
+
+    print(abstraction_predictions)
 
 if __name__ == "__main__":
     main()

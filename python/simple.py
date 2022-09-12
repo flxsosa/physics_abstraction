@@ -1,8 +1,10 @@
+# from cmath import cos, sin
 from objects import *
 from simulation import Scene, Physics, Graphics
 import pandas as pd
 import numpy as np
 from numpy.random import normal
+from math import degrees, cos, sin
 import os
 import json
 from models import load_object_arg_pairs
@@ -75,14 +77,14 @@ def abstraction_simulation_pp(scene_args,N=5,D=100,E=0.9):
     # Scene
     scene = Scene(physics, objects, graphics)
     scene.instantiate_scene()
-    scene.run_path(view=False,N=N,D=D,E=E)
+    scene.run_path(view=True,N=N,D=D,E=E)
     ticks.append(scene.physics.tick)
     # Get collision probability
     collision_prob += scene.physics.handlers['ball_goal'].data['colliding']
     
     return collision_prob, 1, ticks
 
-def sim(scene_args,N=5,D=100,E=0.9,num_samples=100):
+def sim(scene_args,N=5,D=100,E=0.9,num_samples=1):
     '''
     Deterministic physics simulator. Model outputs are end
     state of the scene and the number of ticks of one run 
@@ -109,28 +111,71 @@ def sim(scene_args,N=5,D=100,E=0.9,num_samples=100):
 
     return dist 
 
+def convert_container_to_line(dictionary):
+    '''
+    Converts Container object arguments in a dictionary into Line object
+    arguments.
+
+    :param dictionary: Dictionary containing parameters to be changed
+    '''
+    line_args = []
+    containers = dictionary['container_args']
+
+    for c in containers:
+        # Position
+        c_pos = c[0]
+        c_x = c_pos[0]
+        c_y = c_pos[1]
+        c_width = c[1]
+        c_angle = c[3]
+
+        point_a = ((c_x-c_width/2), c_y)
+        point_b = ((c_x+c_width/2), c_y)
+
+        line = [point_a,point_b,c_angle]
+        line_args.append(line)
+
+    dictionary['line_args'] = line_args
+    while "Container" in dictionary['objects']:
+        dictionary['objects'].remove('Container')
+    dictionary.pop('container_args')
+
+    dictionary['objects'].append("Line")
+
 def main():
-
-    # Working parameters (for now)
-    model_parameters = (15, 200, 0.99)
-
     # Director with relevant JSONs
-    loaddir = "../data/json/pilot4/trial/"
+    loaddir = "../../../Desktop/types/"
+    print(os.listdir(loaddir))
     # Gather all of the json files in the directory of trial stimuli
     json_files = [pos_json for pos_json in os.listdir(loaddir) if pos_json.endswith('.json')]
-    json_files = [pos_json for pos_json in json_files if 'stim_2' in pos_json]
-    # Dictionary that will contain our model results
-    model_distributions = {}
 
     for file in json_files[1:2]:
+        print(file)
         # Scene name
         scene_name = file.split(".")[0]
         # Open the JSON file
         with open(loaddir+file, 'r') as f:
             # Grab the scene arguments
             scene_args = json.loads(f.read())
-        print(f"Running scene {scene_name}")
-        model_distributions[scene_name] = sim(scene_args,*model_parameters,1)
+            convert_container_to_line(scene_args)
+        # Run scene
+        objects = []
+        objs,args = load_object_arg_pairs(scene_args)
+        for o,a in zip(objs, args):
+            try:
+                print(o)
+                print(*a)
+                objects.append(o(*a))
+                print(objects)
+            except TypeError:
+                objects.append(o())
+        physics = Physics()
+        graphics = Graphics(800,2000)
+
+        # Scene
+        scene = Scene(physics, objects, graphics)
+        scene.instantiate_scene()
+        scene.run(view=True)
 
 if __name__ == "__main__":
     main()

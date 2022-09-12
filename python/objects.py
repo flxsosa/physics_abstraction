@@ -22,17 +22,18 @@ class PObject:
     An PObject is a simulated physical object that evolves over time according
     to a Physics.
     '''
-    def __init__(self,name,body,components):
+    def __init__(self,name,body,components,id=99):
         self.name = name # Name of the object
         self.body = body # Pymunk body of the object
         self.components = components # Body and shapes for object
+        self.id=id
 
 class PlinkoBorder(PObject):
-    def __init__(self, span=(800,1000), d=2):
+    def __init__(self, l=1000, w=800, d=2):
         body = pymunk.Body(body_type=pymunk.Body.STATIC)
         components = [body]
-        x0, y0 = 10, span[1]*0.2+10
-        x1, y1 = span[0]-10,span[1]-10
+        x0, y0 = 10, 210
+        x1, y1 = w-10,l-10
         segments = [(x0,y0),(x0,y1),(x1,y1),(x1,y0)] # Right
         # Left and Right
         for i in range(3):
@@ -46,9 +47,9 @@ class PlinkoBorder(PObject):
         super().__init__("PlinkoBorder",body,components)
 
 class BottomBorder(PObject):
-    def __init__(self, span=(800,1000), d=2):
+    def __init__(self, pos1=(10,990),pos2=(790,990), d=2):
         body = pymunk.Body(body_type=pymunk.Body.STATIC)
-        segment = pymunk.Segment(body,(10,990),(790,990), d)
+        segment = pymunk.Segment(body,pos1,pos2, d)
         segment.color = pygame.Color("white")
         segment.collision_type = 2
         segment.friction = 1
@@ -57,45 +58,29 @@ class BottomBorder(PObject):
         super().__init__("BottomBorder",body,components)
 
 class Container(PObject):
-    def __init__(self, pos=(width/2,height/2), w=40, l=80, angle=0,d=2):
+    def __init__(self, pos=(width/2,height/2), w=40, l=80, angle=0,id=99,d=2):
         body = pymunk.Body(body_type=pymunk.Body.STATIC)
         body.position = pos
         body.angle = math.radians(angle)
         # Bottom segment
         b_y = l
-        b_x1 = w + d + 1
-        b_x2 = -w - d - 1
+        b_x1 = w + d + 1 
+        b_x2 = -w - d - 1 
         b_segment = pymunk.Segment(body,(b_x1,b_y),(b_x2,b_y),d)
         b_segment.color = pygame.Color("white")
         b_segment.collision_type = 3
         b_segment.friction = 1
         b_segment.elasticity = obj_elasticity
-        # Left segment
-        l_y1 = l
-        l_y2 = 0
-        l_x1 = -w - d - 1
-        l_x2 = -w - d - 1
-        l_segment = pymunk.Segment(body,(l_x1,l_y1),(l_x2,l_y2),d)
-        l_segment.color = pygame.Color("white")
-        l_segment.collision_type = 3
-        l_segment.friction = 1
-        l_segment.elasticity = obj_elasticity
-        # Right segment
-        r_y1 = l
-        r_y2 = 0
-        r_x1 = w + d + 1
-        r_x2 = w + d + 1
-        r_segment = pymunk.Segment(body,(r_x1, r_y1),(r_x2, r_y2),d)
-        r_segment.color = pygame.Color("white")
-        r_segment.collision_type = 3
-        r_segment.friction = 1
-        r_segment.elasticity = obj_elasticity
-        components = [body,b_segment,l_segment,r_segment]
-        super().__init__("Container",body,components)
+        components = [body,b_segment]
+        super().__init__("Container",body,components,id)
 
 class Line(PObject):
-    def __init__(self, pos1,pos2,d=2):
+    def __init__(self, pos1,pos2,angle=0,d=2):
         body = pymunk.Body(body_type=pymunk.Body.STATIC)
+        body.position = (pos1[0]+pos2[0]) / 2, (pos1[1] + pos2[1]) / 2
+        body.angle =  math.radians(angle)
+        pos1 = pos1[0] - body.position[0], pos1[1] - body.position[1]
+        pos2 = pos2[0] - body.position[0], pos2[1] - body.position[1]
         segment = pymunk.Segment(body,(pos1),(pos2),d)
         segment.color = pygame.Color("white")
         segment.collision_type = 3
@@ -108,17 +93,17 @@ class Goal(PObject):
     def __init__(self, pos=(200,200), l=80):
         body = pymunk.Body(body_type=pymunk.Body.STATIC)
         body.position = pos[0], pos[1]
-        shape = pymunk.Poly.create_box(body, (l/2, l))
+        shape = pymunk.Poly.create_box(body, (l, l/2))
         shape.color = pygame.Color("green")
         shape.collision_type = 1
         components = [body,shape]
         # Convenience properties for accessing length and width
         self.l = l
         self.w = l/2
-        super().__init__("Goal",body,components)
+        super().__init__("Goal",body,components,100)
 
 class Ball(PObject):
-    def __init__(self, pos=(100,100), r=20):
+    def __init__(self, pos=(100,100), r=20, id=0):
         self.radius = r
         body = pymunk.Body(10.0, 10)
         body.position = pos
@@ -128,7 +113,7 @@ class Ball(PObject):
         shape.color = pygame.Color("red")
         shape.collision_type = 0
         components = [body,shape]
-        super().__init__("Ball",body,components)
+        super().__init__("Ball",body,components,id)
 
 class Region(PObject):
     def __init__(self, pos=(100,100), r=60):

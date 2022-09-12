@@ -1,3 +1,4 @@
+from logging import warning
 import numpy as np
 import cv2
 import glob
@@ -167,6 +168,9 @@ def load_objects_from_args(args,region_test=False):
         if obj == "Ball":
             objects.append(obj_map[obj](*scene_args["ball_args"]))
         elif obj == "Goal":
+            if "goal_args" not in scene_args.keys():
+                warning("Goal object specified in objects but no arguments found.")
+                continue
             region = obj_map[obj](*scene_args["goal_args"])
         elif obj == "Container":
             for i in range(len(scene_args["container_args"])):
@@ -175,12 +179,18 @@ def load_objects_from_args(args,region_test=False):
             for i in range(len(scene_args["line_args"])):
                 objects.append(obj_map[obj](*scene_args["line_args"][i]))
         elif obj == "PlinkoBorder":
-            objects.append(obj_map[obj]())
+            if "plinko_border_args" in scene_args:
+                objects.append(obj_map[obj](*scene_args["plinko_border_args"]))
+            else:
+                objects.append(obj_map[obj]())
         elif obj == "BottomBorder":
-            objects.append(obj_map[obj]())
+            if "bottom_border_args" in scene_args:
+                objects.append(obj_map[obj](*scene_args["bottom_border_args"]))
+            else:
+                objects.append(obj_map[obj]())
         else:
             raise ValueError(f"Received an invalid value in load_objects: obj=={obj}")
-    if region_test:
+    if region != None:
         objects.append(region)
     return objects
 
@@ -223,9 +233,15 @@ def load_objects(dir,region_test=False):
                 for i in range(len(scene_args["line_args"])):
                     objects.append(obj_map[obj](*scene_args["line_args"][i]))
             elif obj == "PlinkoBorder":
-                objects.append(obj_map[obj]())
+                if "plinko_border_args" in scene_args:
+                    objects.append(obj_map[obj](*scene_args["plinko_border_args"]))
+                else:
+                    objects.append(obj_map[obj]())
             elif obj == "BottomBorder":
-                objects.append(obj_map[obj]())
+                if "bottom_border_args" in scene_args:
+                    objects.append(obj_map[obj](*scene_args["bottom_border_args"]))
+                else:
+                    objects.append(obj_map[obj]())
             else:
                 raise ValueError(f"Received an invalid value in load_objects: obj=={obj}")
     return objects
@@ -234,10 +250,11 @@ def load_scene_from_args(args,region_test=False):
     '''
     Load a Scene from given JSON arguments.
 
-    :param args: Path to scene.
+    :param args: Scene argument.
     '''
+    screen_args = args['screen_size']
     physics = Physics()
-    graphics = Graphics()
+    graphics = Graphics(*screen_args)
     objects = load_objects_from_args(args,region_test)
 
     scene = Scene(physics, objects, graphics)
@@ -250,11 +267,14 @@ def load_scene(dir,region_test=False):
 
     :param dir: Path to scene.
     '''
+    with open(dir, 'r') as f:
+        scene_args = json.loads(f.read())
+        screen_args = scene_args['screen_size']
     physics = Physics()
-    graphics = Graphics()
+    graphics = Graphics(*screen_args)
     objects = load_objects(dir,region_test=region_test)
 
-    scene = Scene(physics, objects, graphics)
+    scene = Scene(physics, objects, graphics, dir)
     scene.graphics.framework.display.set_caption(dir.split('/')[-1])
     return scene
 
@@ -266,7 +286,7 @@ def view_scenes_in_dir(dir):
     :param dir: Directory where Scenes are saved.
     '''
     json_files = [jsonf for jsonf in os.listdir(dir) if jsonf.endswith('.json')]
-
+    print(json_files)
     for file in json_files:
         scene = load_scene(dir+file)
         scene.instantiate_scene()

@@ -1,6 +1,16 @@
 from objects import *
 from simulation import Scene, Physics, Graphics
 from numpy.random import normal
+from scipy.stats import truncnorm
+
+def convert_to_ordered_collision_trace(trace,mapping):
+    if len(trace) == 0:
+        return trace
+    ordered_trace = []
+    original_trace = trace[0]
+    ball,container = original_trace
+    ordered_trace.append(mapping[container])
+    return ordered_trace
 
 def load_object_arg_pairs(scene_args):
     '''
@@ -35,47 +45,21 @@ def load_object_arg_pairs(scene_args):
                 object_args.append(scene_args["line_args"][i])
         elif obj == "PlinkoBorder":
             objects.append(obj_map[obj])
-            object_args.append([])
+            if "plinko_border_args" in scene_args:
+                object_args.append(scene_args["plinko_border_args"])
+            else:
+                object_args.append(obj_map[obj]())
         elif obj == "BottomBorder":
             objects.append(obj_map[obj])
-            object_args.append([])
+            if "bottom_border_args" in scene_args:
+                object_args.append(scene_args["bottom_border_args"])
+            else:
+                object_args.append(obj_map[obj]())
         else:
             raise ValueError(f"Received an invalid value in load_objects: obj=={obj}")
     return objects, object_args
 
-def determinstic_simulation(scene_args):
-    '''
-    Deterministic physics simulator. Model outputs are end
-    state of the scene and the number of ticks of one run 
-    of a scene with no noise.
-
-    :param scene_args: Arguments for scenes
-    '''
-    ticks = []
-    collision_prob = 0
-    # Run scene
-    objects = []
-    objs,args = load_object_arg_pairs(scene_args)
-    for o,a in zip(objs, args):
-        try:
-            objects.append(o(*a))
-        except TypeError:
-            objects.append(o())
-    physics = Physics()
-    graphics = Graphics()
-
-    # Scene
-    scene = Scene(physics, objects, graphics)
-    scene.instantiate_scene()
-    scene.run(view=False)
-    # Get ticks
-    ticks.append(scene.physics.tick)
-    # Get collision probability
-    collision_prob += scene.physics.handlers['ball_goal'].data['colliding']
-    
-    return collision_prob, 1, ticks
-
-def stochastic_simulation(scene_args,samples=100,noise=0.02):
+def simulation(scene_args,num_samples=1,noise=0.0,view=False):
     '''
     Stochastic physics simulator. Model outputs are the
     probability ratings for end states and the
@@ -86,132 +70,44 @@ def stochastic_simulation(scene_args,samples=100,noise=0.02):
     :param samples: Number of samples to draw
     :param noise: Noise injected into simulator
     '''
-    ticks = []
-    collision_prob = 0
-
-    for i in range(samples):
+    object_id_map = {}
+    dist = {
+        "collision_probability":[],
+        "simulation_time":[],
+        'collision_trace':[]
+        }
+    # Sample trajectories
+    for i in range(num_samples):
+        # We separate the Ball from everything else so we can
+        #   add noise to the ball's starting location
         objects = []
         objs,args = load_object_arg_pairs(scene_args)
         for o,a in zip(objs, args):
             if o.__name__ == "Ball":
                 noisy_a = list(*a*normal(1,noise,2))
                 objects.append(o(noisy_a))
-            elif o.__name__ == "PlinkoBorder" or o.__name__ == "BottomBorder":
-                objects.append(o())
             else:
-                objects.append(o(*a))
+                try:
+                    objects.append(o(*a))
+                except TypeError:
+                    objects.append(o())
         physics = Physics()
         graphics = Graphics()
 
         # Scene
         scene = Scene(physics, objects, graphics)
+        for obj in scene.objects:
+            object_id_map[id(obj.components[-1])] = obj.id
         scene.instantiate_scene()
-        scene.run(view=False)
-        ticks.append(scene.physics.tick)
+        scene.run(view=view)
         # Read out statistics
-        collision_prob += scene.physics.handlers['ball_goal'].data['colliding']
-    # Read out statistics
-    collision_prob /= samples
+        dist['collision_probability'].append(int(scene.physics.handlers['ball_goal'].data['colliding']))
+        dist['simulation_time'].append(scene.physics.tick)
+        dist['collision_trace'].append(convert_to_ordered_collision_trace(scene.physics.handlers['ball_container'].data['collision_trace'],object_id_map))
     
-    return collision_prob, samples, ticks
+    return dist
 
-def sprt_closed(scene_args,T=2,samples=100,noise=0.02):
-    '''
-    Sequential probability ratio test (Hamrick et al, 2015; 
-    Wald, 1947). Model outputs are the probability ratings
-    for end states and the number of samples needed to decide
-    on an end state.
-
-    :param scene_args: Arguments for scenes
-    :param T: Stopping threshold for SPRT
-    :param samples: Number of samples to take
-    :param noise: Noise to inject into simulator
-    '''
-    ticks = []
-    collision_prob = 0
-    for i in range(samples):
-        objects = []
-        objs,args = load_object_arg_pairs(scene_args)
-        for o,a in zip(objs, args):
-            if o.__name__ == "Ball":
-                noisy_a = list(*a*normal(1,noise,2))
-                objects.append(o(noisy_a))
-            elif o.__name__ == "PlinkoBorder" or o.__name__ == "BottomBorder":
-                objects.append(o())
-            else:
-                objects.append(o(*a))
-        physics = Physics()
-        graphics = Graphics()
-
-        # Scene
-        scene = Scene(physics, objects, graphics)
-        scene.instantiate_scene()
-        scene.run(view=False)
-        ticks.append(scene.physics.tick)
-        # Read out statistics
-        collision_prob += scene.physics.handlers['ball_goal'].data['colliding']
-    # Read out statistics
-    collision_prob /= samples
-    p = collision_prob
-    # Compute probability of choose "yes" collision
-    prob_choosing_yes = p**T / (p**T + (1-p)**T)
-    # Compute expected samples
-    if p == 0.0:
-        N = (T/(1-2*p)) - (2*T / (1-2*p))
-    elif p == 0.5:
-        N = T # This should actually be infinity
-    else:
-        N = (T/(1-2*p)) - (2*T / (1-2*p)) * ((1-((1-p)/p)**T)/(1-((1-p)/p)**(2*T)))
-    return prob_choosing_yes, N, ticks
-
-def sprt(scene_args,noise=0.02,T=2):
-    '''
-    Sequential probability ratio test (Hamrick et al, 2015; 
-    Wald, 1947). Model outputs are the probability ratings
-    for end states and the number of samples needed to decide
-    on an end state.
-
-    :param scene_args: Arguments for scenes
-    :param noise: Noise to inject into simulator
-    :param T: Stopping threshold for SPRT
-    '''
-    # Stopping criterion
-    yn = 0
-    # Num samples
-    N = 0
-    # Scene args
-    ticks = []
-    while abs(yn) != T:
-        objects = []
-        objs,args = load_object_arg_pairs(scene_args)
-        for o,a in zip(objs, args):
-            if o.__name__ == "Ball":
-                noisy_a = list(*a*normal(1,noise,2))
-                objects.append(o(noisy_a))
-            elif o.__name__ == "PlinkoBorder" or o.__name__ == "BottomBorder":
-                objects.append(o())
-            else:
-                objects.append(o(*a))
-        physics = Physics()
-        graphics = Graphics()
-
-        # Scene
-        scene = Scene(physics, objects, graphics)
-        scene.instantiate_scene()
-        scene.run(view=False)
-        ticks.append(scene.physics.tick)
-        # Read out statistics
-        yn += 1 if scene.physics.handlers['ball_goal'].data['colliding'] else -1
-        N += 1
-
-    # Compute choice
-    if yn < 0:
-        prob_choosing_yes = 0
-    else:
-        prob_choosing_yes = 1
-    return prob_choosing_yes, N, ticks
-
-def abstraction_simulation_pp(scene_args,N=5,D=100,E=0.9):
+def _abstraction(scene_args,N=5,D=100,E=0.8,view=False):
     '''
     Deterministic physics simulator. Model outputs are end
     state of the scene and the number of ticks of one run 
@@ -222,8 +118,10 @@ def abstraction_simulation_pp(scene_args,N=5,D=100,E=0.9):
     :param D: Length of path projection
     :oparam E: Cossim threshold for accepting abstraction
     '''
-    ticks = []
+    object_id_map = {}
+    ticks = 0
     collision_prob = 0
+    collision_trace = []
     # Run scene
     objects = []
     objs,args = load_object_arg_pairs(scene_args)
@@ -237,15 +135,17 @@ def abstraction_simulation_pp(scene_args,N=5,D=100,E=0.9):
 
     # Scene
     scene = Scene(physics, objects, graphics)
+    for obj in scene.objects:
+        object_id_map[id(obj.components[-1])] = obj.id
     scene.instantiate_scene()
-    scene.run_path(view=False,N=N,D=D,E=E)
-    ticks.append(scene.physics.tick)
+    scene.run_path(view=view,N=N,D=D,E=E)
+    ticks += scene.physics.tick
     # Get collision probability
     collision_prob += scene.physics.handlers['ball_goal'].data['colliding']
-    
-    return collision_prob, 1, ticks
+    collision_trace = convert_to_ordered_collision_trace(scene.physics.handlers['ball_container'].data['collision_trace'],object_id_map)
+    return collision_prob, ticks, collision_trace
 
-def abstraction_stochastic(scene_args,N=5,D=100,E=0.9,num_samples=100):
+def abstraction(scene_args,N=5,D=100,E=0.9,num_samples=100,noise=10,view=False):
     '''
     Deterministic physics simulator. Model outputs are end
     state of the scene and the number of ticks of one run 
@@ -256,18 +156,35 @@ def abstraction_stochastic(scene_args,N=5,D=100,E=0.9,num_samples=100):
     :param D: Length of path projection
     :oparam E: Cossim threshold for accepting abstraction
     '''
-    ns = normal(N,N/10,num_samples)
-    ds = normal(D,D/10,num_samples)
-    es = normal(E,E/10,num_samples)
+    
+    def get_truncated_normal(mean=0, sd=1, low=0, upp=10):
+        return truncnorm(
+            (low - mean) / sd, (upp - mean) / sd, loc=mean, scale=sd)
+    
+    if noise == None:
+        ns = [N]*num_samples
+        ds = [D]*num_samples
+        es = [E]*num_samples
+    else:
+        # Create parameter distributions
+        N_rv = get_truncated_normal(mean=N,sd=N/noise, low=1, upp=1000)
+        ns = N_rv.rvs(num_samples)
+        D_rv = get_truncated_normal(mean=D,sd=D/noise, low=1, upp=1000)
+        ds = D_rv.rvs(num_samples)
+        E_rv = get_truncated_normal(mean=E,sd=E/noise, low=0, upp=1)
+        es = E_rv.rvs(num_samples)
+    # Set up model output dictionary
     dist = {
         "collision_probability":[],
-        "simulation_time":[]
+        "simulation_time":[],
+        "collision_trace":[]
         }
+    # Collect num_samples samples from model
     for i in range(num_samples):
         n,d,e = ns[i], ds[i], es[i]
-
-        coll_prob, _, sim_time = abstraction_simulation_pp(scene_args,N=n,D=d,E=e)
+        coll_prob, sim_time, coll_trace = _abstraction(scene_args,N=n,D=d,E=e)
         dist['collision_probability'].append(coll_prob)
         dist['simulation_time'].append(sim_time)
+        dist['collision_trace'].append(coll_trace)
 
     return dist 

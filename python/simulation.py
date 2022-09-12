@@ -1,18 +1,20 @@
 # For Physics and Object
 import pymunk
-from handlers import is_colliding, not_colliding
+from handlers import is_colliding, not_colliding, count_collision
 # For Graphics
 import pygame
 from pygame.locals import *
 from pygame.color import *
+from pymunk.pygame_util import to_pygame
 from math import cos,sin
 # For general
 from random import randrange
 # For abstraction
 from math import cos, sin
-from abstraction import *
+import abstraction
 import objects
 from helper import draw_circle_alpha
+import json
 
 class Listener:
     '''
@@ -122,6 +124,7 @@ class Graphics:
         for o in objects:
             # Drawing the ball
             if o.name == "Ball":
+                self.draw_bb(o.components[1].bb)
                 if self.draw_params.get('ball_alpha'):
                     # Get color object of Ball
                     color = self.draw_params['Ball']
@@ -130,8 +133,8 @@ class Graphics:
                     # Draw circle
                     draw_circle_alpha(self.screen, color, o.body.position, 20)
                     # Once shape disappears, end simulation
-                    # if color.a == 0:
-                    #     self.running = False
+                    if color.a == 0:
+                        self.running = False
                 elif self.draw_params.get('trace'):
                     color = pygame.Color("Black")
                     self.draw_params['trace'].append(o.body.position)
@@ -159,6 +162,7 @@ class Graphics:
                 r = pygame.Rect(0,0,o.l+1,o.w+1)
                 r.center = o.body.position
                 pygame.draw.rect(self.screen, color, r)
+                self.draw_bb(o.components[1].bb)
             # Drawing border and containers
             elif o.name == "Container" or o.name == "Line":
                 color = self.draw_params['Container']
@@ -169,6 +173,7 @@ class Graphics:
                     a = self.rotate(body, line.a)
                     b = self.rotate(body, line.b)
                     pygame.draw.line(self.screen, color, a+offset, b+offset,5)
+                    self.draw_bb(line.bb)
             # Drawing border and containers
             elif "Border" in o.name:
                 color = self.draw_params['Border']
@@ -187,7 +192,15 @@ class Graphics:
                 # pygame.draw.circle(self.screen, color, to_pygame(o.body.position,self.screen), 60)
                 color = pygame.Color("Black")
                 pygame.draw.circle(self.screen, color, to_pygame(o.body.position,self.screen), 60, 2)
-    
+        
+        for o in objects:
+            if o.name == "BottomBorder":
+                line = o.components[1]
+                y = line.a[1]+3
+                color = pygame.Color("gray")
+                r = pygame.Rect(0,y,800,1000-y)
+                pygame.draw.rect(self.screen, color, r)
+
     def debug_draw(self,space):
         self.screen.fill((0,0,0))
         space.debug_draw(self.debug_options)
@@ -200,7 +213,7 @@ class Graphics:
     def initialize_graphics(self):
         self.initialized = True
         self.debug_options = pymunk.pygame_util.DrawOptions(self.screen)
-        self.screen = self.framework.display.set_mode(self.size)
+        self.screen = self.framework.display.set_mode(self.size, pygame.RESIZABLE)
         self.clock = self.framework.time.Clock()
         self.framework.init()
 
@@ -226,37 +239,22 @@ class Physics:
         # Ball and goal
         self.handlers["ball_goal"] = self.space.add_collision_handler(0,1)
         self.handlers["ball_goal"].data['colliding'] = False
+        self.handlers["ball_goal"].data['collision_trace'] = []
         self.handlers["ball_goal"].post_solve = is_colliding
 
         # Ball and floor
         self.handlers["ball_floor"] = self.space.add_collision_handler(0,2)
         self.handlers["ball_floor"].data['colliding'] = False
+        self.handlers["ball_floor"].data['collision_trace'] = []
         self.handlers["ball_floor"].post_solve = is_colliding
 
         # Ball and containers
         self.handlers["ball_container"] = self.space.add_collision_handler(0,3)
         self.handlers["ball_container"].data['colliding'] = False
+        self.handlers['ball_container'].data['collision_trace'] = []
         self.handlers["ball_container"].post_solve = is_colliding
 
-        # Sensor and goal
-        self.handlers["sensor_goal"] = self.space.add_collision_handler(9,1)
-        self.handlers["sensor_goal"].data['colliding'] = False
-        self.handlers['sensor_goal'].separate = not_colliding
-        self.handlers["sensor_goal"].post_solve = is_colliding
-
-        # Sensor and floor
-        self.handlers["sensor_floor"] = self.space.add_collision_handler(9,2)
-        self.handlers["sensor_floor"].data['colliding'] = False
-        self.handlers['sensor_floor'].separate = not_colliding
-        self.handlers["sensor_floor"].post_solve = is_colliding
-
-        # Sensor and containers
-        self.handlers["sensor_container"] = self.space.add_collision_handler(9,3)
-        self.handlers["sensor_container"].data['colliding'] = False
-        self.handlers['sensor_container'].separate = not_colliding
-        self.handlers["sensor_container"].post_solve = is_colliding
-
-    def collision(self):
+    def collision_end(self):
         '''
         Outputs data from handlers for Scene to use
         '''
@@ -285,7 +283,7 @@ class Scene:
     '''
     A Scene is a tuple of PObjects, Physics, and Graphics
     '''
-    def __init__(self, physics, objects, graphics):
+    def __init__(self, physics, objects, graphics, args=None):
         self.physics = physics
         self.objects = objects
         self.graphics = graphics
@@ -298,6 +296,11 @@ class Scene:
         self.pause = False
         self.sensor_obj = None
         self.trace = []
+        if args:
+            with open(args, 'r') as f:
+                self.args = json.loads(f.read())
+        else:
+            self.args = None
     
     def event(self):
         '''
@@ -324,15 +327,19 @@ class Scene:
         if view and not self.graphics.initialized:
             self.graphics.initialize_graphics()
         while self.running:
+            input()
             # Get projected path and end positio of path
-            ball_pos_pp, valid_pp = path_projection(self.objects,self.physics,D)
+            ball_pos_pp, valid_pp = abstraction.path_projection(self.objects,self.physics,D)
             # Step simulator forward N times
             for _ in range(int(N)):
                 # Physics
                 self.physics.forward()
-                self.running *= not self.listener.listen()
-                self.running *= not self.physics.collision()
+                # self.running *= not self.listener.listen()
+                # print(f"after listener {self.running}")
+                self.running *= not self.physics.collision_end()
+                # print(f"after collision_end: {self.running}")
                 self.running *= self.graphics.running
+                # print(f"adter graphics {self.running}")
                 if view:
                     self.graphics.draw(self.objects)
                     self.graphics.draw_circle_at_point(ball_pos_pp)
@@ -340,6 +347,7 @@ class Scene:
                     self.graphics.update_display()
             if self.physics.tick > 5000:
                 self.running = False
+                # print(self.running)
                 self.physics.tick = 1e5
             # Get the ball
             for obj in self.objects:
@@ -349,9 +357,17 @@ class Scene:
             ball_pos_sim = ball.body.position
             # Detemrine cosine similaroty between simulation and path projection
             normsim = ball_pos_sim.length
+            sim_unit = ball_pos_sim.normalized()
+            # print(sim_unit)
+            # print(normsim)
             normpp = ball_pos_pp.length
+            sim_pp = ball_pos_pp.normalized()
+            # print(sim_pp)
+            # print(normpp)
             dot = ball_pos_sim.dot(ball_pos_pp)
+            # print(dot)
             cossim = dot / (normsim * normpp)
+            # print(f"Cossim: {cossim}")
             if cossim > epsilon and valid_pp:
                 ball.body.position = ball_pos_pp
                 self.physics.space.reindex_shapes_for_body(ball.body)
@@ -370,7 +386,7 @@ class Scene:
         to a Physics and renders the simulation to the screen with a Graphics
         '''
         if record:
-            camera = self.graphics._record_screen("/Users/lollipop/Desktop/tmp/",fname)
+            camera = self.graphics._record_screen("/Users/lollipop/Desktop/pilot7_movie/",fname)
         if view and not self.graphics.initialized:
             self.graphics.initialize_graphics()
         while self.running:
@@ -380,7 +396,7 @@ class Scene:
                     if o.name == "Ball":
                         self.trace.append(o.body.position)
                 self.physics.forward()
-                self.running *= not self.physics.collision()
+                self.running *= not self.physics.collision_end()
                 self.running *= self.graphics.running
             if self.physics.tick > 1000:
                 self.running = False
@@ -532,7 +548,7 @@ class SceneBuilder(Scene):
         self.graphics.initialize_graphics()
         while self.running:
             # Get projected path and end positio of path
-            ball_pos_pp, valid_pp = path_projection(self.objects,self.physics, D)
+            ball_pos_pp, valid_pp = abstraction.path_projection(self.objects,self.physics, D)
             # Step simulator forward N times
             for _ in range(N):
                 # Physics
@@ -576,7 +592,7 @@ class SceneBuilder(Scene):
                 # Physics
                 # Check if shape is colliding with anything
                 self.physics.forward()
-                if self.physics.collision():
+                if self.physics.collision_end():
                     self.step = False
                     self.reset_physics_vars()
             # Graphics
