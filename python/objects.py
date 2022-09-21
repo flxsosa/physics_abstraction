@@ -46,6 +46,28 @@ class PlinkoBorder(PObject):
             components.append(segment)
         super().__init__("PlinkoBorder",body,components)
 
+class LeftBorder(PObject):
+    def __init__(self, l=1000, w=800, d=2):
+        body = pymunk.Body(body_type=pymunk.Body.STATIC)
+        components = [body]
+        x0, y0 = 10, 210
+        segment = pymunk.Segment(body, (x0,y0),(x0,l-10), d)
+        segment.friction = 1
+        segment.elasticity = 1
+        components.append(segment)
+        super().__init__("PlinkoBorder",body,components)
+
+class RightBorder(PObject):
+    def __init__(self, l=1000, w=800, d=2):
+        body = pymunk.Body(body_type=pymunk.Body.STATIC)
+        components = [body]
+        x0, y0 = w-10, 210
+        segment = pymunk.Segment(body, (x0,y0),(x0,l-10), d)
+        segment.friction = 1
+        segment.elasticity = 1
+        components.append(segment)
+        super().__init__("PlinkoBorder",body,components)
+
 class BottomBorder(PObject):
     def __init__(self, pos1=(10,990),pos2=(790,990), d=2):
         body = pymunk.Body(body_type=pymunk.Body.STATIC)
@@ -63,19 +85,19 @@ class Container(PObject):
         body.position = pos
         body.angle = math.radians(angle)
         # Bottom segment
-        b_y = l
-        b_x1 = w + d + 1 
-        b_x2 = -w - d - 1 
-        b_segment = pymunk.Segment(body,(b_x1,b_y),(b_x2,b_y),d)
-        b_segment.color = pygame.Color("white")
-        b_segment.collision_type = 3
-        b_segment.friction = 1
-        b_segment.elasticity = obj_elasticity
-        components = [body,b_segment]
+        y = l
+        x1 = w + d + 1 
+        x2 = -w - d - 1 
+        segment = pymunk.Segment(body,(x1,y),(x2,y),d)
+        segment.color = pygame.Color("white")
+        segment.collision_type = 3
+        segment.friction = 1
+        segment.elasticity = obj_elasticity
+        components = [body,segment]
         super().__init__("Container",body,components,id)
 
 class Line(PObject):
-    def __init__(self, pos1,pos2,angle=0,d=2):
+    def __init__(self, pos1,pos2,angle=0,d=2,collision_type=3):
         body = pymunk.Body(body_type=pymunk.Body.STATIC)
         body.position = (pos1[0]+pos2[0]) / 2, (pos1[1] + pos2[1]) / 2
         body.angle =  math.radians(angle)
@@ -83,7 +105,7 @@ class Line(PObject):
         pos2 = pos2[0] - body.position[0], pos2[1] - body.position[1]
         segment = pymunk.Segment(body,(pos1),(pos2),d)
         segment.color = pygame.Color("white")
-        segment.collision_type = 3
+        segment.collision_type = collision_type
         segment.friction = 1
         segment.elasticity = obj_elasticity
         components = [body,segment]

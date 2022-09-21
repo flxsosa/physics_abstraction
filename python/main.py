@@ -5,9 +5,9 @@ from cgi import test
 import utility
 import models
 import pandas as pd
-import seaborn as sns
 import os
 from pymunk.vec2d import Vec2d
+from video import make_video
 
 def get_scene_name(file_name):
     '''
@@ -23,15 +23,14 @@ def get_scene_type(scene_name):
     return '_'.join(split_name)
 
 def main():
-    scene_dir = '/Users/lollipop/projects/physics_abstraction/data/json/pilot7/stim_2_goalpos_12.json'
-    scene = utility.load_scene(scene_dir)
-    scene.instantiate_scene()
-    for o in scene.objects:
-        print(o,id(o),o.id)
-    # scene.run(view=True)#,N=10,D=100,E=0.99)
-    scene.run_path(view=True,N=5.1409462387944895,D=104.10421721109057,E=0.9010950888058105)
-    print(scene.physics.tick)
+    scene_dir = '/Users/lollipop/projects/physics_abstraction/data/json/test/'
+    make_video("test.json", loaddir=scene_dir, savedir=scene_dir,alpha=False,region_test=False)
+    # scene = utility.load_scene(scene_dir)
     # scene.instantiate_scene()
+    # for o in scene.objects:
+    #     print(o,id(o),o.id)
+    # scene.run(view=True)
+    # scene.run_path(view=True,N=5.1409462387944895,D=104.10421721109057,E=0.9010950888058105)
 
 def test_abstraction():
     loaddir = "../data/json/pilot7/"

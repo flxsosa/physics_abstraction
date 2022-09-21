@@ -8,6 +8,8 @@ def is_colliding(arbiter, space, data):
     s1,s2 = arbiter.shapes
     data['colliding'] = True
     data['collision_trace'].append([id(s1),id(s2)])
+    data['normal'] = arbiter.normal
+    data['cps'] = arbiter.contact_point_set
     return True
 
 def count_collision(arbiter, space, data):
