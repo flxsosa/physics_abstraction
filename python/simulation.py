@@ -327,7 +327,7 @@ class Scene:
         if view and not self.graphics.initialized:
             self.graphics.initialize_graphics()
         while self.running:
-            input()
+            # input()
             # Get projected path and end positio of path
             ball_pos_pp, valid_pp = abstraction.path_projection(self.objects,self.physics,D)
             # Step simulator forward N times

@@ -72,10 +72,10 @@ def check_collision_all(sensorshape,objects,verbose=False):
         if o.name == "Container" or o.name == "Line":
             # We skip the first element in the components because that's the body
             for line in o.components[1:]:
-                print(f"Container body: {o.body.position} Line: {line.a,line.b}")
+                # print(f"Container body: {o.body.position} Line: {line.a,line.b}")
                 # print(f"Normal: {line.normal}")
                 if sensorshape.point_query(o.body.position).distance < 0:
-                    print(f"Colliding with {o.id}: {sensorshape.point_query(o.body.position)}")
+                    # print(f"Colliding with {o.id}: {sensorshape.point_query(o.body.position)}")
                     normal = sensorshape.shapes_collide(line).normal
                     collision['object_id'] = o.id
                     collision['distance'] = abs(sensorshape.b-o.body.position)
@@ -132,7 +132,7 @@ def check_collision_all(sensorshape,objects,verbose=False):
         new_pos = collision_points[0]['new_pos']
         # print(collision_points)
         # print(f"Closest shape: {collision_points[0]}")
-        print(f"New position should be: {collision_points[0]['new_pos']}")
+        # print(f"New position should be: {collision_points[0]['new_pos']}")
         # print(" ")
     # Print value of collision flags if requested
     if verbose:
@@ -175,7 +175,7 @@ def path_projection(objects, physics, D):
     # pp_body.position = (new_pos[0]+curr_pos[0]) / 2, (new_pos[1] + curr_pos[1]) / 2
     # print("Creating shape...")
     pp_shape = pymunk.Segment(pp_body,(new_pos),(curr_pos),1)
-    print(f"Body: {pp_body.position}, Line: {pp_shape.a,pp_shape.b}")
+    # print(f"Body: {pp_body.position}, Line: {pp_shape.a,pp_shape.b}")
     pp_shape.collision_type = 9 
     # print("Adding to space...")
     physics.space.add(pp_body,pp_shape)
