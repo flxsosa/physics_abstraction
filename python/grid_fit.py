@@ -3,8 +3,9 @@ import pandas as pd
 import numpy as np
 import os
 import json
+import csv
 from statsmodels.formula.api import ols
-from models import abstraction_simulation_pp
+from models import abstraction
 
 def main():
     parser = argparse.ArgumentParser(
@@ -28,7 +29,7 @@ def main():
     # Parameter spaces
     N = range(args.nrange1,args.nrange2)
     D = range(args.drange1,args.drange2)
-    E = np.arange(0.1,1.0,0.01)
+    E = np.arange(0.5,1.0,0.01)
 
     # Import empirical data
     data = pd.read_json(args.datadir)
@@ -39,59 +40,71 @@ def main():
     for file in scene_files:
         with open(args.scenedir+file, 'r') as f:
             sargs = (json.loads(f.read()))
-            scene_args[sargs['name'].split(".")[0]] = sargs
+            scene_args[file.split(".")[0]] = sargs
 
     # Observed RT
-    rt_mean = data.groupby('scene').rt.apply(np.mean).to_frame()
-    scenes = rt_mean.index.to_list()
+    data_emp = data.groupby('scene').part_zrt.apply(np.mean).to_frame()
+    scenes = data_emp.index.to_list()
 
     # Regression parameters
-    formula = 'rt ~ y_pred'
+    formula = 'part_zrt ~ sim_time_z'
 
-    def my_model(N,D,E):
+    def my_model(N,D,E,scene_args=scene_args):
         '''
-        :param theta: Expected theta == [N, D, E]
-        :param x: Expected list of scene arguments
+        Returns model predictions for a given Scene with parameters
+        N, D, and E.
+
+        :param N: Number of simulation ticks
+        :param D: Path projection distance
+        :param E: Similarity threshold
         '''
-        # Model predictions
-        y_pred = {
-            'scene':[],
-            'y_pred':[]
-        }
+        # Model dataframe
+        model_df = pd.DataFrame({})
+
         # Get model predictins for each scene
         for scene in scenes:
-            y_pred['scene'].append(scene)
-            y_pred['y_pred'].append(abstraction_simulation_pp(scene_args[scene],int(N),D,E)[-1][0])
-        return pd.DataFrame(y_pred)
-
-    def add_to_list(l, m):    
-        '''
-        Adds a linear model to a list of linear models according to rsquared value
-
-        :param l: The list of linear models
-        :param m: The candidate linear model
-        '''
-        if len(l) < max_pe:
-            l.append(m)
-        else:
-            l.sort(key=lambda x: x.rsquared)
-            for i in range(1,len(l)-1):
-                if m.rsquared > l[i].rsquared:
-                    l[0] = m
-        return l
-
-    # List for best parameters
-    point_estimates = []
-    max_pe = 1
-
+            # Sample model 100 times on scene
+            model_result = abstraction(scene_args[scene],N=int(N),D=D,E=E,num_samples=1)
+            model_row = pd.DataFrame({
+                "scene": scene,
+                "collision_prob": np.mean(model_result['collision_probability']),
+                "sim_time": model_result['simulation_time'],
+                "type": "abstraction_model"
+            })
+            model_df = pd.concat([model_df,model_row])
+            
+        return model_df
+    
+    # Dictionary of parameters and respective model fit resutls
+    model_results = []
     # Grid search
     for n_i in N:
         for d_i in D:
             for e_i in E:
-                y_ = my_model(n_i,d_i,e_i)
-                df = rt_mean.merge(y_, on="scene")
+                # Grab model predictions
+                model_predictions = pd.DataFrame({})
+                model_predictions = my_model(n_i,d_i,e_i)
+                # Normalize predicted model runtime
+                model_predictions['sim_time_z'] = model_predictions.sim_time.transform(lambda x: (x-x.mean())/x.std())
+                # Subset model prediction dataframe to only include RT predictions per scene
+                data_model = model_predictions.groupby('scene').sim_time_z.apply(np.mean).to_frame()
+                # Merge model and empirical data
+                df = pd.merge(data_model, data_emp, left_index = True, right_index = True)
+                # Fit linear model
                 model_fit = ols(formula, df).fit()
-                model_fit.save(f"{args.savedir}_n_{n_i}_d_{d_i}_e_{e_i}.pickle")
+                # Grab MSE
+                mse_res = model_fit.mse_resid
+                mse_mod = model_fit.mse_model
+                mse_tot = model_fit.mse_total
+                # Append MSE results to list
+                model_results.append((n_i,d_i,e_i,mse_res,mse_mod,mse_tot))
+    
+    # Save model results to CSV
+    with open(f"{args.savedir}grid_fit_n_{n_i}_d_{d_i}.csv","w") as out:
+        csv_out=csv.writer(out)
+        csv_out.writerow(['N','D','E','MSE Residual', 'MSE Model', 'MSE Total'])
+        for row in model_results:
+            csv_out.writerow(row)
 
 if __name__ == "__main__":
     main()
