@@ -1,92 +1,97 @@
 '''
 File for scratch jobs and testing. Frequently overwritten.
 '''
-from cgi import test
-import utility
-import models
-import pandas as pd
+from utility import load_scene
+import models as m
 import os
-from pymunk.vec2d import Vec2d
-from video import make_video
+import pygame
+from pygame.locals import QUIT
+from objects import *
 
-def get_scene_name(file_name):
+def get_border(obj, screen_size):
     '''
-    Returns scene name from file name
+    Grab the actual X,Y position of the border object and return position
+    and size
     '''
-    return file_name.split(".")[0]
+    # Offset term for border position
+    eps = 10
+    if obj.name == "BottomBorder":
+        y = screen_size[1] - eps # Border will be at bottom of screen
+        x = screen_size[0] / 2
+    else:
+        y = screen_size[1] / 2
+        x = screen_size[0] - eps
+    return (x,y)
 
-def get_scene_type(scene_name):
-    '''
-    Returns the scene type for a given scene name.
-    '''
-    split_name = scene_name.split('_')[:2]
-    return '_'.join(split_name)
+def main_test():
+    # Load in a scene
+    loaddir = "../data/json/pilot8/trial/"
+    json_files = [pos_json for pos_json in os.listdir(loaddir) if pos_json.endswith('.json')]
+    scene_file = json_files[0]
+    scene = load_scene(loaddir+scene_file)
+
+    # Set up graphics parameters
+    fps = pygame.time.Clock()
+    screen_size = (800,1000)
+    pygame.init()
+    screen = pygame.display.set_mode(screen_size)
+
+    # Starting angle for cursor shape
+    angle = 90
+
+    # Font parameters
+    font = pygame.font.Font('freesansbold.ttf', 12)
+
+    # Game loop
+    while True:
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+            if event.type == pygame.MOUSEBUTTONUP:
+                angle += 10
+                angle %= 360
+
+        # Fill screen
+        screen.fill((0,0,0))
+
+        # Go through objects and draw them on the screen with their names
+        for o in scene.objects:
+            pygame.draw.polygon(screen, pygame.Color("Red"), o.bounding_box)
+            # Create pygame text object
+            text = font.render(o.name, True, pygame.Color("White"), pygame.Color("Black"))
+            textRect = text.get_rect()
+            textRect.center = o.body.position # Set the object to the body's position
+            screen.blit(text, textRect)
+
+        # # Create "Container"
+        container1 = Container(pygame.mouse.get_pos(), 50, 80, angle, 99, 10)
+        pygame.draw.polygon(screen, pygame.Color("Red"), container1.bounding_box)
+    
+        
+        for obj in scene.objects:
+            if container1.area.intersects(obj.area):
+                # Create pygame text object
+                text = font.render("Collision Detected", True, pygame.Color("White"), pygame.Color("Black"))
+                textRect = text.get_rect()
+                textRect.center = [400,100] # Set the object to the body's position
+                screen.blit(text, textRect)
+                pygame.draw.polygon(screen, pygame.Color("Green"), container1.bounding_box)
+
+        # Forward the graphics one step
+        pygame.display.update()
+        fps.tick(60)
 
 def main():
-    scene_dir = '/Users/lollipop/projects/physics_abstraction/data/json/test/'
-    make_video("test.json", loaddir=scene_dir, savedir=scene_dir,alpha=False,region_test=False)
-    # scene = utility.load_scene(scene_dir)
-    # scene.instantiate_scene()
-    # for o in scene.objects:
-    #     print(o,id(o),o.id)
-    # scene.run(view=True)
-    # scene.run_path(view=True,N=5.1409462387944895,D=104.10421721109057,E=0.9010950888058105)
-
-def test_abstraction():
-    loaddir = "../data/json/pilot7/"
-    # Gather all of the json files in the directory of trial stimuli
+    # Load in a scene
+    loaddir = "../data/json/pilot8/trial/"
     json_files = [pos_json for pos_json in os.listdir(loaddir) if pos_json.endswith('.json')]
-    # Dictionary that will contain distance travelled per scenario 
-    distances = []
+    scene_file = json_files[1]
+    scene_file = "stim_2_goalpos_12_negative.json"
+    scene = load_scene(loaddir+scene_file)
 
-    # Iterate through stimuli files
-    for scene_json in json_files:
-        scene_dir = loaddir+scene_json
-        scene_name = get_scene_name(scene_json)
-        scene = utility.load_scene(scene_dir)
-        # Extract the origin (the ball's starting position)
-        origin = scene.args['ball_args'][0]
-        # Extract the goal position
-        goal = scene.args['goal_args'][0]
-        # Convert these points into Vec2d for compatibility with pymunk
-        origin = Vec2d(*origin)
-        goal = Vec2d(*goal)
-        dist = {}
-        # Compute the distance
-        dist['distance'] = origin.get_distance(goal)
-        # Add the scene, distance pair into the dataframe
-        dist['scene'] = scene_name
-        distances.append(dist)
-
-    distances = pd.DataFrame.from_dict(distances)
-
-    abstraction_rt = []
-    for scene_json in json_files:
-        scene_dir = loaddir+scene_json
-        scene_name = get_scene_name(scene_json)
-        if 'negative' in scene_name:
-            collision = False
-        else:
-            collision = True
-        scene_type = get_scene_type(scene_name)
-        # Samples to draw from models
-        samples = 1
-        # Noise (SD on ball starting pos) for simulation model
-        noise = 0.02
-        # Generate a scene
-        scene = utility.load_scene(scene_dir)
-        # Get RT profile from model
-        ## Abstraction
-        abstraction_sample = models.abstraction(scene_args=scene.args,num_samples=samples)
-        abstraction_sample['scene'] = scene_name
-        abstraction_sample['scene_type'] = scene_type
-        abstraction_sample['collision'] = collision
-        abstraction_rt.append(abstraction_sample)
-
-    abstraction_predictions = pd.DataFrame.from_dict(abstraction_rt,orient='columns')
-    abstraction_predictions['model'] = 'abstraction'
-
-    print(abstraction_predictions)
+    # sim = m.simulation(scene.args,1,0,True)
+    # print(sim)
+    abs = m.abstraction(scene.args,N=5,D=100,E=0.8,num_samples=1,noise=10,view=True)
 
 if __name__ == "__main__":
     main()

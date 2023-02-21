@@ -2,6 +2,26 @@ import argparse
 import os
 import json, subprocess
 
+# List of tuples
+def ranges(start, stop, offset):
+    '''
+    Returns a list of P tuples that represent contiguous
+    partitions on the number line between Start and Stop
+    inclusive, with each partition having size O
+
+    :param start: The start value of number line
+    :param stop: The stop value of number line
+    :param offset: Size of partitions
+    '''
+    # Partitions to return
+    partitions = []
+    # List of ranges
+    rs = list(range(start, stop, offset))
+    # Build range boundaries
+    for r in rs:
+        partitions.append((r, r+offset))
+    return partitions
+
 def main():
     parser = argparse.ArgumentParser(
         description="Automatically submit jobs using a json file")
@@ -9,12 +29,10 @@ def main():
     args = parser.parse_args()
 
     # Range for parameter N -- (100,151), ..., (450,501)
-    d_ranges = [(1,50),(51,100)]
-    d_ranges += [(n*50, (n+1)*50+1) for n in range(2,15)]
+    d_ranges = ranges(1,1000,50)
     # Range for parameter D -- (5,11), ..., (40,46)
-    n_ranges = [(1,5)]
-    n_ranges += [(n*5, (n+1)*5+1) for n in range(1,15)]
-    
+    n_ranges = ranges(1,200,20)
+
     # Submit a job per parameter setting
     for param_setting in ((n,d) for n in n_ranges for d in d_ranges):
         # N and d parameter ranges

@@ -1,12 +1,8 @@
 from logging import warning
-import numpy as np
-import cv2
-import glob
 from objects import *
 from scene import Scene
 from physics import Physics
 from graphics import Graphics
-from numpy.random import normal
 from helper import vid_from_img
 from stimuli import generate_container_args
 import json
@@ -69,7 +65,6 @@ def scene_json_to_video(odir,ddir,subroutine=None):
 
     for file in json_files:
         sname = file.split('.')[0]
-        print(sname)
         scene = load_scene(odir+file)
         scene.graphics.instantiate_screen_recorder(ddir,sname)
         # scene.graphics.draw_params['ball_alpha'] = True
@@ -223,7 +218,8 @@ def load_objects(dir,region_test=False):
                     objects.append(obj_map[obj](*scene_args["line_args"][i]))
             elif obj == "PlinkoBorder":
                 if "plinko_border_args" in scene_args:
-                    objects.append(obj_map[obj](*scene_args["plinko_border_args"]))
+                    objects.append(LeftBorder(*scene_args["plinko_border_args"]))
+                    objects.append(RightBorder(*scene_args["plinko_border_args"]))
                 else:
                     objects.append(obj_map[obj]())
             elif obj == "BottomBorder":

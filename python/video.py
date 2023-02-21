@@ -5,26 +5,49 @@ import random
 import glob
 import cv2
 
-def flip_movies():
+def flip_movies(loaddir, savedir):
+    '''
+    Flips movies from a directory randomly.
+
+    :param loaddir: Directory with videos to flip
+    :param savedir: Directory to save flipped videos to.
+    '''
     from moviepy.editor import VideoFileClip, vfx
-    dir = "/Users/lollipop/Desktop/tmp/"
-    savedir = dir+'flipped/'
-    mp4_files = [pos_mp4 for pos_mp4 in os.listdir(dir) if pos_mp4.endswith('.mp4')]
-    # print(mp4_files)
+    mp4_files = [pos_mp4 for pos_mp4 in os.listdir(loaddir) if pos_mp4.endswith('.mp4')]
     idx = list(range(len(mp4_files)))
     mp4_samples = random.sample(idx, int(len(idx)/2))
     for idx in mp4_samples:
+        print(idx)
         file = mp4_files[idx]
-        clip = VideoFileClip(dir+file)
+        clip = VideoFileClip(loaddir+file)
         reversed_clip = clip.fx(vfx.mirror_x)
-        reversed_clip.write_videofile(dir+file)  
+        reversed_clip.write_videofile(savedir+file)  
 
-def make_video(fname,loaddir,savedir,alpha=False,region_test=False):
+def make_video(fname,loaddir,savedir,alpha=False):
+    '''
+    Make a video from a JSON config for a scene.
+
+    :param fname: File name 
+    :param loaddir: Directory containing scene JSONs
+    :param savedir: Directory to save videos to
+    '''
     # Generate positive stimuli
     with open(loaddir+fname, 'r') as f:
         scene_args = json.loads(f.read())
+    for i in range(3):
+        # print(f"Loaddir: {loaddir}, Savedir: {savedir}, fname:{fname}_{i}")
+        # # Load the new scene
+        scene = load_scene_from_args(scene_args,region_test=False)
+        # # Run the scene
+        scene.instantiate_scene()
+        if alpha:
+            scene.graphics.draw_params['ball_alpha'] = True
+        scene.run(view=True,fname=fname.split(".")[0]+f"_{i}",record=True,dir=savedir)
+        vid_from_img(fname.split(".")[0]+f"_{i}",savedir)
+
+def make_video_from_args(fname,args,savedir,alpha=False,region_test=False):
     # Load the new scene
-    scene = load_scene_from_args(scene_args,region_test)
+    scene = load_scene_from_args(args,region_test)
     # Run the scene
     scene.instantiate_scene()
     if alpha:

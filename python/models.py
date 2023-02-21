@@ -92,7 +92,7 @@ def _abstraction(scene_args,N=5,D=100,E=0.8,view=False):
     collision_trace = convert_to_ordered_collision_trace(scene.physics.handlers['ball_container'].data['collision_trace'],object_id_map)
     return collision_prob, ticks, collision_trace
 
-def abstraction(scene_args,N=5,D=100,E=0.8,num_samples=100,noise=10,view=False):
+def abstraction(scene_args,N=5,D=100,E=0.8,num_samples=1,noise=None,view=False):
     '''
     Deterministic physics simulator. Model outputs are end
     state of the scene and the number of ticks of one run 
@@ -103,35 +103,41 @@ def abstraction(scene_args,N=5,D=100,E=0.8,num_samples=100,noise=10,view=False):
     :param D: Length of path projection
     :oparam E: Cossim threshold for accepting abstraction
     '''
-    
     def get_truncated_normal(mean=0, sd=1, low=0, upp=10):
         return truncnorm(
             (low - mean) / sd, (upp - mean) / sd, loc=mean, scale=sd)
-    
-    if noise == None:
-        ns = [N]*num_samples
-        ds = [D]*num_samples
-        es = [E]*num_samples
-    else:
-        # Create parameter distributions
-        N_rv = get_truncated_normal(mean=N,sd=N/noise, low=1, upp=1000)
-        ns = N_rv.rvs(num_samples)
-        D_rv = get_truncated_normal(mean=D,sd=D/noise, low=1, upp=1000)
-        ds = D_rv.rvs(num_samples)
-        E_rv = get_truncated_normal(mean=E,sd=E/noise, low=0, upp=1)
-        es = E_rv.rvs(num_samples)
     # Set up model output dictionary
     dist = {
         "collision_probability":[],
         "simulation_time":[],
         "collision_trace":[]
         }
-    limit = 500
-    # Collect num_samples samples from model
-    while len(dist['collision_probability']) < num_samples:
-        n,d,e = N_rv.rvs(num_samples)[0], D_rv.rvs(num_samples)[0], E_rv.rvs(num_samples)[0]
-        coll_prob, sim_time, coll_trace = _abstraction(scene_args,N=n,D=d,E=e)
-        if sim_time < limit:
+    curr_len = len(dist['collision_probability'])
+    
+    if noise == None:
+        ns = [N]*num_samples
+        ds = [D]*num_samples
+        es = [E]*num_samples
+        # Collect num_samples samples from model
+        for _ in range(num_samples):
+            if curr_len != len(dist['collision_probability']):
+                curr_len = len(dist['collision_probability'])
+            n,d,e = ns.pop(0), ds.pop(0), es.pop(0)
+            coll_prob, sim_time, coll_trace = _abstraction(scene_args,N=n,D=d,E=e,view=view)
+            dist['collision_probability'].append(coll_prob)
+            dist['simulation_time'].append(sim_time)
+            dist['collision_trace'].append(coll_trace)
+    else:
+        # Create parameter distributions
+        N_rv = get_truncated_normal(mean=N,sd=N/noise, low=1, upp=1000)
+        D_rv = get_truncated_normal(mean=D,sd=D/noise, low=1, upp=1000)
+        E_rv = get_truncated_normal(mean=E,sd=E/noise, low=0, upp=1)
+        # Collect num_samples samples from model
+        while len(dist['collision_probability']) < num_samples:
+            if curr_len != len(dist['collision_probability']):
+                curr_len = len(dist['collision_probability'])
+            n,d,e = N_rv.rvs(num_samples)[0], D_rv.rvs(num_samples)[0], E_rv.rvs(num_samples)[0]
+            coll_prob, sim_time, coll_trace = _abstraction(scene_args,N=n,D=d,E=e,view=view)
             dist['collision_probability'].append(coll_prob)
             dist['simulation_time'].append(sim_time)
             dist['collision_trace'].append(coll_trace)

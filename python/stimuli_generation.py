@@ -159,10 +159,12 @@ def add_containers(scene_args,bbs,move_floor=False):
         bottom_border = objects.BottomBorder(pos1,pos2)
         plinko_border = objects.PlinkoBorder(goal_y+32)
     else:
-        plinko_border = objects.PlinkoBorder()
-        bottom_border = objects.BottomBorder()
-        new_scene_args['bottom_border_args'] = [(10,400),(790,400)]
-        new_scene_args['plinko_border_args'] = [1000]
+        print(*scene_args['bottom_border_args'])
+        print(*scene_args['plinko_border_args'])
+        plinko_border = objects.PlinkoBorder(*scene_args['plinko_border_args'])
+        bottom_border = objects.BottomBorder(*scene_args['bottom_border_args'])
+    #     new_scene_args['bottom_border_args'] = [(10,400),(790,400)]
+    #     new_scene_args['plinko_border_args'] = [1000]
     # Sample container arguments until full
     while len(container_args) <= num_containers:
         overlaps = False
@@ -206,7 +208,36 @@ def shift_goal(scene_args, point):
 
 # Generating stimuli from types
 
-def generate_stimuli_from_types_json(dir,savedir,negative):
+def generate_stimuli_json(dir,savedir,negative):
+    '''
+    Generates a stimuli from a scene.
+
+    :param dir: Directory containing JSON configs of scene types
+    :param savdir: Directory to save resulting scenes to
+    '''
+    # Gather original scene arguments
+    with open(dir+file, 'r') as f:
+        scene_args = json.loads(f.read())
+        
+    mutated_scene_args = add_containers(mutated_scene_args, bbs)
+    mutated_scene_args['name'] = f"{file.split('.')[0]}_goalpos_{idx}"
+    # Run the scene
+    if negative:
+        name = f"{savedir}{file.split('.')[0]}_goalpos_{idx}_negative.json"
+    else:
+        name = f"{savedir}{file.split('.')[0]}_goalpos_{idx}.json"
+    with open(name, 'w') as f:
+        json.dump(mutated_scene_args, f)  
+
+def generate_stimuli_from_types_json(dir,savedir,negative,N=15):
+    '''
+    Generates a series of stimuli from a scene type.
+
+    :param dir: Directory containing JSON configs of scene types
+    :param savdir: Directory to save resulting scenes to
+    :param negative: Boolean flag for whether scene depicts negative scene or not
+    :param N: How many points along the trace to sample
+    '''
     json_files = [pos_json for pos_json in os.listdir(dir) if pos_json.endswith('.json')]
     idx = 0
     # Generate positive stimuli
@@ -224,17 +255,28 @@ def generate_stimuli_from_types_json(dir,savedir,negative):
         # Append the goal position to the trace
         trace.append(goal_pos)
         # Gather goal positions
-        goal_positions = get_points(trace)
+        goal_positions = get_points(trace, N)
         # Generate scene for each goal position placement
         for idx, point in enumerate(goal_positions):
+            print("Index", idx)
             # Gather original scene arguments
             with open(dir+file, 'r') as f:
                 scene_args = json.loads(f.read())
             # Shift the goal position
-            mutated_scene_args = shift_goal(scene_args,point)
+            if negative:
+                x = point[0] + 200 * random.choice([1,-1])
+                point = [x,point[1]]
+                mutated_scene_args = shift_goal(scene_args,point)
+            else:
+                mutated_scene_args = shift_goal(scene_args,point)
+            mutated_scene_args = add_containers(mutated_scene_args, bbs)
             mutated_scene_args['name'] = f"{file.split('.')[0]}_goalpos_{idx}"
             # Run the scene
-            with open(f"{savedir}{file.split('.')[0]}_goalpos_{idx}.json", 'w') as f:
+            if negative:
+                name = f"{savedir}{file.split('.')[0]}_goalpos_{idx}_negative.json"
+            else:
+                name = f"{savedir}{file.split('.')[0]}_goalpos_{idx}.json"
+            with open(name, 'w') as f:
                 json.dump(mutated_scene_args, f)  
 
 def sample_scenes(n=1,k=1,criteria_func=None,dir=None):

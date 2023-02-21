@@ -26,6 +26,7 @@ class Scene:
                 self.args = json.loads(f.read())
         else:
             self.args = None
+        self.collide_with_goal = False
     
     def event(self):
         '''
@@ -48,45 +49,46 @@ class Scene:
         Forward method for the scene. Evolves PObjects over time according
         to a Physics and renders the simulation to the screen with a Graphics
         '''
-        epsilon = E
         if view and not self.graphics.initialized:
             self.graphics.initialize_graphics()
         while self.running:
             # Get projected path and end positio of path
-            ball_pos_pp, valid_pp = abstraction.path_projection(self.objects,self.physics,D)
+            ball_pos_pp = abstraction.path_projection(self.objects,D)
             # Step simulator forward N times
             for _ in range(int(N)):
                 # Physics
                 self.physics.forward()
-                # self.running *= not self.listener.listen()
-                self.running *= not self.physics.collision_end()
+                self.running *= not self.physics.collision_border_end()
+                self.running *= not self.physics.collision_goal_end()
+                if self.physics.collision_goal_end():
+                    self.collide_with_goal = True
                 self.running *= self.graphics.running
                 self.running *= self.physics.tick < 1000
+                # Get the ball
+                for obj in self.objects:
+                    if obj.name == "Ball":
+                        ball = obj
+                ball_pos_sim = ball.body.position
                 if view:
+                    # Draw objects
                     self.graphics.draw(self.objects)
+                    # Draw path-projection end-position
                     self.graphics.draw_circle_at_point(ball_pos_pp)
-                    for o in self.objects:
-                        if o.name == "Ball":
-                            pos = o.body.position
-                    pygame.draw.line(self.graphics.screen, pygame.Color("Black"), ball_pos_pp, pos,5)
+                    # Draw line between simulation position and projection position
+                    pygame.draw.line(self.graphics.screen, pygame.Color("Black"), ball_pos_pp, ball_pos_sim,5)
+                    # Run graphics forward
                     self.graphics.clock.tick(self.graphics.fps)
                     self.graphics.update_display()
+            # Runtime limit reached
             if self.physics.tick > 5000:
                 self.running = False
-                # print(self.running)
                 self.physics.tick = 1e5
-            # Get the ball
-            for obj in self.objects:
-                if obj.name == "Ball":
-                    ball = obj
-            # Get end position of simulation run
-            ball_pos_sim = ball.body.position
-            # Detemrine cosine similaroty between simulation and path projection
+            # Detemrine cosine similarity between simulation and path projection
             normsim = ball_pos_sim.length
             normpp = ball_pos_pp.length
             dot = ball_pos_sim.dot(ball_pos_pp)
             cossim = dot / (normsim * normpp)
-            if cossim > epsilon and valid_pp:
+            if cossim > E:
                 ball.body.position = ball_pos_pp
                 self.physics.space.reindex_shapes_for_body(ball.body)
             # Graphics
@@ -97,6 +99,7 @@ class Scene:
                 self.graphics.update_display()
                 # User Events
                 self.event()
+        
 
     def run(self,view=True,fname=None,record=False,dir=None):
         '''
@@ -117,7 +120,10 @@ class Scene:
                     if o.name == "Ball":
                         self.trace.append(o.body.position)
                 self.physics.forward()
-                self.running *= not self.physics.collision_end()
+                self.running *= not self.physics.collision_border_end()
+                self.running *= not self.physics.collision_goal_end()
+                if self.physics.collision_goal_end():
+                    self.collide_with_goal = True
                 self.running *= self.graphics.running
             if self.physics.tick > 1000:
                 self.running = False

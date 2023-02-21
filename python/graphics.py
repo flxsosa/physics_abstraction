@@ -13,7 +13,7 @@ class Graphics:
     '''
     A Graphics renders PObjects onto a screen.
     '''
-    def __init__(self,width=800,height=1000,fps=60):
+    def __init__(self,width=800,height=1500,fps=60):
         self.screen_size = width,height
         self.framework = pygame # Making this decoupled because plan to move to 3D
         self.screen = None
@@ -29,8 +29,7 @@ class Graphics:
             'Goal':pygame.Color(randrange(156),randrange(156),randrange(156)),
             'Container':pygame.Color("Black"),
             'Border':pygame.Color("Black"),
-            'ball_alpha':False,
-            'trace':[]
+            'ball_alpha':False
             }
 
     def instantiate_screen_recorder(self, dir, fname):
@@ -171,13 +170,12 @@ class Graphics:
                 color = pygame.Color("gray")
                 r = pygame.Rect(0,y,800,1000-y)
                 pygame.draw.rect(self.screen, color, r)
-
+   
     def debug_draw(self,space):
         self.screen.fill((0,0,0))
         space.debug_draw(self.debug_options)
 
     def draw_collision_normals(self,collision_normals):
-        # print("Colliding:",collision_normals)
         if collision_normals['colliding']:
             normal = collision_normals['normal'] * -1
             collision_point_set = collision_normals['cps']

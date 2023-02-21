@@ -15,11 +15,13 @@ class Physics:
     A Physics is a dynamics applied to a Scene to evolve the 
     Scene over time.
     '''
-    def __init__(self,fps=60):
+    def __init__(self,fps=120):
         # Space in which Pymunk objects reside
         self.space = pymunk.Space()
         self.space.gravity = (0,300) # Gravit
         self.space.damping = 0.6 # Simulated "fRiCtiOn"
+        self.space.iterations = 20
+        self.space.collision_slop = 0.8
         self.dt = 1./fps
         self.tick = 0
         self.handlers = {}
@@ -50,14 +52,20 @@ class Physics:
         self.handlers['ball_container'].data['normal'] = Vec2d(0,0)
         self.handlers["ball_container"].post_solve = is_colliding
 
-    def collision_end(self):
+    def collision_border_end(self):
+        '''
+        Outputs data from handlers for Scene to use
+        '''
+        rval = self.handlers["ball_floor"].data['colliding']
+        return rval
+    
+    def collision_goal_end(self):
         '''
         Outputs data from handlers for Scene to use
         '''
         rval = self.handlers["ball_goal"].data['colliding']
-        rval += self.handlers["ball_floor"].data['colliding']
         return rval
-    
+
     def forward(self):
         '''
         Forward method for the physics. Evolves PObjects over time
