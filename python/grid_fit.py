@@ -75,7 +75,7 @@ def main():
             
         return model_df
 
-     with open(f"{args.savedir}grid_fit_n_{n_i}_d_{d_i}.csv","w") as out:
+    with open(f"{args.savedir}grid_fit_n_{n_i}_d_{d_i}.csv","w") as out:
         csv_out=csv.writer(out)
         # Dictionary of parameters and respective model fit resutls
         csv_out.writerow(['N','D','E','MSE Residual', 'MSE Model', 'MSE Total'])
