@@ -75,14 +75,13 @@ def main():
             
         return model_df
 
-    with open(f"{args.savedir}grid_fit_n_{n_i}_d_{d_i}.csv","w") as out:
-        csv_out=csv.writer(out)
-        # Dictionary of parameters and respective model fit resutls
-        csv_out.writerow(['N','D','E','MSE Residual', 'MSE Model', 'MSE Total'])
-
-        # Grid search
-        for n_i in N:
-            for d_i in D:
+    # Grid search
+    for n_i in N:
+        for d_i in D:
+            with open(f"{args.savedir}grid_fit_n_{n_i}_d_{d_i}.csv","w") as out:
+                csv_out=csv.writer(out)
+                # Dictionary of parameters and respective model fit resutls
+                csv_out.writerow(['N','D','E','MSE Residual', 'MSE Model', 'MSE Total'])
                 for e_i in E:
                     # Grab model predictions
                     model_predictions = pd.DataFrame({})
