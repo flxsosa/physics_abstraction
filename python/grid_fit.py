@@ -74,37 +74,33 @@ def main():
             model_df = pd.concat([model_df,model_row])
             
         return model_df
-    
-    # Dictionary of parameters and respective model fit resutls
-    model_results = []
-    # Grid search
-    for n_i in N:
-        for d_i in D:
-            for e_i in E:
-                # Grab model predictions
-                model_predictions = pd.DataFrame({})
-                model_predictions = my_model(n_i,d_i,e_i)
-                # Normalize predicted model runtime
-                model_predictions['sim_time_z'] = model_predictions.sim_time.transform(lambda x: (x-x.mean())/x.std())
-                # Subset model prediction dataframe to only include RT predictions per scene
-                data_model = model_predictions.groupby('scene').sim_time_z.apply(np.mean).to_frame()
-                # Merge model and empirical data
-                df = pd.merge(data_model, data_emp, left_index = True, right_index = True)
-                # Fit linear model
-                model_fit = ols(formula, df).fit()
-                # Grab MSE
-                mse_res = model_fit.mse_resid
-                mse_mod = model_fit.mse_model
-                mse_tot = model_fit.mse_total
-                # Append MSE results to list
-                model_results.append((n_i,d_i,e_i,mse_res,mse_mod,mse_tot))
-    
-    # Save model results to CSV
-    with open(f"{args.savedir}grid_fit_n_{n_i}_d_{d_i}.csv","w") as out:
-        csv_out=csv.writer(out)
-        csv_out.writerow(['N','D','E','MSE Residual', 'MSE Model', 'MSE Total'])
-        for row in model_results:
-            csv_out.writerow(row)
 
+     with open(f"{args.savedir}grid_fit_n_{n_i}_d_{d_i}.csv","w") as out:
+        csv_out=csv.writer(out)
+        # Dictionary of parameters and respective model fit resutls
+        csv_out.writerow(['N','D','E','MSE Residual', 'MSE Model', 'MSE Total'])
+
+        # Grid search
+        for n_i in N:
+            for d_i in D:
+                for e_i in E:
+                    # Grab model predictions
+                    model_predictions = pd.DataFrame({})
+                    model_predictions = my_model(n_i,d_i,e_i)
+                    # Normalize predicted model runtime
+                    model_predictions['sim_time_z'] = model_predictions.sim_time.transform(lambda x: (x-x.mean())/x.std())
+                    # Subset model prediction dataframe to only include RT predictions per scene
+                    data_model = model_predictions.groupby('scene').sim_time_z.apply(np.mean).to_frame()
+                    # Merge model and empirical data
+                    df = pd.merge(data_model, data_emp, left_index = True, right_index = True)
+                    # Fit linear model
+                    model_fit = ols(formula, df).fit()
+                    # Grab MSE
+                    mse_res = model_fit.mse_resid
+                    mse_mod = model_fit.mse_model
+                    mse_tot = model_fit.mse_total
+                    # Append MSE results to list
+                    csv_out.writerow((n_i,d_i,e_i,mse_res,mse_mod,mse_tot))
+        
 if __name__ == "__main__":
     main()
