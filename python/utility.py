@@ -3,7 +3,7 @@ from objects import *
 from scene import Scene
 from physics import Physics
 from graphics import Graphics
-from helper import vid_from_img
+#from helper import vid_from_img
 from stimuli import generate_container_args
 import json
 import os
@@ -52,7 +52,7 @@ def add_containers(dir,ddir):
         scene.graphics.instantiate_screen_recorder(ddir,sname)
         scene.instantiate_scene()
         scene.run()
-        vid_from_img(sname,ddir)
+#        vid_from_img(sname,ddir)
 
 def scene_json_to_video(odir,ddir,subroutine=None):
     '''
@@ -73,7 +73,7 @@ def scene_json_to_video(odir,ddir,subroutine=None):
         #     subroutine=subroutine,
         #     name=sname)
         scene.run_path(view=True)
-        vid_from_img(sname,ddir)
+#        vid_from_img(sname,ddir)
 
 def scene_json_to_snapshot(odir,ddir):
     '''
