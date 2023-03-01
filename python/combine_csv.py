@@ -14,9 +14,14 @@ def main_cluster():
     args = parser.parse_args()
     extension = "csv"
     data_dir = args.datadir
+    print(data_dir)
     # Gather files
     all_fnames = [i for i in glob.glob(f"{data_dir}*.{extension}")]
-    combined_csv = pd.concat([pd.read_csv(f, header=0) for f in all_fnames])
+    dfs = []
+    for f in all_fnames:
+        print(f)
+        dfs.append(pd.read_csv(f, header=0))
+    combined_csv = pd.concat(dfs)
     combined_csv.to_csv(f"{data_dir}model_fits.csv",index=False,encoding='utf-8-sig')
     
 
