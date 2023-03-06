@@ -191,17 +191,26 @@ class Container(PObject):
 
 class Line(PObject):
     def __init__(self, pos1,pos2,angle=0,d=2,collision_type=3):
+        x1,x2 = pos1[0], pos2[0]
+        y1,y2 = pos1[1], pos2[1]
         body = pymunk.Body(body_type=pymunk.Body.STATIC)
-        body.position = (pos1[0]+pos2[0]) / 2, (pos1[1] + pos2[1]) / 2
+        body.position = (x1+x2) / 2, (y1 + y2) / 2
         body.angle =  math.radians(angle)
-        pos1 = pos1[0] - body.position[0], pos1[1] - body.position[1]
-        pos2 = pos2[0] - body.position[0], pos2[1] - body.position[1]
+        pos1 = x1 - body.position[0], y1 - body.position[1]
+        pos2 = x2 - body.position[0], y2 - body.position[1]
         segment = pymunk.Segment(body,(pos1),(pos2),d)
         segment.color = pygame.Color("white")
         segment.collision_type = collision_type
         segment.friction = 1
         segment.elasticity = obj_elasticity
         components = [body,segment]
+        self.bounding_box = [
+            (x1,y1+d),
+            (x1,y1-d),
+            (x2,y2-d),
+            (x2,y2+d)
+        ]
+        self.area = get_area_from_bb(self.bounding_box)
         super().__init__("Line",body,components)
 
 class Goal(PObject):
