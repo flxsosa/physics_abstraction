@@ -99,7 +99,7 @@ def generate_pilot6_stimuli():
     json_files = [pos_json for pos_json in os.listdir(path_to_json) if pos_json.endswith('.json')]
     for file in json_files:
         fname = file.split(".")[0]
-        make_video(dir,file,region_test=False)
+        make_video(dir,file,_test=False)
         vid_from_img(fname,"/Users/lollipop/Desktop/tmp/")
 
 def generate_types():

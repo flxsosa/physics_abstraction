@@ -1,320 +1,109 @@
-from logging import warning
-from objects import *
-from scene import Scene
-from physics import Physics
-from graphics import Graphics
-#from helper import vid_from_img
-from stimuli import generate_container_args
-import json
-import os
+"""Utilities for the physics abstraction project."""
+import json_utilities
+from typing import Any
+import pandas as pd
+import objects as pobjects
 
-def add_containers(dir,ddir):
-    json_files = [jsonf for jsonf in os.listdir(dir) if jsonf.endswith('.json')]
 
-    for file in json_files:
-        obj_map = {
-            "Ball":Ball,
-            "Container":Container,
-            "Goal":Goal,
-            "PlinkoBorder":PlinkoBorder,
-            "BottomBorder":BottomBorder,
-            "Line":Line
-        }
-        objects = []
-        with open(dir+file, 'r') as f:
-            scene_args = json.loads(f.read())
-            for obj in scene_args['objects']:
-                if obj == "Ball":
-                    objects.append(obj_map[obj](*scene_args["ball_args"]))
-                elif obj == "Goal":
-                    objects.append(obj_map[obj](*scene_args["goal_args"]))
-                elif obj == "Container":
-                    for i in range(len(scene_args["container_args"])):
-                        objects.append(obj_map[obj](*scene_args["container_args"][i]))
-                elif obj == "Line":
-                    for i in range(len(scene_args["line_args"])):
-                        objects.append(obj_map[obj](*scene_args["line_args"][i]))
-                elif obj == "PlinkoBorder":
-                    objects.append(obj_map[obj]())
-                elif obj == "BottomBorder":
-                    objects.append(obj_map[obj]())
-                else:
-                    raise ValueError(f"Received an invalid value in load_objects: obj=={obj}")
-        container_args = generate_container_args(1,5,scene_args['ball_args'],
-                                                scene_args['goal_args'],
-                                                scene_args['line_args'])
-        for j in range(len(container_args[0])):
-            objects.append(Container(*container_args[0][j]))
-        sname = file.split('.')[0]
-        physics = Physics()
-        graphics = Graphics()
-        scene = Scene(physics, objects, graphics)
-        scene.graphics.instantiate_screen_recorder(ddir,sname)
-        scene.instantiate_scene()
-        scene.run()
-#        vid_from_img(sname,ddir)
+def make_video(screen,scene_name,dir):
+    """
+    Generates screenshots from a simulation
 
-def scene_json_to_video(odir,ddir,subroutine=None):
-    '''
-    Converts all of the scene json files into videos.
+    Args:
+        scene_name: Name of the scene
+        screen: Pygame screen on which the simulation is rendered
+        dir: Directory to which to save video
+    """
+    print(f"Passed Image Save Dir: {dir}")
+    print(f"Passed Image Save Name: {scene_name}")
+    pygame.init()
+    img_num = 0
+    while True:
+        img_num += 1
+        str_num = "00"+str(img_num)
+        file_name = dir+scene_name+str_num[-3:]+".jpg"
+        pygame.image.save(screen,file_name)
+        yield
 
-    :param odir: The directory with the JSONs
-    :param dir: The directory to save the videos to
-    '''
-    json_files = [jsonf for jsonf in os.listdir(odir) if jsonf.endswith('.json')]
 
-    for file in json_files:
-        sname = file.split('.')[0]
-        scene = load_scene(odir+file)
-        scene.graphics.instantiate_screen_recorder(ddir,sname)
-        # scene.graphics.draw_params['ball_alpha'] = True
-        scene.instantiate_scene()
-        # scene.run(view=True,\
-        #     subroutine=subroutine,
-        #     name=sname)
-        scene.run_path(view=True)
-#        vid_from_img(sname,ddir)
+def anonymize_data(datadir:str):
+    """Anonymize subject_id's in a dataframe.
+    
+    Args:
+        datadir: A string path to the empirical data.
+    """
+    raise NotImplementedError
 
-def scene_json_to_snapshot(odir,ddir):
-    '''
-    Runs a Scene from a json file until the Scene
-    stops via abstraction. Takes a snapshot of the last tick in the Scene.
-    Used for debugging the abstraction model.
 
-    :param odir: The directory with the JSONs
-    :param dir: The directory to save the snapshots to
-    '''
-    json_files = [jsonf for jsonf in os.listdir(odir) if jsonf.endswith('.json')]
+def get_objects_from_scene_config(
+        scene_args_config:json_utilities.SceneConfig
+        ) -> dict[str, list[Any]]:
+    """
+    Instantiates objects from a scene config.
 
-    for file in json_files:
-        sname = file.split('.')[0]
-        physics = Physics()
-        graphics = Graphics()
-        objects = load_objects(odir+file)
-        scene = Scene(physics, objects, graphics)
-        scene.graphics.framework.display.set_caption(file)
-        scene.graphics.initialize_graphics()
-        scene.instantiate_scene()
-        scene.run(view=True,\
-            subroutine=straight_path_collision,
-            name=sname)
-
-def save_scene(dir, name, scene, o_args):
-    '''
-    Record arguments for a Scene and end state of the Scene into
-    a JSON.
-
-    :param dir: Path to save to.
-    :param name: Name for scene (Filename).
-    :param scene: Scene to be saved.
-    :param o_args: Object argument dictionary.
-    '''
-    record = {}
-    record['name'] = name
-    # record['collision_prob'] = scene.listeners['collision_prob']
-    record['screen_size'] = scene.graphics.screen_size
-    record['tick'] = scene.physics.tick
-    record['tick_samples'] = scene.tick_samples
-    record['objects'] = [obj.name for obj in scene.objects]
-    for key in o_args.keys():
-        record[key] = o_args[key]
-    with open(dir+name+'.json', 'w') as f:
-        json.dump(record, f)
-
-def load_objects_from_args(args,region_test=False):
-    '''
-    Load objects from given JSON arguments for a Scene.
-
-    :param args: Path to scene.
-    '''
-    if region_test:
-        obj_map = {
-            "Ball":Ball,
-            "Container":Container,
-            "Goal":Region,
-            "PlinkoBorder":PlinkoBorder,
-            "BottomBorder":BottomBorder,
-            "Line":Line
-        }
-    else:
-        obj_map = {
-            "Ball":Ball,
-            "Container":Container,
-            "Goal":Goal,
-            "PlinkoBorder":PlinkoBorder,
-            "BottomBorder":BottomBorder,
-            "Line":Line
-        }
-    objects = []
-    region = None
-    scene_args = args
-    for obj in scene_args['objects']:
-        if obj == "Ball":
-            objects.append(obj_map[obj](*scene_args["ball_args"]))
-        elif obj == "Goal":
-            if "goal_args" not in scene_args.keys():
-                warning("Goal object specified in objects but no arguments found.")
-                continue
-            region = obj_map[obj](*scene_args["goal_args"])
-        elif obj == "Container":
-            for i in range(len(scene_args["container_args"])):
-                objects.append(obj_map[obj](*scene_args["container_args"][i]))
-        elif obj == "Line":
-            for i in range(len(scene_args["line_args"])):
-                objects.append(obj_map[obj](*scene_args["line_args"][i]))
-        elif obj == "PlinkoBorder":
-            if "plinko_border_args" in scene_args:
-                objects.append(obj_map[obj](*scene_args["plinko_border_args"]))
-            else:
-                objects.append(obj_map[obj]())
-        elif obj == "BottomBorder":
-            if "bottom_border_args" in scene_args:
-                objects.append(obj_map[obj](*scene_args["bottom_border_args"]))
-            else:
-                objects.append(obj_map[obj]())
-        else:
-            raise ValueError(f"Received an invalid value in load_objects: obj=={obj}")
-    if region != None:
-        objects.append(region)
-    return objects
-
-def load_objects(dir,region_test=False):
-    '''
-    Load objects from saved JSON arguments for a Scene.
-
-    :param dir: Path to scene.
-    '''
-    if region_test:
-        obj_map = {
-            "Ball":Ball,
-            "Container":Container,
-            "Goal":Region,
-            "PlinkoBorder":PlinkoBorder,
-            "BottomBorder":BottomBorder,
-            "Line":Line
-        }
-    else:
-        obj_map = {
-        "Ball":Ball,
-        "Container":Container,
-        "Goal":Goal,
-        "PlinkoBorder":PlinkoBorder,
-        "BottomBorder":BottomBorder,
-        "Line":Line
-    }
-    objects = []
-    with open(dir, 'r') as f:
-        scene_args = json.loads(f.read())
-        for obj in scene_args['objects']:
-            if obj == "Ball":
-                objects.append(obj_map[obj](*scene_args["ball_args"]))
-            elif obj == "Goal":
-                objects.append(obj_map[obj](*scene_args["goal_args"]))
-            elif obj == "Container":
-                for i in range(len(scene_args["container_args"])):
-                    objects.append(obj_map[obj](*scene_args["container_args"][i]))
-            elif obj == "Line":
-                for i in range(len(scene_args["line_args"])):
-                    objects.append(obj_map[obj](*scene_args["line_args"][i]))
-            elif obj == "PlinkoBorder":
-                if "plinko_border_args" in scene_args:
-                    objects.append(LeftBorder(*scene_args["plinko_border_args"]))
-                    objects.append(RightBorder(*scene_args["plinko_border_args"]))
-                else:
-                    objects.append(obj_map[obj]())
-            elif obj == "BottomBorder":
-                if "bottom_border_args" in scene_args:
-                    objects.append(obj_map[obj](*scene_args["bottom_border_args"]))
-                else:
-                    objects.append(obj_map[obj]())
-            else:
-                raise ValueError(f"Received an invalid value in load_objects: obj=={obj}")
-    return objects
-
-def load_scene_from_args(args,region_test=False):
-    '''
-    Load a Scene from given JSON arguments.
-
-    :param args: Scene argument.
-    '''
-    screen_args = args['screen_size']
-    physics = Physics()
-    graphics = Graphics(*screen_args)
-    objects = load_objects_from_args(args,region_test)
-
-    scene = Scene(physics, objects, graphics)
-    scene.graphics.framework.display.set_caption(args['name'])
-    return scene
-
-def load_scene(dir,region_test=False):
-    '''
-    Load a Scene from saved JSON arguments.
-
-    :param dir: Path to scene.
-    '''
-    with open(dir, 'r') as f:
-        scene_args = json.loads(f.read())
-        screen_args = scene_args['screen_size']
-    physics = Physics()
-    graphics = Graphics(*screen_args)
-    objects = load_objects(dir,region_test=region_test)
-
-    scene = Scene(physics, objects, graphics, dir)
-    scene.graphics.framework.display.set_caption(dir.split('/')[-1])
-    return scene
-
-def convert_to_ordered_collision_trace(trace,mapping):
-    if len(trace) == 0:
-        return trace
-    ordered_trace = []
-    original_trace = trace[0]
-    ball,container = original_trace
-    ordered_trace.append(mapping[container])
-    return ordered_trace
-
-def load_object_arg_pairs(scene_args):
-    '''
-    Instantiates objects via (object, argument) tuples
-
-    :param scene_args: Arguments for scenes
-    '''
+    Args:
+        scene_args_config: Config for a scene.
+    """
+    # TODO(fasosa): Make this better.
     obj_map = {
-        "Ball":Ball,
-        "Container":Container,
-        "Goal":Goal,
-        "PlinkoBorder":PlinkoBorder,
-        "BottomBorder":BottomBorder,
-        "Line":Line
+        "Ball":pobjects.Ball,
+        "Container":pobjects.Container,
+        "Goal":pobjects.Goal,
+        "BottomBorder":pobjects.BottomBorder,
+        "Line":pobjects.Line
     }
     objects = []
     object_args = []
-    for obj in scene_args['objects']:
+    scene_arg_dict = scene_args_config.model_dump()
+    num_objs = {
+        'Container':0,
+        'Line':0
+    }
+    for obj in set(scene_arg_dict['objects']):
         if obj == "Ball":
             objects.append(obj_map[obj])
-            object_args.append(scene_args["ball_args"])
+            object_args.append(
+                json_utilities.BallConfig.parse_obj(
+                    scene_arg_dict["ball_args"][0]
+                    )
+                )
         elif obj == "Goal":
             objects.append(obj_map[obj])
-            object_args.append(scene_args["goal_args"])
+            object_args.append(
+                json_utilities.BallConfig.parse_obj(
+                    scene_arg_dict["goal_args"][0]
+                    )
+                )
         elif obj == "Container":
-            for i in range(len(scene_args["container_args"])):
+            for i in range(len(scene_arg_dict["container_args"])):
+                # FIXME
                 objects.append(obj_map[obj])
-                object_args.append(scene_args["container_args"][i])
+                args = scene_arg_dict["container_args"][i]
+                parse = json_utilities.ContainerConfig.parse_obj(args)
+                parse.id = num_objs["Container"]
+                num_objs["Container"] += 1
+                object_args.append(
+                    parse
+                )
         elif obj == "Line":
-            for i in range(len(scene_args["line_args"])):
-                objects.append(obj_map[obj])
-                object_args.append(scene_args["line_args"][i])
-        elif obj == "PlinkoBorder":
             objects.append(obj_map[obj])
-            if "plinko_border_args" in scene_args:
-                object_args.append(scene_args["plinko_border_args"])
-            else:
-                object_args.append(obj_map[obj]())
+            object_args.append(
+                json_utilities.LineConfig.parse_obj(
+                    scene_arg_dict["line_args"][0]
+                )
+            )
+        elif obj == "PlinkoBorder":
+            objects.append(pobjects.LeftBorder)
+            object_args.append(scene_arg_dict["plinko_border_args"])
+            objects.append(pobjects.RightBorder)
+            object_args.append(scene_arg_dict["plinko_border_args"])
         elif obj == "BottomBorder":
             objects.append(obj_map[obj])
-            if "bottom_border_args" in scene_args:
-                object_args.append(scene_args["bottom_border_args"])
+            if "bottom_border_args" in scene_arg_dict:
+                object_args.append(scene_arg_dict["bottom_border_args"])
             else:
                 object_args.append(obj_map[obj]())
         else:
-            raise ValueError(f"Received an invalid value in load_objects: obj=={obj}")
-    return objects, object_args
+            raise ValueError(
+                f"Received an invalid value in load_objects: obj=={obj}")
+    return {'object_constructors': objects, 'arguments': object_args}

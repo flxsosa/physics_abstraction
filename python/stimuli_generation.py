@@ -1,5 +1,5 @@
 import os
-from utility import load_scene
+from utility import load_scene, load_scene_from_args
 import pandas as pd
 import json
 import pymunk
@@ -7,6 +7,9 @@ import numpy as np
 import random
 import objects
 from math import cos, sin, radians
+import models
+import json
+
 
 # Scene trace and RT
 
@@ -17,34 +20,43 @@ def scene_trace(fname):
     scene.run(False) # Run simulation headless
     return scene.trace # Grab ball trace
 
-def scene_rt(trace,fname,abstraction=False,params=(35,200,0.9)):
+def scene_rt(trace,fname,params=(35,200,0.9)):
     # Starting position
     origin = trace[0] 
-
     # Runtimes to reach point from origin
-    runtimes = []
-
+    runtimes_simulation = []
+    runtimes_abstraction = []
     # Euclidean distances from the origin per point in trace
-    distance_from_origin = []
-
+    euclidean_dist_from_origin = []
     # Cumulative distance traveled from origin under pure simulation
-    distance_travelled = []
-    dx = 0 # Change in distance
-    last_point = origin
+    euclidean_dist_traveled_simulation = []
+    euclidean_dist_traveled_abstraction = []
     
     # Iterate through points and compute runtimes and distances
-    for idx,point in enumerate(trace[1:]):
-        # Compute cumulative distance traveled
-        curr_point = point
-        dx += last_point.get_distance(curr_point)
-        last_point = curr_point
-        distance_travelled.append(dx)
-
+    for _, point in enumerate(trace[1:]):
         # Compute Euclidean distance from origin
-        distance_from_origin.append(origin.get_distance(point))
+        euclidean_dist_from_origin.append(origin.get_distance(point))
 
         # Load scene
-        scene = load_scene(fname)
+        scene = load_scene_from_args(fname)
+        # Replace Goal at point
+        for o in scene.objects:
+            if o.name == "Goal":
+                o.body.position = point
+
+        # Simulate
+        model_results = models.simulation(sc)
+        scene.instantiate_scene()
+        scene.run(False)
+        euclidean_dist_traveled_simulation.append(scene.ball_distance_traveled)
+
+        # Record runtime
+        runtimes_simulation.append(scene.physics.tick)
+        
+    # Iterate through points and compute runtimes and distances
+    for _, point in enumerate(trace[1:]):
+        # Load scene
+        scene = load_scene_from_args(fname)
         # Replace Goal at point
         for o in scene.objects:
             if o.name == "Goal":
@@ -52,20 +64,23 @@ def scene_rt(trace,fname,abstraction=False,params=(35,200,0.9)):
 
         # Simulate
         scene.instantiate_scene()
-        if abstraction:
-            scene.run_path(False,*params)
-        else:
-            scene.run(False)
+        scene.run_path(False, *params)
+        if scene.ball_distance_traveled > 5000:
+            print(f"{point} produces RT {scene.ball_distance_traveled}")
+        euclidean_dist_traveled_abstraction.append(scene.ball_distance_traveled)
 
         # Record runtime
-        runtimes.append(scene.physics.tick)
-        
+        runtimes_abstraction.append(scene.physics.tick)
+
     return pd.DataFrame({
-            "x":[x[0] for x in trace[1:]],
-            "y":[x[1] for x in trace[1:]],
-            "runtime":runtimes,
-            "distance":distance_from_origin,
-            "distance_cumulative":distance_travelled})
+            "goal_x":[x[0] for x in trace[1:]],
+            "goal_y":[x[1] for x in trace[1:]],
+            "goal_point_idx":[x for x in range(len(trace[1:]))],
+            "runtime_simulation":runtimes_simulation,
+            "runtime_abstraction":runtimes_abstraction,
+            "distance_from_origin":euclidean_dist_from_origin,
+            "distance_traveled_simulation":euclidean_dist_traveled_simulation,
+            "distance_traveled_abstraction":euclidean_dist_traveled_abstraction})
 
 def get_points(trace,N=15):
     '''
@@ -307,11 +322,9 @@ def sample_scenes(n=1,k=1,criteria_func=None,dir=None):
             objects = [Ball(noisy_ball_args), Goal(goal_args[i]), PlinkoBorder(), BottomBorder()]
             for j in range(num_containers):
                 objects.append(Container(*container_args[i][j]))
-            physics = Physics()
-            graphics = Graphics()
 
             # Scene
-            scene = Scene(physics, objects, graphics)
+            scene = Scene(objects)
             scene.instantiate_scene()
             scene.run()
         # Check if Scene passes check
@@ -438,11 +451,9 @@ def sample_scenes_pilot3(dir,conditions=None,n=1,k=1):
             objects = [Ball(noisy_ball_args), Goal(*goal_args), PlinkoBorder(), BottomBorder()]
             for j in range(len(container_args[0])):
                 objects.append(Container(*container_args[0][j]))
-            physics = Physics()
-            graphics = Graphics()
 
             # Scene
-            scene = Scene(physics, objects, graphics)
+            scene = Scene(objects)
             scene.instantiate_scene()
             scene.run(view=False)
             tick_samples.append(scene.physics.tick)
