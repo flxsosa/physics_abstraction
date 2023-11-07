@@ -74,8 +74,8 @@ def grade_model_parameters(
     """
     param_range_n = range(param_range_n[0], param_range_n[1]+1)
     param_range_d = range(param_range_d[0], param_range_d[1]+1)
-    param_range_e = np.arange(0.0,1.0, 0.1)
-    param_range_noise = np.arange(0.0,.2, 0.01)
+    param_range_e = np.arange(0.5,1.0, 0.1)
+    param_range_noise = np.arange(0.0,.3, 0.1)
     # Regression formula
     formula = 'participant_z_rt ~ sim_time_z'
     job_id = secrets.token_urlsafe(4)
