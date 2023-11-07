@@ -81,7 +81,7 @@ def grade_model_parameters(
     job_id = secrets.token_urlsafe(4)
     # Enuemrate parameter space
     with open( # pylint: disable=unspecified-encoding
-        f'{savedir}/model_fitting_{job_id}.csv',
+        os.path.join(savedir, f'model_fitting_{job_id}.csv'),
         'a'
     ) as output_file:
         csv_writer = csv.writer(output_file)
@@ -101,11 +101,7 @@ def grade_model_parameters(
                         print(
                             f'Job {job_id} '
                             f'running param setting: {count} '
-                            f'of {num_params} '
-                            f'N: {param_n_i} of [{param_range_n[0]}, '
-                            f'{param_range_n[1]}]'
-                            f'D: {param_d_i} of [{param_range_d[0]}, '
-                            f'{param_range_d[1]}]'
+                            f'of {num_params}'
                             )
                         count += 1
                         # Instantiate model with current parameter
