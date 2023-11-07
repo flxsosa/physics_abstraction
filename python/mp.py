@@ -17,8 +17,18 @@ from statsmodels.formula.api import ols
 def _run_model_on_all_inputs(
         model:model_utilities.PhysModel,
         scene_paths:list[str],
-        num_samples:int=50) -> pd.DataFrame:
-    """Runs the model on all the input SceneConfigs."""
+        num_samples:int=50,
+) -> pd.DataFrame:
+    """Runs the model on all the input SceneConfigs.
+    
+    Args
+        model:
+        scene_paths:
+        num_samples:
+
+    Returns:
+        model_df:
+    """
     model_df = pd.DataFrame({})
     for path_to_scene in scene_paths:
         for _ in range(num_samples):
@@ -49,10 +59,23 @@ def grade_model_parameters(
         param_range_n:list[int],
         param_range_d:list[int],
 ) -> None:
+    """
+    Scores model predictions against data.
+
+    Args:
+        savedir:
+        scene_files:
+        empirical_rt_data:
+        param_range_n:
+        param_range_d:
+    
+    Returns:
+        None
+    """
     param_range_n = range(param_range_n[0], param_range_n[1]+1)
     param_range_d = range(param_range_d[0], param_range_d[1]+1)
-    param_range_e = np.arange(0.9,1.0, 0.1)
-    param_range_noise = np.arange(0.9,1.0, 0.1)
+    param_range_e = np.arange(0.0,1.0, 0.1)
+    param_range_noise = np.arange(0.0,.2, 0.01)
     # Regression formula
     formula = 'participant_z_rt ~ sim_time_z'
     job_id = secrets.token_urlsafe(4)
@@ -78,7 +101,11 @@ def grade_model_parameters(
                         print(
                             f'Job {job_id} '
                             f'running param setting: {count} '
-                            f'of {num_params}'
+                            f'of {num_params} '
+                            f'N: {param_n_i} of [{param_range_n[0]}, '
+                            f'{param_range_n[1]}]'
+                            f'D: {param_d_i} of [{param_range_d[0]}, '
+                            f'{param_range_d[1]}]'
                             )
                         count += 1
                         # Instantiate model with current parameter
