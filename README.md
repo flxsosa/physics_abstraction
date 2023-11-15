@@ -1,2 +1,5 @@
-# physics_abstraction
-test
+# Blending simulation and abstraction for intuitive physics
+**Authors**: Felix A. Sosa, Sam J. Gershman, Tomer D. Ullman
+
+### Abstract
+How are people able to predict, explain, and understand everyday physical events with such ease? Current frameworks for intuitive physics are broadly split into two camps: One camp proposes people use an approximate probabilistic simulation of the world, while a second camp proposes people use curated rules, abstractions, or heuristics. The two frameworks explain complementary aspects of physical reasoning. Here, we develop a theory of intuitive physical reasoning that synthesizes the two proposals into one working computational model. We focus on a path-projection abstraction, which replaces simulation when certain conditions are met. We explore the predictive power of our model in two novel experiments, in which people are asked to reason about 2-dimensional physical scenarios. We show that our model captures human response time (Experiment~1) and accuracy (Experiment~2) in ways that neither simulation nor heuristics can explain on their own.
