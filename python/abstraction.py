@@ -1,49 +1,11 @@
 """Utilities for the abstraction method in the physics abstraction project."""
+
 import objects as pobjects
 import numpy as np
 
 from typing import Union
 from pymunk import vec2d
 from shapely import geometry
-
-GLOB = 1
-
-def check_collision_old(
-        line_polygon:geometry.LineString,
-        simulation_objects:list[pobjects.PObject],
-        scene) -> (bool, vec2d.Vec2d): #FIXME
-    """Check projection polygon intersects with other polygons in the scene.
-
-    Args:
-        line_polygon: Path projection Polygon object
-        simulation_objects: List of objects in Scene
-
-    Outputs:
-        collision_result: Tuple of whether collision occured location of coll.
-    """
-    path_projection_origin = [
-        round(x, 2) for x  in np.asarray(line_polygon.coords)[0]
-        ]
-    for obj in simulation_objects:
-        if (line_polygon.intersects(obj.area) or
-            line_polygon.intersection(obj.area)) and obj.name != "Ball":
-            line_of_collision_coords = np.asarray(
-                line_polygon.intersection(obj.area).coords)
-            intersect_point_a = [
-                round(x, 2) for x in line_of_collision_coords[0]
-                ]
-            intersect_point_b = [
-                round(x, 2) for x in line_of_collision_coords[1]
-                ]
-            distance_to_point_a = geometry.LineString(
-                [path_projection_origin, intersect_point_a]).length
-            distance_to_point_b = geometry.LineString(
-                [path_projection_origin, intersect_point_b]).length
-            if distance_to_point_a <= distance_to_point_b:
-                return True, vec2d.Vec2d(*intersect_point_a)
-            return True, vec2d.Vec2d(*intersect_point_b)
-    return False, vec2d.Vec2d(1,1)
-
 
 
 def check_collision(
@@ -97,12 +59,14 @@ def new_position(
         velocity_vector:vec2d.Vec2d,
         objects:list[pobjects.PObject],
         D:Union[int, float]) -> vec2d.Vec2d:
-    '''
-    Path projection subroutine
+    """Path projection subroutine
 
-    :param objects: Set of objects in the scene
-    :param D: Length of path projection
-    '''
+    Args:
+        original_point: the original position of the ball
+        velocity_vector: the velocity vector of the ball
+        objects: a list of objects in the scene
+        D: length of path projection
+    """
     # Detemine position
     current_point = [round(x, 2) for x in original_point]
     # Get velocity vector direction

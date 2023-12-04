@@ -1,4 +1,5 @@
 """Graphics module for rendering simulations to screen."""
+
 import math
 import pygame
 import pymunk
@@ -140,8 +141,7 @@ class Graphics:
             color:str,
             center:list[Union[int,float]],
             radius:Union[int,float]):
-        """
-        Draws a circle on the screen with variable alpha values
+        """Draws a circle on the screen with variable alpha values
 
         Args:
             surface: Surface to draw to

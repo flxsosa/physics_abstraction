@@ -1,4 +1,5 @@
 """Custom collision handler callbacks for the physics abstraction project."""
+
 import pymunk
 
 from typing import Any, Union

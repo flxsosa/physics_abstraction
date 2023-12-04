@@ -6,10 +6,7 @@ import pandas as pd
 
 
 def main_cluster():
-    """Combines csv files of model outputs computed on cluster.
-
-    Ignores headers are removes duplicate rows.
-    """
+    """Combines csv files of model outputs computed on cluster."""
     parser = argparse.ArgumentParser(
             description='Combine all CSVs in a diretory into one CSV')
     parser.add_argument('datadir',help='Where the data is')
@@ -18,9 +15,11 @@ def main_cluster():
     extension = 'csv'
     data_dir = args.datadir
     # Gather files
+    print(f'Data directory: {data_dir}')
     all_fnames = list(glob.glob(f'{data_dir}*.{extension}'))
     dataframes = []
     for fname in all_fnames:
+        print(fname)
         try:
             dataframes.append(pd.read_csv(fname, header=0))
         except pd.errors.EmptyDataError:

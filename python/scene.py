@@ -1,3 +1,4 @@
+"""Scene utilities."""
 import abstraction
 import json
 

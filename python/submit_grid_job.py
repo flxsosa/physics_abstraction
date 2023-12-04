@@ -2,25 +2,12 @@ import argparse
 import subprocess
 from __future__ import print_function # Only Python 2.x
 
-def execute(cmd):
-    popen = subprocess.Popen(cmd, stdout=subprocess.PIPE, universal_newlines=True)
-    for stdout_line in iter(popen.stdout.readline, ""):
-        yield stdout_line 
-    popen.stdout.close()
-    return_code = popen.wait()
-    if return_code:
-        raise subprocess.CalledProcessError(return_code, cmd)
-
-# Example
-for path in execute(["locate", "a"]):
-    print(path, end="")
 
 def ranges(start, stop, offset):
-    """
-    Returns a list of P tuples that represent contiguous
+    """Returns a list of P tuples that represent contiguous
     partitions on the number line between Start and Stop
     inclusive, with each partition having size O
-
+`
     Args:
         start: The start value of number line
         stop: The stop value of number line

@@ -4,6 +4,7 @@ import random
 import glob
 import cv2
 
+
 def flip_movies(loaddir:str, savedir:str) -> None:
     """
     Flips movies from a directory randomly.
@@ -26,6 +27,7 @@ def flip_movies(loaddir:str, savedir:str) -> None:
         reversed_clip = clip.fx(vfx.mirror_x)
         reversed_clip.write_videofile(savedir+file)  
         reversed_clip.close()
+
 
 def make_video(fname:str, loaddir:str, savedir:str, alpha:bool=False) -> None:
     """

@@ -1,4 +1,4 @@
-# For Physics and Object
+"""Physics utilities."""
 import pymunk
 from handlers import is_colliding
 from pymunk import vec2d
