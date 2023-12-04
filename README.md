@@ -11,14 +11,39 @@ How are people able to understand everyday physical events with such ease? One h
 ## python
 All python modules used for this project.
 
+```abstraction.py```
+```combine_csv.py```
+```graphics.py```
+```handlers.py```
+```json_utilities.py```
+```model_utilities.py```
+```mp.py```
+```objects.py```
+```physics.py```
+```scene.py```
+```stimuli_generation.py```
+```submit_grid_job.py```
+```utiltiy.py```
+```video.py```
+
 ## paper
 All figures used in the paper (.pdfs, .ai).
 
 ## data
 All data collected and generated for the project.
+```stimuli```
+```cleaned_data```
+```json```
 
 ## experiments
 All jspsych code used to create and run Experiments 1 and 2.
 
+```experiment1```
+```experiment2```
+
 ## notebooks
 Jupyter notebooks for data analyses used in the paper.
+
+```data_cleaning```
+```experiment1_analysis```
+```experiment2_analysis```
