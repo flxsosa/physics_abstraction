@@ -11,20 +11,20 @@ How are people able to understand everyday physical events with such ease? One h
 ## python
 All python modules used for this project.
 
-```abstraction.py```
-```combine_csv.py```
-```graphics.py```
-```handlers.py```
-```json_utilities.py```
-```model_utilities.py```
-```mp.py```
-```objects.py```
-```physics.py```
-```scene.py```
-```stimuli_generation.py```
-```submit_grid_job.py```
-```utiltiy.py```
-```video.py```
+- ```abstraction.py``` contains the major utilities for the path projection abstraction.
+- ```combine_csv.py``` contains the utility used to zip all CSV files containing participant data into one usable for analyses.
+- ```graphics.py``` contains the graphics engine utilities.
+- ```handlers.py``` contains collision handler utilities.
+- ```json_utilities.py``` contains all JSON config file utilities.
+- ```model_utilities.py``` contains all model utilities.
+- ```mp.py``` contains the model fitting utilities.
+- ```objects.py``` contains the scene object classes used for modeling objects in scenes.
+- ```physics.py``` contains the physics engine.
+- ```scene.py``` contains the scene utilities.
+- ```stimuli_generation.py``` contains examples of stimuli generation methods used to generate stimuli for Experiment 1 and Experiment 2.
+- ```submit_grid_job.py``` contains a method for submitting grid search jobs on SLURM.
+- ```utiltiy.py``` containts misc utilities.
+- ```video.py``` contains examples of methods for converting scenes into usable video stimuli.
 
 ## paper
 All figures used in the paper (.pdfs).
