@@ -27,23 +27,21 @@ All python modules used for this project.
 ```video.py```
 
 ## paper
-All figures used in the paper (.pdfs, .ai).
+All figures used in the paper (.pdfs).
 
 ## data
 All data collected and generated for the project.
-```stimuli```
-```cleaned_data```
-```json```
+- ```stimuli``` contains the stimuli shown in the main trials for Experiment 1 and Experiment 2.
+- ```empirical``` contains the raw anonymized data from Experiment 1 and Experiment 2, the cleaned data used to generate the figures, and the anonymized demographics data for each experiment.
+- ```json``` contains the JSON files the define the scenes used to create the stimuli.
+- ```model_fits``` contains a subset of the model fits performed during model fitting.
 
 ## experiments
 All jspsych code used to create and run Experiments 1 and 2.
 
-```experiment1```
-```experiment2```
-
 ## notebooks
 Jupyter notebooks for data analyses used in the paper.
 
-```data_cleaning```
-```experiment1_analysis```
-```experiment2_analysis```
+- ```data_cleaning``` details the methods by which data was cleaned for analysis.
+- ```experiment1_analysis``` details the analyses reported in Experiment 1.
+- ```experiment2_analysis``` details the analyses reported in Experiment 2.
